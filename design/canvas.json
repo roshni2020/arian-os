@@ -1,0 +1,16 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Lab journal" },
+    { "id": "page-2", "name": "Earlier sketches" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html", "title": "Console · Lab journal", "x": 0, "y": 0, "w": 1440, "h": 2160, "page": "page-1" },
+    { "file": "DirectionB.dc.html", "title": "Direction B · Lab journal (sketch)", "x": 0, "y": 0, "w": 720, "h": 640, "page": "page-2" },
+    { "file": "DirectionC.dc.html", "title": "Direction C · Mission control (sketch)", "x": 820, "y": 0, "w": 720, "h": 640, "page": "page-2" }
+  ],
+  "annotations": [
+    { "id": "brief", "x": 0, "y": -220, "w": 640, "page": "page-1", "text": "Lab-journal direction, built out from sketch B.\nWarm paper ground, Newsreader serif for headline and body, IBM Plex Sans for labels, IBM Plex Mono for numbers. Two accents at matched chroma: rust for the published reference and ARIA run-in labels, teal for our measurements and KEEP.\nLeft column: one journal entry per experiment, newest first, ARIA's observation, hypothesis, configuration, measurement, decision and next question as prose. Right column: margin numbers, a chrome-free trajectory, the five test seeds, footnotes carrying the caveats, dataset note.\nAll text and numbers come from the real wf-20260913-live1 session." },
+    { "id": "alts", "x": 0, "y": -140, "w": 520, "page": "page-2", "text": "The two original direction sketches, kept for reference. B was chosen." }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}

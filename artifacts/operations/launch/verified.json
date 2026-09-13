@@ -1,0 +1,114 @@
+{
+  "session": "launch-20260913-133047-0467",
+  "status": "complete",
+  "test_evaluated": false,
+  "best_validation_auprc": 0.49996624477340684,
+  "state_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-state:latest",
+  "state_digest": "628e0351c372e60e675e64228be694ac",
+  "controllers": [
+    {
+      "controller_run_id": "sfgw1glz",
+      "controller_name": "operator-aria-launch-r1",
+      "state": "finished",
+      "action": "proposal",
+      "aria_provenance": {
+        "turn_id": "01a09afe-1daf-7b30-8cd2-543631621775",
+        "thread_id": "01a09ae7-0863-7e12-aa73-74d5f3e24a52"
+      },
+      "result_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-result-sfgw1glz:latest",
+      "result_digest": "3b989bdb646f577f580f1f958da3a724",
+      "experiment_id": "exp-001",
+      "measured_run_id": "48upfkuz",
+      "validation_auprc": 0.48298861837999635,
+      "model_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-exp-001-model:latest",
+      "model_digest": "816616591ae16040ab89a1ecc801760f",
+      "proposal": {
+        "reason": "This is the highest-information first ARIA trial: it tests the validated official model family and full input protocol against the weak fixed baseline. It changes model family and feature protocol together, so any gain will be attributed to the bundled transition rather than a single mechanism.",
+        "experiment": {
+          "model": "xgboost",
+          "weather_days": 5,
+          "feature_protocol": "all"
+        },
+        "hypothesis": "The official full-input XGBoost default will improve validation AUPRC by at least 0.20 absolute over the metadata-only logistic baseline by capturing nonlinear interactions across the complete leakage-safe feature set.",
+        "session_id": "launch-20260913-133047-0467",
+        "observation": "The fixed metadata-only logistic baseline achieved validation AUPRC 0.18417067640399878 on 2019 validation data, with 269 false negatives and 638 false positives at its best-F1 threshold.",
+        "proposal_id": "operator-aria-r1-xgb-full-default",
+        "schema_version": 1,
+        "state_revision": 1,
+        "expected_result": "Validation AUPRC >= 0.3841706764; otherwise reject the model-family/full-feature transition as insufficient under this fixed protocol.",
+        "previous_decision": {
+          "reason": "The baseline validation AUPRC of 0.18417067640399878 is too low to retain when two bounded ARIA trials remain.",
+          "decision": "REJECT",
+          "learning": "Metadata-only linear effects are an inadequate ranking model for this validation protocol.",
+          "experiment_id": "exp-000",
+          "next_question": "Does the official full-input XGBoost default produce the expected large ranking improvement?"
+        }
+      }
+    },
+    {
+      "controller_run_id": "9aaytrms",
+      "controller_name": "operator-aria-launch-r2",
+      "state": "finished",
+      "action": "proposal",
+      "aria_provenance": {
+        "turn_id": "01a09afe-1daf-7b30-8cd2-543631621775",
+        "thread_id": "01a09ae7-0863-7e12-aa73-74d5f3e24a52"
+      },
+      "result_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-result-9aaytrms:latest",
+      "result_digest": "9f4212d3a4cbb8f2efaf90b5751fc3a6",
+      "experiment_id": "exp-002",
+      "measured_run_id": "balfld3v",
+      "validation_auprc": 0.49996624477340684,
+      "model_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-exp-002-model:latest",
+      "model_digest": "5145accc01ead0eb97e907260304fd0c",
+      "proposal": {
+        "reason": "This uses the final experiment budget on a single controlled hyperparameter change grounded in exp-001's measured train-validation gap. All other XGBoost defaults and the full feature protocol remain unchanged.",
+        "experiment": {
+          "model": "xgboost",
+          "weather_days": 5,
+          "hyperparameters": {
+            "scale_pos_weight": 1.5
+          },
+          "feature_protocol": "all"
+        },
+        "hypothesis": "Reducing scale_pos_weight from the automatic 12.248826291079812 to 1.5 while holding the full-input XGBoost configuration fixed will improve validation AUPRC by at least 0.005 by reducing overemphasis on positive-class gradients.",
+        "session_id": "launch-20260913-133047-0467",
+        "observation": "The full-input default XGBoost improved validation AUPRC to 0.48298861837999635 from 0.18417067640399878, but train AUPRC is 0.7269248655343654 and the automatic scale_pos_weight is 12.248826291079812, indicating a substantial generalization gap under aggressive positive weighting.",
+        "proposal_id": "operator-aria-r2-scale-pos-weight-1p5",
+        "schema_version": 1,
+        "state_revision": 2,
+        "expected_result": "Validation AUPRC >= 0.4879886184. If it falls below this threshold, reject the lower class weight and retain exp-001.",
+        "previous_decision": {
+          "reason": "Exp-001 exceeded the predeclared improvement threshold and became the numeric validation incumbent at 0.48298861837999635.",
+          "decision": "KEEP",
+          "learning": "The bundled transition to full-input XGBoost produces a large validation-ranking gain over metadata-only logistic regression.",
+          "experiment_id": "exp-001",
+          "next_question": "Can a less aggressive positive-class weight improve generalization while preserving the successful model and feature protocol?"
+        }
+      }
+    },
+    {
+      "controller_run_id": "ban896uu",
+      "controller_name": "operator-aria-launch-final",
+      "state": "finished",
+      "action": "final",
+      "aria_provenance": {
+        "turn_id": "01a09afe-1daf-7b30-8cd2-543631621775",
+        "thread_id": "01a09ae7-0863-7e12-aa73-74d5f3e24a52"
+      },
+      "result_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-result-ban896uu:latest",
+      "result_digest": "0521807393157129f3c064e0312ed28c",
+      "decision": {
+        "reason": "Exp-002 achieved the highest measured validation AUPRC, 0.49996624477340684, improving on exp-001 by 0.016977626393410494 and exceeding the predeclared 0.4879886184 success threshold. Freeze exp-002; no test evaluation is authorized in this loop.",
+        "decision": "KEEP",
+        "learning": "For full-input XGBoost under the fixed 2019 validation protocol, reducing scale_pos_weight from automatic 12.248826291079812 to 1.5 improved validation AUPRC, F1, balanced accuracy, Brier score, and top-k precision/recall, at the cost of a longer fit and larger train-validation AUPRC gap.",
+        "session_id": "launch-20260913-133047-0467",
+        "experiment_id": "exp-002",
+        "next_question": "Before any official test evaluation, assess robustness across independent validation seeds or resamples and calibrate the operating threshold without changing the frozen ranking configuration.",
+        "schema_version": 1,
+        "state_revision": 3,
+        "recommended_final_experiment_id": "exp-002"
+      }
+    }
+  ]
+}

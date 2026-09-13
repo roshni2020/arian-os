@@ -1,0 +1,1708 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-09-13T13:21:52Z",
+  "project": "ali-amjad52114-r42/wildfire-autonomous-researcher",
+  "scope": {
+    "pre_retrospective_run_count": 49,
+    "state_counts": {
+      "finished": 49,
+      "failed": 0,
+      "crashed": 0,
+      "running": 0
+    },
+    "job_type_counts": {
+      "smoke": 1,
+      "experiment": 21,
+      "aria-upload": 20,
+      "final-decision": 3,
+      "final-evaluation": 2,
+      "control-r10": 1,
+      "verification": 1
+    },
+    "actual_experiment_count": 21,
+    "unique_experiment_config_count": 13,
+    "session_count": 4,
+    "completed_session_count": 3,
+    "research_seed_values": [
+      553371
+    ],
+    "artifact_records_used": {
+      "research-state": 5,
+      "research-proposal": 17,
+      "research-decision": 3,
+      "final-evaluation": 2
+    },
+    "prediction_artifacts_opened": 0,
+    "test_data_opened": false
+  },
+  "sessions": [
+    {
+      "session_id": "wf-20260913-live1",
+      "experiment_count": 4,
+      "state_status": "complete",
+      "state_revision": 5,
+      "remaining_budget": 0,
+      "best_experiment_id": "exp-003",
+      "best_validation_auprc": 0.4867164182493074,
+      "final_decision": "KEEP",
+      "final_decision_experiment_id": "exp-003",
+      "recommended_final_experiment_id": "exp-003",
+      "final_decision_consistent_with_best": true
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_count": 13,
+      "state_status": "complete",
+      "state_revision": 15,
+      "remaining_budget": 0,
+      "best_experiment_id": "exp-011",
+      "best_validation_auprc": 0.4993702499129248,
+      "final_decision": "REJECT",
+      "final_decision_experiment_id": "exp-012",
+      "recommended_final_experiment_id": "exp-011",
+      "final_decision_consistent_with_best": true
+    },
+    {
+      "session_id": "wf-20260913-fresh-audit",
+      "experiment_count": 1,
+      "state_status": "awaiting_aria_proposal",
+      "state_revision": 1,
+      "remaining_budget": 2,
+      "best_experiment_id": "exp-000",
+      "best_validation_auprc": 0.1841706764039988,
+      "final_decision": null,
+      "final_decision_experiment_id": null,
+      "recommended_final_experiment_id": null,
+      "final_decision_consistent_with_best": null
+    },
+    {
+      "session_id": "wf-20260913-123756-7824",
+      "experiment_count": 3,
+      "state_status": "complete",
+      "state_revision": 4,
+      "remaining_budget": 0,
+      "best_experiment_id": "exp-002",
+      "best_validation_auprc": 0.4829886183799963,
+      "final_decision": "KEEP",
+      "final_decision_experiment_id": "exp-002",
+      "recommended_final_experiment_id": "exp-002",
+      "final_decision_consistent_with_best": true
+    }
+  ],
+  "experiments": [
+    {
+      "session_id": "wf-20260913-live1",
+      "experiment_id": "exp-000",
+      "run_id": "kb9c79fw",
+      "run_name": "wf-20260913-live1-exp-000",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/kb9c79fw",
+      "created_at": "2026-09-13T10:16:44Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "metadata",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "b8eded9ffbf5d0e2",
+      "validation_auprc": 0.1841706764039988,
+      "train_auprc": 0.3275533212879827,
+      "validation_auroc": 0.7493607329791184,
+      "precision": 0.19949811794228356,
+      "recall": 0.37149532710280375,
+      "false_positives": 638,
+      "false_negatives": 269,
+      "n_features": 1386,
+      "runtime_seconds": 2.4210000000020955,
+      "incumbent_before_experiment_id": null,
+      "incumbent_before_validation_auprc": null,
+      "delta_vs_incumbent": null,
+      "changed_fields_vs_incumbent": [],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "baseline",
+      "hypothesis": null
+    },
+    {
+      "session_id": "wf-20260913-live1",
+      "experiment_id": "exp-001",
+      "run_id": "960bw9j1",
+      "run_name": "wf-20260913-live1-exp-001",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/960bw9j1",
+      "created_at": "2026-09-13T10:17:59Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "05b01fd0247d7292",
+      "validation_auprc": 0.39721230867438967,
+      "train_auprc": 0.7213156564817588,
+      "validation_auroc": 0.8383812248229044,
+      "precision": 0.4088669950738916,
+      "recall": 0.3878504672897196,
+      "false_positives": 240,
+      "false_negatives": 262,
+      "n_features": 6029,
+      "runtime_seconds": 17.171000000002095,
+      "incumbent_before_experiment_id": "exp-000",
+      "incumbent_before_validation_auprc": 0.1841706764039988,
+      "delta_vs_incumbent": 0.21304163227039086,
+      "changed_fields_vs_incumbent": [
+        "feature_protocol"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "features metadata -> all",
+      "hypothesis": "Keeping logistic regression and its hyperparameters fixed while changing only the feature protocol from metadata to all will raise validation AUPRC above 0.220 by adding weather/fire-danger, VIIRS, fuel, vegetation, topography, access, and population signals that are available at discovery time."
+    },
+    {
+      "session_id": "wf-20260913-live1",
+      "experiment_id": "exp-002",
+      "run_id": "fq4le8sk",
+      "run_name": "wf-20260913-live1-exp-002",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/fq4le8sk",
+      "created_at": "2026-09-13T10:19:40Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 4,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "c39f9fd081bb082e",
+      "validation_auprc": 0.4829886183799963,
+      "train_auprc": 0.7269248655343654,
+      "validation_auroc": 0.8864046154302326,
+      "precision": 0.4777227722772277,
+      "recall": 0.4509345794392523,
+      "false_positives": 211,
+      "false_negatives": 235,
+      "n_features": 6029,
+      "runtime_seconds": 83.78100000000268,
+      "incumbent_before_experiment_id": "exp-001",
+      "incumbent_before_validation_auprc": 0.39721230867438967,
+      "delta_vs_incumbent": 0.08577630970560662,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.C",
+        "hyperparameters.class_weight",
+        "hyperparameters.colsample_bytree",
+        "hyperparameters.gamma",
+        "hyperparameters.learning_rate",
+        "hyperparameters.max_depth",
+        "hyperparameters.min_child_weight",
+        "hyperparameters.n_estimators",
+        "hyperparameters.reg_alpha",
+        "hyperparameters.reg_lambda",
+        "hyperparameters.scale_pos_weight",
+        "hyperparameters.subsample",
+        "model"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "model logistic_regression -> xgboost",
+      "hypothesis": "Keeping the full feature protocol and five weather days fixed while replacing logistic regression with the official bounded XGBoost configuration will capture nonlinear interactions among weather, VIIRS, fuel, vegetation, and location and raise validation AUPRC to at least 0.430."
+    },
+    {
+      "session_id": "wf-20260913-live1",
+      "experiment_id": "exp-003",
+      "run_id": "p64qsxsl",
+      "run_name": "wf-20260913-live1-exp-003",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/p64qsxsl",
+      "created_at": "2026-09-13T10:22:27Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "7a443ed4f87b5270",
+      "validation_auprc": 0.4867164182493074,
+      "train_auprc": 0.6595661561632996,
+      "validation_auroc": 0.8869277483540022,
+      "precision": 0.4238921001926782,
+      "recall": 0.514018691588785,
+      "false_positives": 299,
+      "false_negatives": 208,
+      "n_features": 6029,
+      "runtime_seconds": 104.56300000000192,
+      "incumbent_before_experiment_id": "exp-002",
+      "incumbent_before_validation_auprc": 0.4829886183799963,
+      "delta_vs_incumbent": 0.003727799869311099,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.max_depth"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "max_depth 4 -> 3",
+      "hypothesis": "Keeping the full feature protocol, five-day weather window, and all other XGBoost settings fixed while reducing max_depth from 4 to 3 will reduce overfitting and raise validation AUPRC above 0.4830."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-000",
+      "run_id": "zffjmu71",
+      "run_name": "wf-20260913-104003-2c71-exp-000",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/zffjmu71",
+      "created_at": "2026-09-13T10:40:10Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "metadata",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "b8eded9ffbf5d0e2",
+      "validation_auprc": 0.1841706764039988,
+      "train_auprc": 0.3275533212879827,
+      "validation_auroc": 0.7493607329791184,
+      "precision": 0.19949811794228356,
+      "recall": 0.37149532710280375,
+      "false_positives": 638,
+      "false_negatives": 269,
+      "n_features": 1386,
+      "runtime_seconds": 2.0310000000026776,
+      "incumbent_before_experiment_id": null,
+      "incumbent_before_validation_auprc": null,
+      "delta_vs_incumbent": null,
+      "changed_fields_vs_incumbent": [],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "baseline",
+      "hypothesis": null
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-001",
+      "run_id": "yxpoam8f",
+      "run_name": "wf-20260913-104003-2c71-exp-001",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/yxpoam8f",
+      "created_at": "2026-09-13T10:41:27Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "05b01fd0247d7292",
+      "validation_auprc": 0.39721230867438967,
+      "train_auprc": 0.7213156564817588,
+      "validation_auroc": 0.8383812248229044,
+      "precision": 0.4088669950738916,
+      "recall": 0.3878504672897196,
+      "false_positives": 240,
+      "false_negatives": 262,
+      "n_features": 6029,
+      "runtime_seconds": 14.125,
+      "incumbent_before_experiment_id": "exp-000",
+      "incumbent_before_validation_auprc": 0.1841706764039988,
+      "delta_vs_incumbent": 0.21304163227039086,
+      "changed_fields_vs_incumbent": [
+        "feature_protocol"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "features metadata -> all",
+      "hypothesis": "Keeping logistic regression and its hyperparameters fixed while changing only the feature protocol from metadata to all will raise validation AUPRC above 0.18417 by adding direct weather/fire-danger, VIIRS, fuel, vegetation, topography, access, and population signals that can rank the measured hard positives."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-002",
+      "run_id": "sw6eu8l8",
+      "run_name": "wf-20260913-104003-2c71-exp-002",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/sw6eu8l8",
+      "created_at": "2026-09-13T10:43:05Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 4,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "c39f9fd081bb082e",
+      "validation_auprc": 0.4829886183799963,
+      "train_auprc": 0.7269248655343654,
+      "validation_auroc": 0.8864046154302326,
+      "precision": 0.4777227722772277,
+      "recall": 0.4509345794392523,
+      "false_positives": 211,
+      "false_negatives": 235,
+      "n_features": 6029,
+      "runtime_seconds": 59.71899999999732,
+      "incumbent_before_experiment_id": "exp-001",
+      "incumbent_before_validation_auprc": 0.39721230867438967,
+      "delta_vs_incumbent": 0.08577630970560662,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.C",
+        "hyperparameters.class_weight",
+        "hyperparameters.colsample_bytree",
+        "hyperparameters.gamma",
+        "hyperparameters.learning_rate",
+        "hyperparameters.max_depth",
+        "hyperparameters.min_child_weight",
+        "hyperparameters.n_estimators",
+        "hyperparameters.reg_alpha",
+        "hyperparameters.reg_lambda",
+        "hyperparameters.scale_pos_weight",
+        "hyperparameters.subsample",
+        "model"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "model logistic_regression -> xgboost",
+      "hypothesis": "Holding the all feature protocol and five weather days fixed, replacing logistic regression with the official regularized, early-stopped XGBoost configuration will raise validation AUPRC above 0.39721 by learning nonlinear interactions among VIIRS, weather/fire-danger, fuel, vegetation, and metadata signals."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-003",
+      "run_id": "iu3n6tme",
+      "run_name": "wf-20260913-104003-2c71-exp-003",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/iu3n6tme",
+      "created_at": "2026-09-13T10:45:27Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "7a443ed4f87b5270",
+      "validation_auprc": 0.4867164182493074,
+      "train_auprc": 0.6595661561632996,
+      "validation_auroc": 0.8869277483540022,
+      "precision": 0.4238921001926782,
+      "recall": 0.514018691588785,
+      "false_positives": 299,
+      "false_negatives": 208,
+      "n_features": 6029,
+      "runtime_seconds": 98.68800000000192,
+      "incumbent_before_experiment_id": "exp-002",
+      "incumbent_before_validation_auprc": 0.4829886183799963,
+      "delta_vs_incumbent": 0.003727799869311099,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.max_depth"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "max_depth 4 -> 3",
+      "hypothesis": "Holding the full input protocol and every other XGBoost setting fixed, reducing max_depth from 4 to 3 will improve validation AUPRC above 0.48299 by limiting overly specific interactions in the 6,029-feature input while retaining the nonlinear signal that made exp-002 successful."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-004",
+      "run_id": "3xanyjye",
+      "run_name": "wf-20260913-104003-2c71-exp-004",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/3xanyjye",
+      "created_at": "2026-09-13T10:48:29Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 2,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "c7f2294373691140",
+      "validation_auprc": 0.47545780253976233,
+      "train_auprc": 0.5897302333651812,
+      "validation_auroc": 0.8847314372529944,
+      "precision": 0.41208791208791207,
+      "recall": 0.5257009345794392,
+      "false_positives": 321,
+      "false_negatives": 203,
+      "n_features": 6029,
+      "runtime_seconds": 136.17199999999866,
+      "incumbent_before_experiment_id": "exp-003",
+      "incumbent_before_validation_auprc": 0.4867164182493074,
+      "delta_vs_incumbent": -0.011258615709545061,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.max_depth"
+      ],
+      "decision": "REJECT",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "max_depth 3 -> 2",
+      "hypothesis": "Holding the all-feature, five-weather-day protocol and every other XGBoost setting fixed, reducing max_depth from 3 to 2 will further limit overly specific interactions and raise validation AUPRC above 0.48672."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-005",
+      "run_id": "3c1o1b9n",
+      "run_name": "wf-20260913-104003-2c71-exp-005",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/3c1o1b9n",
+      "created_at": "2026-09-13T10:52:39Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 3,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "58732e2c6b906582",
+      "validation_auprc": 0.48490062155040536,
+      "train_auprc": 0.6341249812810054,
+      "validation_auroc": 0.8871031849687885,
+      "precision": 0.4305555555555556,
+      "recall": 0.5070093457943925,
+      "false_positives": 287,
+      "false_negatives": 211,
+      "n_features": 6029,
+      "runtime_seconds": 87.125,
+      "incumbent_before_experiment_id": "exp-003",
+      "incumbent_before_validation_auprc": 0.4867164182493074,
+      "delta_vs_incumbent": -0.001815796698902028,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.min_child_weight"
+      ],
+      "decision": "REJECT",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "max_depth 2 -> 3, min_child_weight 1.0 -> 3.0",
+      "hypothesis": "Holding the best depth-3 configuration fixed and increasing min_child_weight from 1.0 to 3.0 will suppress low-support leaves without removing depth-3 interactions, raising validation AUPRC above 0.48672."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-006",
+      "run_id": "lc1oe0pu",
+      "run_name": "wf-20260913-104003-2c71-exp-006",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/lc1oe0pu",
+      "created_at": "2026-09-13T10:55:59Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.6,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "38e1f8a20287511f",
+      "validation_auprc": 0.4829902920359153,
+      "train_auprc": 0.6292482052646738,
+      "validation_auroc": 0.8851405540267115,
+      "precision": 0.48258706467661694,
+      "recall": 0.4532710280373832,
+      "false_positives": 208,
+      "false_negatives": 234,
+      "n_features": 6029,
+      "runtime_seconds": 51.25,
+      "incumbent_before_experiment_id": "exp-003",
+      "incumbent_before_validation_auprc": 0.4867164182493074,
+      "delta_vs_incumbent": -0.003726126213392078,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.colsample_bytree"
+      ],
+      "decision": "REJECT",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "colsample_bytree 0.8 -> 0.6, min_child_weight 3.0 -> 1.0",
+      "hypothesis": "Returning to the exp-003 best configuration and reducing colsample_bytree from 0.8 to 0.6 will decorrelate trees and limit repeated reliance on the highest-gain features while preserving depth-3 interactions, raising validation AUPRC above 0.48672."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-007",
+      "run_id": "1wanlyuj",
+      "run_name": "wf-20260913-104003-2c71-exp-007",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/1wanlyuj",
+      "created_at": "2026-09-13T10:58:13Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all_without_access",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "4a3eb551460a6f1c",
+      "validation_auprc": 0.47685191594833337,
+      "train_auprc": 0.6265030459407851,
+      "validation_auroc": 0.884250663270421,
+      "precision": 0.41254752851711024,
+      "recall": 0.5070093457943925,
+      "false_positives": 309,
+      "false_negatives": 211,
+      "n_features": 6021,
+      "runtime_seconds": 54.01499999999942,
+      "incumbent_before_experiment_id": "exp-003",
+      "incumbent_before_validation_auprc": 0.4867164182493074,
+      "delta_vs_incumbent": -0.00986450230097402,
+      "changed_fields_vs_incumbent": [
+        "feature_protocol"
+      ],
+      "decision": "REJECT",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "features all -> all_without_access, colsample_bytree 0.6 -> 0.8",
+      "hypothesis": "Holding the best exp-003 model and hyperparameters fixed while changing only the feature protocol from all to all_without_access will raise validation AUPRC above 0.48672 by removing low-value road-distance/density and fire-station proximity inputs without broadly restricting the high-gain feature families."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-008",
+      "run_id": "hdekadle",
+      "run_name": "wf-20260913-104003-2c71-exp-008",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/hdekadle",
+      "created_at": "2026-09-13T11:01:00Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.02,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "66fd03064f4797dd",
+      "validation_auprc": 0.47533336952169,
+      "train_auprc": 0.6354759858445764,
+      "validation_auroc": 0.8848186260736227,
+      "precision": 0.4421052631578947,
+      "recall": 0.49065420560747663,
+      "false_positives": 265,
+      "false_negatives": 218,
+      "n_features": 6029,
+      "runtime_seconds": 70.03199999999924,
+      "incumbent_before_experiment_id": "exp-003",
+      "incumbent_before_validation_auprc": 0.4867164182493074,
+      "delta_vs_incumbent": -0.011383048727617417,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.learning_rate"
+      ],
+      "decision": "REJECT",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "features all_without_access -> all, learning_rate 0.03 -> 0.02",
+      "hypothesis": "Holding the full feature protocol and every other exp-003 setting fixed, lowering learning_rate from 0.03 to 0.02 will improve validation AUPRC above 0.48672 by making smaller boosting updates that fit the useful cross-family interactions more gradually without the underfitting observed from stronger structural regularization."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-009",
+      "run_id": "o0rkbizb",
+      "run_name": "wf-20260913-104003-2c71-exp-009",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/o0rkbizb",
+      "created_at": "2026-09-13T11:23:57Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": 6
+        }
+      },
+      "config_hash": "2dae21915b49a745",
+      "validation_auprc": 0.4877548636535849,
+      "train_auprc": 0.6501314539259412,
+      "validation_auroc": 0.8844508092675715,
+      "precision": 0.4896907216494845,
+      "recall": 0.4439252336448598,
+      "false_positives": 198,
+      "false_negatives": 238,
+      "n_features": 6029,
+      "runtime_seconds": 67.15600000000268,
+      "incumbent_before_experiment_id": "exp-003",
+      "incumbent_before_validation_auprc": 0.4867164182493074,
+      "delta_vs_incumbent": 0.0010384454042774993,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.scale_pos_weight"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "learning_rate 0.02 -> 0.03, scale_pos_weight auto -> 6.0",
+      "hypothesis": "Holding the exp-003 model, full feature protocol, five-day weather window, and all other hyperparameters fixed, reducing scale_pos_weight from automatic 12.2488 to 6.0 will improve validation AUPRC above 0.48672 by reducing overemphasis on the positive class and improving ordering among the abundant negative examples without removing useful interactions or feature families."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-010",
+      "run_id": "z8czs2f9",
+      "run_name": "wf-20260913-104003-2c71-exp-010",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/z8czs2f9",
+      "created_at": "2026-09-13T11:26:28Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": 3
+        }
+      },
+      "config_hash": "1d55ea110a5bfc65",
+      "validation_auprc": 0.49231556682937727,
+      "train_auprc": 0.6621057885976188,
+      "validation_auroc": 0.8827730422050369,
+      "precision": 0.4647577092511013,
+      "recall": 0.4929906542056075,
+      "false_positives": 243,
+      "false_negatives": 217,
+      "n_features": 6029,
+      "runtime_seconds": 75.48400000000402,
+      "incumbent_before_experiment_id": "exp-009",
+      "incumbent_before_validation_auprc": 0.4877548636535849,
+      "delta_vs_incumbent": 0.00456070317579238,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.scale_pos_weight"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "scale_pos_weight 6.0 -> 3.0",
+      "hypothesis": "Holding the exp-009 full-feature depth-3 configuration fixed, reducing scale_pos_weight from 6.0 to 3.0 will continue the measured class-weight regularization trend and raise validation AUPRC above 0.48775 by reducing distortion from positive oversampling while retaining the nonlinear interactions that produced the current best."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-011",
+      "run_id": "6f10ttcl",
+      "run_name": "wf-20260913-104003-2c71-exp-011",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/6f10ttcl",
+      "created_at": "2026-09-13T11:29:22Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": 1.5
+        }
+      },
+      "config_hash": "0137a92d299c6750",
+      "validation_auprc": 0.4993702499129248,
+      "train_auprc": 0.7463607259352517,
+      "validation_auroc": 0.8865613435126576,
+      "precision": 0.4949748743718593,
+      "recall": 0.4602803738317757,
+      "false_positives": 201,
+      "false_negatives": 231,
+      "n_features": 6029,
+      "runtime_seconds": 116.65600000000268,
+      "incumbent_before_experiment_id": "exp-010",
+      "incumbent_before_validation_auprc": 0.49231556682937727,
+      "delta_vs_incumbent": 0.007054683083547508,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.scale_pos_weight"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "scale_pos_weight 3.0 -> 1.5",
+      "hypothesis": "Holding every exp-010 setting fixed and halving scale_pos_weight from 3.0 to 1.5 will continue the measured class-weight trend and improve 2019 validation AUPRC above 0.49232; failure to exceed 0.49232 will indicate that the optimum is at or above 3.0."
+    },
+    {
+      "session_id": "wf-20260913-104003-2c71",
+      "experiment_id": "exp-012",
+      "run_id": "qstuzf1c",
+      "run_name": "wf-20260913-104003-2c71-exp-012",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/qstuzf1c",
+      "created_at": "2026-09-13T11:32:57Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 3,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": 0.75
+        }
+      },
+      "config_hash": "5ed39986ce7e5176",
+      "validation_auprc": 0.4980376700905653,
+      "train_auprc": 0.7205054748365608,
+      "validation_auroc": 0.8846241279352981,
+      "precision": 0.4489795918367347,
+      "recall": 0.514018691588785,
+      "false_positives": 270,
+      "false_negatives": 208,
+      "n_features": 6029,
+      "runtime_seconds": 101.5,
+      "incumbent_before_experiment_id": "exp-011",
+      "incumbent_before_validation_auprc": 0.4993702499129248,
+      "delta_vs_incumbent": -0.0013325798223594587,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.scale_pos_weight"
+      ],
+      "decision": "REJECT",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "scale_pos_weight 1.5 -> 0.75",
+      "hypothesis": "Holding every exp-011 setting fixed and halving scale_pos_weight from 1.5 to 0.75 will continue the measured class-weight trajectory and raise official 2019 validation AUPRC above 0.49937; a score at or below 0.49937 will falsify the hypothesis and bracket the optimum at 1.5 or above."
+    },
+    {
+      "session_id": "wf-20260913-fresh-audit",
+      "experiment_id": "exp-000",
+      "run_id": "tnzdsn2b",
+      "run_name": "wf-20260913-fresh-audit-exp-000",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/tnzdsn2b",
+      "created_at": "2026-09-13T12:37:01Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "metadata",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "b8eded9ffbf5d0e2",
+      "validation_auprc": 0.1841706764039988,
+      "train_auprc": 0.3275533212879827,
+      "validation_auroc": 0.7493607329791184,
+      "precision": 0.19949811794228356,
+      "recall": 0.37149532710280375,
+      "false_positives": 638,
+      "false_negatives": 269,
+      "n_features": 1386,
+      "runtime_seconds": 3.875,
+      "incumbent_before_experiment_id": null,
+      "incumbent_before_validation_auprc": null,
+      "delta_vs_incumbent": null,
+      "changed_fields_vs_incumbent": [],
+      "decision": null,
+      "decision_consistent_with_numeric_incumbent": null,
+      "change_summary": "baseline",
+      "hypothesis": null
+    },
+    {
+      "session_id": "wf-20260913-123756-7824",
+      "experiment_id": "exp-000",
+      "run_id": "8l6w97q5",
+      "run_name": "wf-20260913-123756-7824-exp-000",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/8l6w97q5",
+      "created_at": "2026-09-13T12:38:03Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "metadata",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "b8eded9ffbf5d0e2",
+      "validation_auprc": 0.1841706764039988,
+      "train_auprc": 0.3275533212879827,
+      "validation_auroc": 0.7493607329791184,
+      "precision": 0.19949811794228356,
+      "recall": 0.37149532710280375,
+      "false_positives": 638,
+      "false_negatives": 269,
+      "n_features": 1386,
+      "runtime_seconds": 4.078000000001339,
+      "incumbent_before_experiment_id": null,
+      "incumbent_before_validation_auprc": null,
+      "delta_vs_incumbent": null,
+      "changed_fields_vs_incumbent": [],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "baseline",
+      "hypothesis": null
+    },
+    {
+      "session_id": "wf-20260913-123756-7824",
+      "experiment_id": "exp-001",
+      "run_id": "nhl61zqf",
+      "run_name": "wf-20260913-123756-7824-exp-001",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/nhl61zqf",
+      "created_at": "2026-09-13T12:39:36Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "logistic_regression",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1,
+          "class_weight": "balanced"
+        }
+      },
+      "config_hash": "05b01fd0247d7292",
+      "validation_auprc": 0.39721230867438967,
+      "train_auprc": 0.7213156564817588,
+      "validation_auroc": 0.8383812248229044,
+      "precision": 0.4088669950738916,
+      "recall": 0.3878504672897196,
+      "false_positives": 240,
+      "false_negatives": 262,
+      "n_features": 6029,
+      "runtime_seconds": 17.67199999999866,
+      "incumbent_before_experiment_id": "exp-000",
+      "incumbent_before_validation_auprc": 0.1841706764039988,
+      "delta_vs_incumbent": 0.21304163227039086,
+      "changed_fields_vs_incumbent": [
+        "feature_protocol"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "features metadata -> all",
+      "hypothesis": "Holding logistic regression and its hyperparameters fixed while changing only the feature protocol from metadata to all will raise 2019 validation AUPRC by at least 0.05, to at least 0.2341706764, because weather/fire-danger, VIIRS, fuel, vegetation, topography, access, and human features provide direct signals for the baseline's concentrated errors."
+    },
+    {
+      "session_id": "wf-20260913-123756-7824",
+      "experiment_id": "exp-002",
+      "run_id": "v6rfe54x",
+      "run_name": "wf-20260913-123756-7824-exp-002",
+      "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/v6rfe54x",
+      "created_at": "2026-09-13T12:41:19Z",
+      "research_seed": 553371,
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "gamma": 0,
+          "max_depth": 4,
+          "reg_alpha": 0,
+          "subsample": 0.8,
+          "reg_lambda": 1,
+          "n_estimators": 1000,
+          "learning_rate": 0.03,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "scale_pos_weight": "auto"
+        }
+      },
+      "config_hash": "c39f9fd081bb082e",
+      "validation_auprc": 0.4829886183799963,
+      "train_auprc": 0.7269248655343654,
+      "validation_auroc": 0.8864046154302326,
+      "precision": 0.4777227722772277,
+      "recall": 0.4509345794392523,
+      "false_positives": 211,
+      "false_negatives": 235,
+      "n_features": 6029,
+      "runtime_seconds": 75.04700000000594,
+      "incumbent_before_experiment_id": "exp-001",
+      "incumbent_before_validation_auprc": 0.39721230867438967,
+      "delta_vs_incumbent": 0.08577630970560662,
+      "changed_fields_vs_incumbent": [
+        "hyperparameters.C",
+        "hyperparameters.class_weight",
+        "hyperparameters.colsample_bytree",
+        "hyperparameters.gamma",
+        "hyperparameters.learning_rate",
+        "hyperparameters.max_depth",
+        "hyperparameters.min_child_weight",
+        "hyperparameters.n_estimators",
+        "hyperparameters.reg_alpha",
+        "hyperparameters.reg_lambda",
+        "hyperparameters.scale_pos_weight",
+        "hyperparameters.subsample",
+        "model"
+      ],
+      "decision": "KEEP",
+      "decision_consistent_with_numeric_incumbent": true,
+      "change_summary": "model logistic_regression -> xgboost",
+      "hypothesis": "Holding feature_protocol=all and weather_days=5 fixed while switching only the model family from logistic regression to the allowed default XGBoost configuration will raise 2019 validation AUPRC by at least 0.03 over 0.3972123087, reaching at least 0.4272123087, because depth-4 boosted trees can model nonlinear interactions among incident metadata, fire-danger, vegetation, fuel, and VIIRS signals while validation early stopping limits excess capacity."
+    }
+  ],
+  "decision_consistency": {
+    "proposal_artifact_count": 17,
+    "nonbaseline_experiment_count": 17,
+    "proposals_with_unique_exact_config_match": 17,
+    "proposals_with_previous_decision_match": 17,
+    "decided_experiment_count": 20,
+    "numeric_incumbent_consistent_decision_count": 20,
+    "final_decision_count": 3,
+    "final_decisions_consistent_with_session_best": 3,
+    "proposal_checks": [
+      {
+        "collection": "wf-20260913-123756-7824-proposal-r2",
+        "session_id": "wf-20260913-123756-7824",
+        "state_revision": 2,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-123756-7824-exp-002",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-001",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-123756-7824-proposal-r1",
+        "session_id": "wf-20260913-123756-7824",
+        "state_revision": 1,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-123756-7824-exp-001",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-000",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r13",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 13,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-012",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-011",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r12",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 12,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-011",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-010",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r11",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 11,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-010",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-009",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r10",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 10,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-009",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-008",
+        "previous_decision": "REJECT",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r8",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 8,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-008",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-007",
+        "previous_decision": "REJECT",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r7",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 7,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-007",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-006",
+        "previous_decision": "REJECT",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r6",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 6,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-006",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-005",
+        "previous_decision": "REJECT",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r5",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 5,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-005",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-004",
+        "previous_decision": "REJECT",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r4",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 4,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-004",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-003",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r3",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 3,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-003",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-002",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r2",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 2,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-002",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-001",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-104003-2c71-proposal-r1",
+        "session_id": "wf-20260913-104003-2c71",
+        "state_revision": 1,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-104003-2c71-exp-001",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-000",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-live1-proposal-r3",
+        "session_id": "wf-20260913-live1",
+        "state_revision": 3,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-live1-exp-003",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-002",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-live1-proposal-r2",
+        "session_id": "wf-20260913-live1",
+        "state_revision": 2,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-live1-exp-002",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-001",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      },
+      {
+        "collection": "wf-20260913-live1-proposal-r1",
+        "session_id": "wf-20260913-live1",
+        "state_revision": 1,
+        "matched_run_count": 1,
+        "matched_run_name": "wf-20260913-live1-exp-001",
+        "experiment_config_matches_exactly": true,
+        "previous_decision_experiment_id": "exp-000",
+        "previous_decision": "KEEP",
+        "previous_decision_matches_final_state_history": true
+      }
+    ]
+  },
+  "final_evaluations": [
+    {
+      "collection": "wf-20260913-104003-2c71-final-evaluation",
+      "artifact_version": "v0",
+      "score_kind": "OFFICIAL_TEST_AUPRC",
+      "experiment_id": "exp-011",
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "colsample_bytree": 0.8,
+          "gamma": 0.0,
+          "learning_rate": 0.03,
+          "max_depth": 3,
+          "min_child_weight": 1.0,
+          "n_estimators": 1000,
+          "reg_alpha": 0.0,
+          "reg_lambda": 1.0,
+          "scale_pos_weight": 1.5,
+          "subsample": 0.8
+        }
+      },
+      "seeds": [
+        553371,
+        553372,
+        553373,
+        553374,
+        553375
+      ],
+      "per_seed": [
+        {
+          "seed": 553371,
+          "val_auprc": 0.49937024991292484,
+          "test_auprc": 0.5445824086514173,
+          "test_auroc": 0.8800223370096327,
+          "test_f1": 0.48665955176093917,
+          "test_precision": 0.5377358490566038,
+          "test_recall": 0.4444444444444444,
+          "test_recall_at_5": 0.3840155945419103,
+          "threshold_from_val": 0.34,
+          "fit_notes": {
+            "scale_pos_weight_effective": 1.5,
+            "best_iteration": 862,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553372,
+          "val_auprc": 0.4953738408379257,
+          "test_auprc": 0.5433908431607719,
+          "test_auroc": 0.8793225819239129,
+          "test_f1": 0.49195837275307475,
+          "test_precision": 0.47794117647058826,
+          "test_recall": 0.50682261208577,
+          "test_recall_at_5": 0.3820662768031189,
+          "threshold_from_val": 0.28,
+          "fit_notes": {
+            "scale_pos_weight_effective": 1.5,
+            "best_iteration": 581,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553373,
+          "val_auprc": 0.4984000813231223,
+          "test_auprc": 0.5448948933194228,
+          "test_auroc": 0.87845150748962,
+          "test_f1": 0.49162011173184356,
+          "test_precision": 0.47058823529411764,
+          "test_recall": 0.5146198830409356,
+          "test_recall_at_5": 0.38791423001949316,
+          "threshold_from_val": 0.27,
+          "fit_notes": {
+            "scale_pos_weight_effective": 1.5,
+            "best_iteration": 646,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553374,
+          "val_auprc": 0.49330515201598774,
+          "test_auprc": 0.5446950648115907,
+          "test_auroc": 0.8784480604202323,
+          "test_f1": 0.48523206751054854,
+          "test_precision": 0.5287356321839081,
+          "test_recall": 0.44834307992202727,
+          "test_recall_at_5": 0.38596491228070173,
+          "threshold_from_val": 0.33,
+          "fit_notes": {
+            "scale_pos_weight_effective": 1.5,
+            "best_iteration": 694,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553375,
+          "val_auprc": 0.4963617048380393,
+          "test_auprc": 0.5407392589865482,
+          "test_auroc": 0.8765359710308288,
+          "test_f1": 0.48795811518324606,
+          "test_precision": 0.5271493212669683,
+          "test_recall": 0.45419103313840153,
+          "test_recall_at_5": 0.3840155945419103,
+          "threshold_from_val": 0.33,
+          "fit_notes": {
+            "scale_pos_weight_effective": 1.5,
+            "best_iteration": 856,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        }
+      ],
+      "mean_test_auprc": 0.5436604937859502,
+      "std_test_auprc": 0.001735679308469574,
+      "mean_val_auprc": 0.49656220578559995,
+      "published_test_auprc": 0.533,
+      "delta_vs_published": 0.010660493785950131,
+      "protocol_matched": true,
+      "not_comparable_reasons": [],
+      "benchmark_beaten": true,
+      "seed_note": "The official repository names seed 553371 only; the published 0.533 is a five-seed mean whose seed list is not public. These five seeds are ours.",
+      "test_size": 6168,
+      "test_positives": 513,
+      "runtime_seconds": 617.0930000000008,
+      "provenance": {
+        "repo": "https://github.com/LabRAI/WildfireIA",
+        "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+        "local_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+        "dataset": "WildfireIA/Anonymous-WildfireIA",
+        "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+        "task": "ia_failure",
+        "representation": "tabular",
+        "split_years": {
+          "train": [
+            2016,
+            2017,
+            2018
+          ],
+          "val": [
+            2019
+          ],
+          "test": [
+            2020
+          ]
+        },
+        "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+        "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+        "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+        "published_test_auprc": 0.533,
+        "published_model": "xgboost, full input protocol, 5 weather days, mean over five seeds"
+      },
+      "wandb_run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/uqf6weq6"
+    },
+    {
+      "collection": "wf-20260913-live1-final-evaluation",
+      "artifact_version": "v0",
+      "score_kind": "OFFICIAL_TEST_AUPRC",
+      "experiment_id": "exp-003",
+      "experiment": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "colsample_bytree": 0.8,
+          "gamma": 0.0,
+          "learning_rate": 0.03,
+          "max_depth": 3,
+          "min_child_weight": 1.0,
+          "n_estimators": 1000,
+          "reg_alpha": 0.0,
+          "reg_lambda": 1.0,
+          "scale_pos_weight": "auto",
+          "subsample": 0.8
+        }
+      },
+      "seeds": [
+        553371,
+        553372,
+        553373,
+        553374,
+        553375
+      ],
+      "per_seed": [
+        {
+          "seed": 553371,
+          "val_auprc": 0.4867164182493074,
+          "test_auprc": 0.5451983052407867,
+          "test_auroc": 0.8786435092545196,
+          "test_f1": 0.5037174721189591,
+          "test_precision": 0.48134991119005327,
+          "test_recall": 0.5282651072124757,
+          "test_recall_at_5": 0.3820662768031189,
+          "threshold_from_val": 0.73,
+          "fit_notes": {
+            "scale_pos_weight_effective": 12.248826291079812,
+            "best_iteration": 621,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553372,
+          "val_auprc": 0.47355022401090796,
+          "test_auprc": 0.5420520177515354,
+          "test_auroc": 0.8788999712169706,
+          "test_f1": 0.5149105367793241,
+          "test_precision": 0.5253549695740365,
+          "test_recall": 0.5048732943469786,
+          "test_recall_at_5": 0.38791423001949316,
+          "threshold_from_val": 0.77,
+          "fit_notes": {
+            "scale_pos_weight_effective": 12.248826291079812,
+            "best_iteration": 351,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553373,
+          "val_auprc": 0.47812748981235104,
+          "test_auprc": 0.539839883068579,
+          "test_auroc": 0.8741002718014211,
+          "test_f1": 0.5092783505154639,
+          "test_precision": 0.5404814004376368,
+          "test_recall": 0.48148148148148145,
+          "test_recall_at_5": 0.38011695906432746,
+          "threshold_from_val": 0.77,
+          "fit_notes": {
+            "scale_pos_weight_effective": 12.248826291079812,
+            "best_iteration": 662,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553374,
+          "val_auprc": 0.48323033015661826,
+          "test_auprc": 0.5403764402188588,
+          "test_auroc": 0.8785580219337026,
+          "test_f1": 0.49660523763336567,
+          "test_precision": 0.4942084942084942,
+          "test_recall": 0.49902534113060426,
+          "test_recall_at_5": 0.38011695906432746,
+          "threshold_from_val": 0.75,
+          "fit_notes": {
+            "scale_pos_weight_effective": 12.248826291079812,
+            "best_iteration": 553,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        },
+        {
+          "seed": 553375,
+          "val_auprc": 0.48643077320408495,
+          "test_auprc": 0.5392133665135357,
+          "test_auroc": 0.8740092691695837,
+          "test_f1": 0.4959677419354839,
+          "test_precision": 0.5135699373695198,
+          "test_recall": 0.47953216374269003,
+          "test_recall_at_5": 0.3840155945419103,
+          "threshold_from_val": 0.75,
+          "fit_notes": {
+            "scale_pos_weight_effective": 12.248826291079812,
+            "best_iteration": 849,
+            "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+          }
+        }
+      ],
+      "mean_test_auprc": 0.5413360025586591,
+      "std_test_auprc": 0.002402851272832847,
+      "mean_val_auprc": 0.481611047086654,
+      "published_test_auprc": 0.533,
+      "delta_vs_published": 0.008336002558659072,
+      "protocol_matched": true,
+      "not_comparable_reasons": [],
+      "benchmark_beaten": true,
+      "seed_note": "The official repository names seed 553371 only; the published 0.533 is a five-seed mean whose seed list is not public. These five seeds are ours.",
+      "test_size": 6168,
+      "test_positives": 513,
+      "runtime_seconds": 440.3899999999994,
+      "provenance": {
+        "repo": "https://github.com/LabRAI/WildfireIA",
+        "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+        "local_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+        "dataset": "WildfireIA/Anonymous-WildfireIA",
+        "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+        "task": "ia_failure",
+        "representation": "tabular",
+        "split_years": {
+          "train": [
+            2016,
+            2017,
+            2018
+          ],
+          "val": [
+            2019
+          ],
+          "test": [
+            2020
+          ]
+        },
+        "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+        "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+        "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+        "published_test_auprc": 0.533,
+        "published_model": "xgboost, full input protocol, 5 weather days, mean over five seeds"
+      },
+      "wandb_run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/4gvl293f"
+    }
+  ],
+  "weave_audit": {
+    "project": "ali-amjad52114-r42/wildfire-autonomous-researcher",
+    "call_count": 126,
+    "root_call_count": 126,
+    "child_call_count": 0,
+    "status_counts": {
+      "TraceStatus.SUCCESS": 126
+    },
+    "error_call_count": 0,
+    "exception_present_count": 0,
+    "ended_at_present_count": 0,
+    "latency_present_count": 126,
+    "usage_present_count": 0,
+    "token_fields_present_count": 0,
+    "costs_present_count": 0,
+    "session_call_counts": {
+      "missing": 117,
+      "audit-fixes-20260913": 1,
+      "wf-20260913-123756-7824": 8
+    },
+    "stage_counts": {
+      "missing": 117,
+      "external_aria_exchange": 9
+    },
+    "by_op": [
+      {
+        "op_name": "audit_trace_link",
+        "count": 1,
+        "latency_observed_count": 1,
+        "latency_ms_median": 1.0,
+        "latency_ms_p95": 1.0,
+        "latency_ms_max": 1.0,
+        "errors": 0
+      },
+      {
+        "op_name": "evaluate_result",
+        "count": 21,
+        "latency_observed_count": 21,
+        "latency_ms_median": 0.0,
+        "latency_ms_p95": 0.0,
+        "latency_ms_max": 0.0,
+        "errors": 0
+      },
+      {
+        "op_name": "execute_training",
+        "count": 21,
+        "latency_observed_count": 21,
+        "latency_ms_median": 67193.0,
+        "latency_ms_p95": 116717.0,
+        "latency_ms_max": 136231.0,
+        "errors": 0
+      },
+      {
+        "op_name": "publish_research_state",
+        "count": 25,
+        "latency_observed_count": 25,
+        "latency_ms_median": 1940.0,
+        "latency_ms_p95": 2418.4,
+        "latency_ms_max": 2774.0,
+        "errors": 0
+      },
+      {
+        "op_name": "receive_aria_output",
+        "count": 20,
+        "latency_observed_count": 20,
+        "latency_ms_median": 0.0,
+        "latency_ms_p95": 1.0,
+        "latency_ms_max": 1.0,
+        "errors": 0
+      },
+      {
+        "op_name": "record_aria_decision",
+        "count": 20,
+        "latency_observed_count": 20,
+        "latency_ms_median": 2.0,
+        "latency_ms_p95": 19.550000000000008,
+        "latency_ms_max": 30.0,
+        "errors": 0
+      },
+      {
+        "op_name": "smoke_op",
+        "count": 1,
+        "latency_observed_count": 1,
+        "latency_ms_median": 0.0,
+        "latency_ms_p95": 0.0,
+        "latency_ms_max": 0.0,
+        "errors": 0
+      },
+      {
+        "op_name": "validate_experiment",
+        "count": 17,
+        "latency_observed_count": 17,
+        "latency_ms_median": 0.0,
+        "latency_ms_p95": 362.19999999999874,
+        "latency_ms_max": 1807.0,
+        "errors": 0
+      }
+    ]
+  },
+  "findings": [
+    {
+      "finding": "Full discovery-time features were the largest replicated validation gain",
+      "evidence": "metadata-only logistic 0.1841706764 to full-feature logistic 0.3972123087, delta +0.2130416323, repeated exactly in three sessions with the same seed/config",
+      "interpretation": "Descriptive within the fixed 2019 validation protocol; repeated values are not independent seeds."
+    },
+    {
+      "finding": "The bundled model-family transition improved validation ranking",
+      "evidence": "full-feature logistic 0.3972123087 to default XGBoost 0.4829886184, delta +0.0857763097, repeated in three sessions",
+      "interpretation": "The transition changes algorithm family and its associated hyperparameters, so it is not attribution to a single XGBoost mechanism."
+    },
+    {
+      "finding": "Depth 3 modestly improved over depth 4",
+      "evidence": "0.4829886184 to 0.4867164182, delta +0.0037277999; train-validation gap decreased from 0.2439362472 to 0.1728497379",
+      "interpretation": "Clean incumbent-relative max_depth comparison under one research seed; the gain is small."
+    },
+    {
+      "finding": "Several incumbent-relative regularization/ablation trials did not improve AUPRC",
+      "evidence": "depth 2: 0.4754578025; min_child_weight 3: 0.4849006216; colsample 0.6: 0.4829902920; all_without_access: 0.4768519159; learning_rate 0.02: 0.4753333695, each versus depth-3 incumbent 0.4867164182",
+      "interpretation": "Compared to the incumbent configuration to avoid causal interpretation of confounded adjacent resets."
+    },
+    {
+      "finding": "Lower class weighting was the successful late search direction",
+      "evidence": "scale_pos_weight auto 0.4867164182, 6.0 0.4877548637, 3.0 0.4923155668, 1.5 0.4993702499, 0.75 0.4980376701",
+      "interpretation": "The measured single-seed optimum among tested values was 1.5; 0.75 reversed the trend."
+    },
+    {
+      "finding": "Fresh bounded session reproduced the first three-step path",
+      "evidence": "wf-20260913-123756-7824: 0.1841706764 -> 0.3972123087 -> 0.4829886184; final KEEP exp-002",
+      "interpretation": "Exact same seed/config reproduces execution, not independent statistical generalization."
+    },
+    {
+      "finding": "Final test summaries are above the 0.533 reference but are not certified benchmark wins",
+      "evidence": "live1 0.5413360026 \u00b1 0.0024028513; session2 0.5436604938 \u00b1 0.0017356793 over five local seeds",
+      "interpretation": "Published seed list is unavailable; validation and test are different year populations; session2 began after session1 test disclosure."
+    }
+  ],
+  "critical_caveats": [
+    "The 0.4993702499 value is 2019 validation AUPRC for one research seed; 0.5436604938 is mean 2020 test AUPRC over five final seeds. They are different populations and estimators and must not be compared as a gain.",
+    "The paper reports a five-seed mean of 0.533 but does not publish its seed list; seed-matched uncertainty or significance cannot be assessed.",
+    "Session wf-20260913-104003-2c71 began after the wf-20260913-live1 test result was disclosed. Its later test result is descriptive and not an independent blind confirmation.",
+    "Historical test prediction files and fitted model files were not preserved. The retrospective did not access test data and cannot independently recompute test metrics or conduct test error analysis.",
+    "Repeated validation scores across sessions use the same research seed and configuration; they demonstrate deterministic reproducibility, not independent replication.",
+    "All 126 Weave calls are roots and no token/usage/cost fields are present. Internal ARIA reasoning and model-call latency are missing from the trace, not zero.",
+    "All call ended_at fields are absent even though latency_ms is present; latency statistics use summary.weave.latency_ms."
+  ],
+  "urls": {
+    "project": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher",
+    "workspace": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher?nw=yhc341igcw4",
+    "weave": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/weave",
+    "report": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/reports/Wildfire-Autonomous-Researcher-Retrospective-\u2014-2026-09-13--VmlldzoxNzkyNDE5Ng==",
+    "artifact": null,
+    "artifact_run": null
+  },
+  "workspace_verification": {
+    "verified": true,
+    "filter": "job_type = experiment OR job_type = final-evaluation",
+    "grouping": "run.group (research session)",
+    "controller_noise": "excluded from the saved view runset",
+    "sections": [
+      "Selection metrics",
+      "Error profile",
+      "Efficiency and configuration",
+      "Controller noise separated"
+    ]
+  },
+  "report_verification": {
+    "url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/reports/Wildfire-Autonomous-Researcher-Retrospective-\u2014-2026-09-13--VmlldzoxNzkyNDE5Ng==",
+    "block_count": 16,
+    "verified": true,
+    "title": "Wildfire Autonomous Researcher Retrospective \u2014 2026-09-13"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "report_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/reports/Wildfire-Autonomous-Researcher-Retrospective-\u2014-2026-09-13--VmlldzoxNzkyNDE5Ng==",
+  "verified_replay_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-verified-replay:v0",
+  "verified_replay_digest": "d5105ebde2d49a51c7dbc0ff7388f7d3",
+  "alerts": [
+    {
+      "key": "launch-20260913-133047-0467:failure:exp-000",
+      "state": "sent"
+    },
+    {
+      "key": "launch-20260913-133047-0467:budget",
+      "state": "sent"
+    },
+    {
+      "key": "launch-20260913-133047-0467:final-decision",
+      "state": "sent"
+    }
+  ]
+}

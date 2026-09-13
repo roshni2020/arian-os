@@ -1,0 +1,44 @@
+# environments and caches
+.venv/
+.launch-venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.claude/launch.json
+tmp/
+*.log
+
+# W&B / local state (evidence lives in W&B; small verified records are allow-listed below)
+wandb/
+data/
+*.sqlite
+*.sqlite.bak-*
+WildfireIA/data/
+WildfireIA/experiments/
+WildfireIA/results/
+
+# frontend
+frontend/node_modules/
+frontend/.next/
+frontend/.next-*/
+frontend/out/
+
+# artifacts: ignore everything except verified, small records
+artifacts/*
+!artifacts/agent-evals/
+artifacts/agent-evals/*
+!artifacts/agent-evals/scorecard-*.json
+!artifacts/operations/
+!artifacts/wf-*/
+!artifacts/launch-*/
+artifacts/wf-*/*
+artifacts/launch-*/*
+!artifacts/wf-*/replay.json
+!artifacts/wf-*/final_evaluation.json
+!artifacts/launch-*/replay.json
+!artifacts/launch-*/final_evaluation.json
+
+# Launch job source snapshots duplicate the application code (the immutable job artifacts live in W&B)
+artifacts/operations/launch/job-source*/
+*.whl

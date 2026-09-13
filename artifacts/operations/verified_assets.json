@@ -1,0 +1,18 @@
+{
+  "aria_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/aria-operator-retrospective:v1",
+  "aria_artifact_digest": "73946d01206c000b131f4176d9c0d2e1",
+  "report_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/reports/Wildfire-Autonomous-Researcher-Retrospective-\u2014-2026-09-13--VmlldzoxNzkyNDE5Ng==",
+  "report_blocks": 17,
+  "workspace_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher?nw=yhc341igcw4",
+  "workspace_sections": [
+    "Selection metrics",
+    "Error profile",
+    "Efficiency and configuration",
+    "Controller noise separated",
+    "Benchmark interpretation"
+  ],
+  "retrospective_experiments_matched": 21,
+  "registered_model_digest_verified": true,
+  "model_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfireia-validation-winner:v0",
+  "registry_artifact": "ali-amjad52114-r42-org/wandb-registry-Wildfire Research Models/WildfireIA validation winner:validation-winner"
+}

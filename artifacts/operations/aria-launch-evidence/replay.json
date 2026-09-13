@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "session_id": "launch-20260913-133047-0467",
+  "description": "Ordered Launch replay manifest. Payloads and immutable state inputs reproduce operator decisions; execution still requires the named W&B queue and job plus access to the pinned source/data.",
+  "queue": "wildfire-local-cpu",
+  "steps": [
+    {
+      "order": 1,
+      "action": "baseline",
+      "job": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfire-validated-local-step:v2",
+      "run_config": {
+        "session_id": "launch-20260913-133047-0467",
+        "action": "baseline"
+      },
+      "recorded_queue_item_id": "UnVuUXVldWVJdGVtOjg3MDQ4Nzk2NQ==",
+      "recorded_launch_run_id": "gqsnaakz",
+      "recorded_measured_run_id": "jc39ek40",
+      "recorded_state_output": {
+        "ref": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-state:v0",
+        "version": "v0",
+        "digest": "61780222f0d20a525cf0679d66a07382",
+        "url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/artifacts/research-state/launch-20260913-133047-0467-state/v0",
+        "metadata": {
+          "status": "awaiting_aria_proposal",
+          "session_id": "launch-20260913-133047-0467",
+          "state_revision": 1,
+          "benchmark_comparable": false
+        }
+      }
+    },
+    {
+      "order": 2,
+      "action": "proposal",
+      "job": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfire-validated-local-step:v2",
+      "run_config": {
+        "session_id": "launch-20260913-133047-0467",
+        "action": "proposal",
+        "proposal": {
+          "schema_version": 1,
+          "session_id": "launch-20260913-133047-0467",
+          "state_revision": 1,
+          "proposal_id": "operator-aria-r1-xgb-full-default",
+          "observation": "The fixed metadata-only logistic baseline achieved validation AUPRC 0.18417067640399878 on 2019 validation data, with 269 false negatives and 638 false positives at its best-F1 threshold.",
+          "hypothesis": "The official full-input XGBoost default will improve validation AUPRC by at least 0.20 absolute over the metadata-only logistic baseline by capturing nonlinear interactions across the complete leakage-safe feature set.",
+          "experiment": {
+            "model": "xgboost",
+            "feature_protocol": "all",
+            "weather_days": 5,
+            "hyperparameters": {}
+          },
+          "expected_result": "Validation AUPRC >= 0.3841706764; otherwise reject the model-family/full-feature transition as insufficient under this fixed protocol.",
+          "reason": "Highest-information first ARIA trial: test the validated official model family and full input protocol against the weak fixed baseline. The model-family and feature-protocol changes are bundled, so the gain cannot be attributed to one mechanism.",
+          "previous_decision": {
+            "experiment_id": "exp-000",
+            "decision": "REJECT",
+            "reason": "Baseline validation AUPRC 0.18417067640399878 was too low to retain with two trials available.",
+            "learning": "Metadata-only linear effects are inadequate under this protocol.",
+            "next_question": "Does official full-input XGBoost produce a large ranking improvement?"
+          }
+        }
+      },
+      "recorded_queue_item_id": "UnVuUXVldWVJdGVtOjg3MDQ4ODg3MA==",
+      "recorded_launch_run_id": "sfgw1glz",
+      "recorded_measured_run_id": "48upfkuz",
+      "recorded_state_output": {
+        "ref": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-state:v1",
+        "version": "v1",
+        "digest": "2efe145a7582c32e76298d9d0a2d8869",
+        "url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/artifacts/research-state/launch-20260913-133047-0467-state/v1",
+        "metadata": {
+          "status": "awaiting_aria_proposal",
+          "session_id": "launch-20260913-133047-0467",
+          "state_revision": 2,
+          "benchmark_comparable": false
+        }
+      }
+    },
+    {
+      "order": 3,
+      "action": "proposal",
+      "job": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfire-validated-local-step:v2",
+      "run_config": {
+        "session_id": "launch-20260913-133047-0467",
+        "action": "proposal",
+        "proposal": {
+          "schema_version": 1,
+          "session_id": "launch-20260913-133047-0467",
+          "state_revision": 2,
+          "proposal_id": "operator-aria-r2-scale-pos-weight-1p5",
+          "observation": "Exp-001 validation AUPRC was 0.48298861837999635, train AUPRC was 0.7269248655343654, and automatic scale_pos_weight was 12.248826291079812.",
+          "hypothesis": "Reducing scale_pos_weight to 1.5 while holding all other full-input XGBoost settings fixed will improve validation AUPRC by at least 0.005.",
+          "experiment": {
+            "model": "xgboost",
+            "feature_protocol": "all",
+            "weather_days": 5,
+            "hyperparameters": {
+              "scale_pos_weight": 1.5
+            }
+          },
+          "expected_result": "Validation AUPRC >= 0.4879886184; otherwise reject lower class weighting and retain exp-001.",
+          "reason": "Use the final budget on one controlled hyperparameter change grounded in exp-001's measured train-validation gap.",
+          "previous_decision": {
+            "experiment_id": "exp-001",
+            "decision": "KEEP",
+            "reason": "Exp-001 exceeded its threshold and became the numeric incumbent.",
+            "learning": "The bundled full-input XGBoost transition produced a large validation-ranking gain.",
+            "next_question": "Can less aggressive positive weighting improve generalization?"
+          }
+        }
+      },
+      "recorded_queue_item_id": "UnVuUXVldWVJdGVtOjg3MDQ5MDMzOQ==",
+      "recorded_launch_run_id": "9aaytrms",
+      "recorded_measured_run_id": "balfld3v",
+      "recorded_state_output": {
+        "ref": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-state:v2",
+        "version": "v2",
+        "digest": "03e8443c034ebb8ac3b021e955744f41",
+        "url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/artifacts/research-state/launch-20260913-133047-0467-state/v2",
+        "metadata": {
+          "status": "awaiting_aria_proposal",
+          "session_id": "launch-20260913-133047-0467",
+          "state_revision": 3,
+          "benchmark_comparable": false
+        }
+      }
+    },
+    {
+      "order": 4,
+      "action": "final",
+      "job": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfire-validated-local-step:v2",
+      "run_config": {
+        "session_id": "launch-20260913-133047-0467",
+        "action": "final",
+        "decision": {
+          "reason": "Exp-002 achieved the highest measured validation AUPRC, 0.49996624477340684, improving on exp-001 by 0.016977626393410494 and exceeding the predeclared 0.4879886184 success threshold. Freeze exp-002; no test evaluation is authorized in this loop.",
+          "decision": "KEEP",
+          "learning": "For full-input XGBoost under the fixed 2019 validation protocol, reducing scale_pos_weight from automatic 12.248826291079812 to 1.5 improved validation AUPRC, F1, balanced accuracy, Brier score, and top-k precision/recall, at the cost of a longer fit and larger train-validation AUPRC gap.",
+          "session_id": "launch-20260913-133047-0467",
+          "experiment_id": "exp-002",
+          "next_question": "Before any official test evaluation, assess robustness across independent validation seeds or resamples and calibrate the operating threshold without changing the frozen ranking configuration.",
+          "schema_version": 1,
+          "state_revision": 3,
+          "recommended_final_experiment_id": "exp-002"
+        }
+      },
+      "recorded_queue_item_id": "UnVuUXVldWVJdGVtOjg3MDQ5MjQ2Ng==",
+      "recorded_launch_run_id": "ban896uu",
+      "recorded_decision_run_id": "dbglscf0",
+      "recorded_state_output": {
+        "ref": "ali-amjad52114-r42/wildfire-autonomous-researcher/launch-20260913-133047-0467-state:v3",
+        "version": "v3",
+        "digest": "628e0351c372e60e675e64228be694ac",
+        "url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/artifacts/research-state/launch-20260913-133047-0467-state/v3",
+        "metadata": {
+          "status": "complete",
+          "session_id": "launch-20260913-133047-0467",
+          "state_revision": 4,
+          "benchmark_comparable": false
+        }
+      }
+    }
+  ],
+  "official_test_evaluation_performed": false
+}

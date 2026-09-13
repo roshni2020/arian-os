@@ -1,0 +1,16 @@
+wandb==0.30.0
+weave==0.53.9
+scikit-learn==1.9.1
+numpy==2.5.3
+pandas==3.0.5
+pyarrow==25.0.1
+xgboost==3.4.1
+scipy==1.18.1
+matplotlib==3.11.2
+tqdm==4.70.1
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+pydantic==2.13.5
+httpx==0.28.1
+python-dotenv==1.2.3
+pytest==9.1.1

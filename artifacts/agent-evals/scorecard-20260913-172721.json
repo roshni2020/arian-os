@@ -1,0 +1,1564 @@
+{
+  "overall": {
+    "exchanges": 39,
+    "proposals": 33,
+    "contract_valid_rate": 1.0,
+    "one_change_rate": 0.9696969696969697,
+    "grounded_fraction_mean": 0.9966396376652787,
+    "decision_consistent_rate": 1.0,
+    "decisions_within_seed_noise": 5,
+    "prediction_direction_hit_rate": 0.7272727272727273,
+    "prediction_target_hit_rate": 0.696969696969697,
+    "novel_rate": 1.0,
+    "judge_falsifiable_rate": null,
+    "judge_follows_rate": null
+  },
+  "per_session": {
+    "wf-20260913-162633-243a": {
+      "exchanges": 6,
+      "proposals": 5,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 1.0,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 0,
+      "prediction_direction_hit_rate": 0.8,
+      "prediction_target_hit_rate": 0.8,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "wf-20260913-150158-81be": {
+      "exchanges": 2,
+      "proposals": 1,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 0.9722222222222222,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 0,
+      "prediction_direction_hit_rate": 1.0,
+      "prediction_target_hit_rate": 1.0,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "wf-20260913-144606-5189": {
+      "exchanges": 6,
+      "proposals": 5,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 0.9935897435897436,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 2,
+      "prediction_direction_hit_rate": 0.6,
+      "prediction_target_hit_rate": 0.8,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "wf-20260913-140850-483b": {
+      "exchanges": 3,
+      "proposals": 3,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 1.0,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 0,
+      "prediction_direction_hit_rate": 1.0,
+      "prediction_target_hit_rate": 0.6666666666666666,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "launch-20260913-133047-0467": {
+      "exchanges": 2,
+      "proposals": 2,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 0.5,
+      "grounded_fraction_mean": 1.0,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 0,
+      "prediction_direction_hit_rate": 1.0,
+      "prediction_target_hit_rate": 1.0,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "wf-20260913-123756-7824": {
+      "exchanges": 3,
+      "proposals": 2,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 0.9876543209876543,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 0,
+      "prediction_direction_hit_rate": 1.0,
+      "prediction_target_hit_rate": 1.0,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "wf-20260913-104003-2c71": {
+      "exchanges": 13,
+      "proposals": 12,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 1.0,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 3,
+      "prediction_direction_hit_rate": 0.5,
+      "prediction_target_hit_rate": 0.5,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    },
+    "wf-20260913-live1": {
+      "exchanges": 4,
+      "proposals": 3,
+      "contract_valid_rate": 1.0,
+      "one_change_rate": 1.0,
+      "grounded_fraction_mean": 1.0,
+      "decision_consistent_rate": 1.0,
+      "decisions_within_seed_noise": 0,
+      "prediction_direction_hit_rate": 1.0,
+      "prediction_target_hit_rate": 0.6666666666666666,
+      "novel_rate": 1.0,
+      "judge_falsifiable_rate": null,
+      "judge_follows_rate": null
+    }
+  },
+  "rows": [
+    {
+      "id": "wf-20260913-162633-243a-r1-proposal",
+      "session_id": "wf-20260913-162633-243a",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "model logistic_regression -> xgboost"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 13,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.21,
+        "target_hit": true,
+        "measured": 0.21468464685067154
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-162633-243a-r3-proposal",
+      "session_id": "wf-20260913-162633-243a",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> metadata_fuel"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 21,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.030513970446672756,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.225,
+        "target_hit": true,
+        "measured": 0.2661591899474143
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-162633-243a-r4-proposal",
+      "session_id": "wf-20260913-162633-243a",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "max_depth 4 -> 3"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 32,
+        "ungrounded": [],
+        "derived": 3
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.051474543096742736,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.2662,
+        "target_hit": false,
+        "measured": 0.25921648753435617
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-162633-243a-r5-proposal",
+      "session_id": "wf-20260913-162633-243a",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata_fuel -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 23,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": -0.0069427024130581105,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.2662,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-162633-243a-r6-proposal",
+      "session_id": "wf-20260913-162633-243a",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "min_child_weight 1.0 -> 5.0"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 31,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.21682942843258207,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.483,
+        "target_hit": true,
+        "measured": 0.4881099197981755
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-162633-243a-r8-decision",
+      "session_id": "wf-20260913-162633-243a",
+      "kind": "decision",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": null,
+        "changes": null,
+        "changed": null
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 19,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.005121301418179125,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": null,
+        "target": null,
+        "target_hit": null
+      },
+      "novelty": {
+        "novel": null
+      }
+    },
+    {
+      "id": "wf-20260913-150158-81be-r1-proposal",
+      "session_id": "wf-20260913-150158-81be",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 12,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.2142,
+        "target_hit": true,
+        "measured": 0.39721230867438967
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-150158-81be-r2-decision",
+      "session_id": "wf-20260913-150158-81be",
+      "kind": "decision",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": null,
+        "changes": null,
+        "changed": null
+      },
+      "grounded": {
+        "grounded_fraction": 0.9444444444444444,
+        "cited": 18,
+        "ungrounded": [
+          "0.533"
+        ],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.21304163227039088,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": null,
+        "target": null,
+        "target_hit": null
+      },
+      "novelty": {
+        "novel": null
+      }
+    },
+    {
+      "id": "wf-20260913-144606-5189-r1-proposal",
+      "session_id": "wf-20260913-144606-5189",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "model logistic_regression -> xgboost"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 13,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.1842,
+        "target_hit": true,
+        "measured": 0.21468464685067154
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-144606-5189-r2-proposal",
+      "session_id": "wf-20260913-144606-5189",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 24,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.030513970446672756,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.2147,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-144606-5189-r4-proposal",
+      "session_id": "wf-20260913-144606-5189",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "min_child_weight 1.0 -> 5.0"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 24,
+        "ungrounded": [],
+        "derived": 3
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.26830397152932484,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.483,
+        "target_hit": true,
+        "measured": 0.4881099197981755
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-144606-5189-r5-proposal",
+      "session_id": "wf-20260913-144606-5189",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "min_child_weight 5.0 -> 10.0"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 0.9615384615384616,
+        "cited": 26,
+        "ungrounded": [
+          "0.010178"
+        ],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.005121301418179125,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.4881,
+        "target_hit": false,
+        "measured": 0.48626761626976894
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-144606-5189-r6-proposal",
+      "session_id": "wf-20260913-144606-5189",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "learning_rate 0.03 -> 0.02"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 27,
+        "ungrounded": [],
+        "derived": 7
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": true,
+        "delta": -0.0018423035284065303,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.005,
+        "target_hit": true,
+        "measured": 0.48640152271672743
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-144606-5189-r7-decision",
+      "session_id": "wf-20260913-144606-5189",
+      "kind": "decision",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": null,
+        "changes": null,
+        "changed": null
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 21,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": true,
+        "delta": -0.0017083970814480431,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": null,
+        "target": null,
+        "target_hit": null
+      },
+      "novelty": {
+        "novel": null
+      }
+    },
+    {
+      "id": "wf-20260913-140850-483b-r1-proposal",
+      "session_id": "wf-20260913-140850-483b",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> metadata_fuel"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 17,
+        "ungrounded": [],
+        "derived": 3
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.2,
+        "target_hit": false,
+        "measured": 0.19251235611701578
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-140850-483b-r2-proposal",
+      "session_id": "wf-20260913-140850-483b",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "model logistic_regression -> xgboost"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 20,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.008341679713016997,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.205,
+        "target_hit": true,
+        "measured": 0.2661591899474143
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-140850-483b-r3-proposal",
+      "session_id": "wf-20260913-140850-483b",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata_fuel -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 25,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.0736468338303985,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.3,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "launch-20260913-133047-0467-r1-proposal",
+      "session_id": "launch-20260913-133047-0467",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": false,
+        "changes": 2,
+        "changed": [
+          "model logistic_regression -> xgboost",
+          "features metadata -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 5,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.3841706764,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "launch-20260913-133047-0467-r2-proposal",
+      "session_id": "launch-20260913-133047-0467",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "scale_pos_weight auto -> 1.5"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 5,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.29881794197599754,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.4879886184,
+        "target_hit": true,
+        "measured": 0.49996624477340684
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-123756-7824-r1-proposal",
+      "session_id": "wf-20260913-123756-7824",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 17,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.2341706764,
+        "target_hit": true,
+        "measured": 0.39721230867438967
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-123756-7824-r2-proposal",
+      "session_id": "wf-20260913-123756-7824",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "model logistic_regression -> xgboost"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 0.962962962962963,
+        "cited": 27,
+        "ungrounded": [
+          "0.533"
+        ],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.21304163227039088,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.4272123087,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-123756-7824-r3-decision",
+      "session_id": "wf-20260913-123756-7824",
+      "kind": "decision",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": null,
+        "changes": null,
+        "changed": null
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 20,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.08577630970560668,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": null,
+        "target": null,
+        "target_hit": null
+      },
+      "novelty": {
+        "novel": null
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r1-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 15,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.2,
+        "target_hit": true,
+        "measured": 0.39721230867438967
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r2-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "model logistic_regression -> xgboost"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 25,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.21304163227039088,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.39721,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r3-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "max_depth 4 -> 3"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 27,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.08577630970560668,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.48299,
+        "target_hit": true,
+        "measured": 0.4867164182493074
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r4-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "max_depth 3 -> 2"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 23,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.0037277998693110437,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.48672,
+        "target_hit": false,
+        "measured": 0.47545780253976233
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r5-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "min_child_weight 1.0 -> 3.0"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 20,
+        "ungrounded": [],
+        "derived": 4
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": -0.011258615709545061,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.48672,
+        "target_hit": false,
+        "measured": 0.48490062155040536
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r6-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "colsample_bytree 0.8 -> 0.6"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 20,
+        "ungrounded": [],
+        "derived": 3
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": true,
+        "delta": -0.001815796698902028,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.48672,
+        "target_hit": false,
+        "measured": 0.4829902920359153
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r7-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features all -> all_without_access"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 21,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": -0.003726126213392078,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.48672,
+        "target_hit": false,
+        "measured": 0.47685191594833337
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r8-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "learning_rate 0.03 -> 0.02"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 21,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": -0.00986450230097402,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.48672,
+        "target_hit": false,
+        "measured": 0.47533336952169
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r10-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "scale_pos_weight auto -> 6.0"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 27,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": -0.011383048727617417,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.48672,
+        "target_hit": true,
+        "measured": 0.4877548636535849
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r11-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "scale_pos_weight 6.0 -> 3.0"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 21,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": true,
+        "delta": 0.0010384454042774993,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.48775,
+        "target_hit": true,
+        "measured": 0.49231556682937727
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r12-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "scale_pos_weight 3.0 -> 1.5"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 33,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.00456070317579238,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.49232,
+        "target_hit": true,
+        "measured": 0.49937024991292484
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r13-proposal",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "scale_pos_weight 1.5 -> 0.75"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 32,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.007054683083547564,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": false,
+        "target": 0.49937,
+        "target_hit": false,
+        "measured": 0.4980376700905653
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-104003-2c71-r14-decision",
+      "session_id": "wf-20260913-104003-2c71",
+      "kind": "decision",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": null,
+        "changes": null,
+        "changed": null
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 24,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": true,
+        "delta": -0.0013325798223595142,
+        "decision": "REJECT"
+      },
+      "prediction": {
+        "direction_hit": null,
+        "target": null,
+        "target_hit": null
+      },
+      "novelty": {
+        "novel": null
+      }
+    },
+    {
+      "id": "wf-20260913-live1-r1-proposal",
+      "session_id": "wf-20260913-live1",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "features metadata -> all"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 12,
+        "ungrounded": [],
+        "derived": 1
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": null,
+        "delta": null,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.22,
+        "target_hit": true,
+        "measured": 0.39721230867438967
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-live1-r2-proposal",
+      "session_id": "wf-20260913-live1",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "model logistic_regression -> xgboost"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 31,
+        "ungrounded": [],
+        "derived": 0
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.21304163227039088,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.43,
+        "target_hit": true,
+        "measured": 0.48298861837999635
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-live1-r3-proposal",
+      "session_id": "wf-20260913-live1",
+      "kind": "proposal",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": true,
+        "changes": 1,
+        "changed": [
+          "max_depth 4 -> 3"
+        ]
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 28,
+        "ungrounded": [],
+        "derived": 3
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.08577630970560668,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": true,
+        "target": 0.49,
+        "target_hit": false,
+        "measured": 0.4867164182493074
+      },
+      "novelty": {
+        "novel": true
+      }
+    },
+    {
+      "id": "wf-20260913-live1-r4-decision",
+      "session_id": "wf-20260913-live1",
+      "kind": "decision",
+      "contract": {
+        "valid": true,
+        "code": null
+      },
+      "one_change": {
+        "one_change": null,
+        "changes": null,
+        "changed": null
+      },
+      "grounded": {
+        "grounded_fraction": 1.0,
+        "cited": 23,
+        "ungrounded": [],
+        "derived": 2
+      },
+      "decision": {
+        "consistent": true,
+        "within_noise": false,
+        "delta": 0.0037277998693110437,
+        "decision": "KEEP"
+      },
+      "prediction": {
+        "direction_hit": null,
+        "target": null,
+        "target_hit": null
+      },
+      "novelty": {
+        "novel": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap">
+  <style>
+    body { margin: 0; background: #f4f1ea; color: #2b2a26; font-family: "Patrick Hand", "Segoe Print", "Comic Sans MS", cursive; }
+    a { color: #2b2a26; } a:hover { color: #000; }
+    .box { border: 2px solid #2b2a26; border-radius: 3px; }
+    .grey { background: repeating-linear-gradient(135deg, #e6e1d6 0 4px, #f4f1ea 4px 8px); }
+  </style>
+</helmet>
+<div style="width: 720px; height: 640px; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 14px; background: #f4f1ea;">
+  <div style="display: flex; align-items: baseline; justify-content: space-between;">
+    <span style="font-size: 22px;">Direction B · Lab journal</span>
+    <span style="font-size: 14px; color: #6b675e;">light paper · serif headline · narrative first</span>
+  </div>
+  <div style="display: flex; gap: 14px; flex-grow: 1;">
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 420px;">
+      <div class="box" style="padding: 10px; font-size: 20px; line-height: 1.1;">Can an AI agent beat the wildfire escape benchmark?</div>
+      <div style="font-size: 13px; color: #6b675e;">running journal, one entry per experiment, ARIA's words as the body text</div>
+      <div class="box" style="padding: 10px; display: flex; flex-direction: column; gap: 6px; flex-grow: 1;">
+        <div style="display: flex; justify-content: space-between; font-size: 14px;"><span>Entry 3 · max_depth 4 → 3</span><span>48.7% · KEEP</span></div>
+        <div class="grey" style="height: 12px; width: 92%;"></div>
+        <div class="grey" style="height: 12px; width: 85%;"></div>
+        <div class="grey" style="height: 12px; width: 88%;"></div>
+        <div style="height: 8px;"></div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px;"><span>Entry 2 · logreg → xgboost</span><span>48.3% · KEEP</span></div>
+        <div class="grey" style="height: 12px; width: 90%;"></div>
+        <div class="grey" style="height: 12px; width: 78%;"></div>
+        <div style="height: 8px;"></div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px;"><span>Entry 1 · metadata → all</span><span>39.7% · KEEP</span></div>
+        <div class="grey" style="height: 12px; width: 84%;"></div>
+        <div class="grey" style="height: 12px; width: 70%;"></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+      <div class="box" style="padding: 10px; display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+        <span>margin numbers</span>
+        <span style="font-size: 26px;">54.1% <span style="font-size: 13px; color: #6b675e;">test · ours</span></span>
+        <span style="font-size: 18px;">53.3% <span style="font-size: 13px; color: #6b675e;">test · published</span></span>
+      </div>
+      <div class="box" style="padding: 10px; height: 150px; display: flex; flex-direction: column; justify-content: flex-end;">
+        <svg width="100%" height="110" viewBox="0 0 220 110"><path d="M10,95 L75,55 L140,30 L205,28" fill="none" stroke="#2b2a26" stroke-width="2"></path><line x1="10" x2="210" y1="20" y2="20" stroke="#2b2a26" stroke-dasharray="4 4"></line><circle cx="10" cy="95" r="4" fill="#2b2a26"></circle><circle cx="75" cy="55" r="4" fill="#2b2a26"></circle><circle cx="140" cy="30" r="4" fill="#2b2a26"></circle><circle cx="205" cy="28" r="4" fill="#2b2a26"></circle></svg>
+        <span style="font-size: 12px; color: #6b675e;">small inline chart, no chrome</span>
+      </div>
+      <div class="box" style="padding: 10px; flex-grow: 1; font-size: 14px; display: flex; flex-direction: column; gap: 6px;">
+        <span>footnotes</span>
+        <div class="grey" style="height: 10px; width: 95%;"></div>
+        <div class="grey" style="height: 10px; width: 80%;"></div>
+        <div class="grey" style="height: 10px; width: 88%;"></div>
+      </div>
+    </div>
+  </div>
+  <div style="font-size: 14px; color: #6b675e; line-height: 1.35;">Why: reads like the paper it argues with; ARIA's reasoning becomes the product. Trade-off: loses the live instrument feel, weaker on a projector.</div>
+</div>
+</x-dc>
+</body>
+</html>

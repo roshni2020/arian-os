@@ -1,0 +1,11 @@
+{
+  "reason": "Exp-002 achieved the highest measured validation AUPRC, 0.49996624477340684, improving on exp-001 by 0.016977626393410494 and exceeding the predeclared 0.4879886184 success threshold. Freeze exp-002; no test evaluation is authorized in this loop.",
+  "decision": "KEEP",
+  "learning": "For full-input XGBoost under the fixed 2019 validation protocol, reducing scale_pos_weight from automatic 12.248826291079812 to 1.5 improved validation AUPRC, F1, balanced accuracy, Brier score, and top-k precision/recall, at the cost of a longer fit and larger train-validation AUPRC gap.",
+  "session_id": "launch-20260913-133047-0467",
+  "experiment_id": "exp-002",
+  "next_question": "Before any official test evaluation, assess robustness across independent validation seeds or resamples and calibrate the operating threshold without changing the frozen ranking configuration.",
+  "schema_version": 1,
+  "state_revision": 3,
+  "recommended_final_experiment_id": "exp-002"
+}

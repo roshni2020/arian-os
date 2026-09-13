@@ -1,0 +1,3 @@
+wandb==0.30.0
+weave==0.53.9
+scikit-learn==1.9.1

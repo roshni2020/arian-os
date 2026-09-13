@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; background: #f4f1ea; color: #2b2a26; font-family: "Newsreader", Georgia, "Times New Roman", serif; -webkit-font-smoothing: antialiased; }
+    a { color: #2b7686; text-decoration: none; border-bottom: 1px solid #b9cdd2; } a:hover { color: #1f5a67; border-bottom-color: #1f5a67; }
+    .ui { font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+    .cap { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b675e; font-weight: 500; }
+    .rule { height: 1px; background: #d9d3c5; }
+    .runin { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; color: #a2552b; margin-right: 8px; }
+    p { margin: 0; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; min-height: 2140px; box-sizing: border-box; background: #f4f1ea; padding: 0 0 48px 0; display: flex; flex-direction: column;">
+
+  <!-- Masthead -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 22px 64px 18px 64px; border-bottom: 1px solid #2b2a26;">
+    <div style="display: flex; align-items: baseline; gap: 16px;">
+      <span class="cap" style="color: #2b2a26;">ARIA Researcher</span>
+      <span class="cap">Lab journal · WildfireIA initial-attack failure</span>
+    </div>
+    <div class="ui" style="display: flex; align-items: center; gap: 18px; font-size: 13px; color: #6b675e;">
+      <span class="mono" style="color: #2b2a26;">wf-20260913-live1</span>
+      <span>13 Sep 2026 · 10:16–10:33 UTC</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid #2b2a26; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; color: #2b2a26;">RECORDED RUN</span>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="ui" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 64px; border-bottom: 1px solid #d9d3c5; font-size: 13px;">
+    <div style="display: flex; align-items: center; gap: 22px;">
+      <a href="#" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: #2b2a26; color: #f4f1ea; border: 0; border-radius: 2px; font-weight: 500;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#f4f1ea" stroke="none"><path d="M6 4l14 8-14 8z"></path></svg>
+        Start autonomous research
+      </a>
+      <span style="display: inline-flex; align-items: center; gap: 8px; color: #6b675e;">budget <span class="mono" style="color: #2b2a26; border-bottom: 1px solid #2b2a26; padding: 0 4px;">3</span></span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; color: #6b675e;">ARIA <span style="color: #2b2a26; border-bottom: 1px solid #2b2a26; padding: 0 4px;">connected</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b675e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+      </span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 22px;">
+      <span style="display: inline-flex; align-items: center; gap: 8px; color: #6b675e;">session <span class="mono" style="color: #2b2a26;">wf-20260913-live1 · complete</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b675e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+      </span>
+      <a href="#" style="border: 0;">Replay stored run</a>
+      <a href="#" style="border: 0;">Import replay</a>
+    </div>
+  </div>
+
+  <!-- Body: journal + margin -->
+  <div style="display: grid; grid-template-columns: 860px 1fr; gap: 72px; padding: 44px 64px 0 64px;">
+
+    <!-- Journal column -->
+    <div style="display: flex; flex-direction: column; gap: 0;">
+      <span class="cap">Entry 0 → 3 · three experiments chosen by ARIA · one fixed baseline</span>
+      <h1 style="margin: 12px 0 0 0; font-size: 46px; line-height: 1.08; font-weight: 500; letter-spacing: -0.015em; text-wrap: pretty;">Can an AI agent beat the published wildfire escape benchmark?</h1>
+      <p style="margin-top: 14px; font-size: 19px; line-height: 1.5; font-style: italic; color: #6b675e; max-width: 760px;">ARIA chose every hypothesis, experiment and KEEP/REJECT decision. This journal records what it observed, what it tried, what it measured and what it concluded, in its own words. The console never picks an experiment.</p>
+
+      <div class="rule" style="margin: 32px 0 0 0;"></div>
+
+      <!-- Entry 3 -->
+      <div style="display: grid; grid-template-columns: 128px 1fr; gap: 28px; padding: 28px 0 32px 0; border-bottom: 1px solid #d9d3c5;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span class="cap" style="color: #2b2a26;">Entry 3</span>
+          <span class="mono" style="font-size: 12px; color: #6b675e;">10:24:13</span>
+          <span class="mono" style="font-size: 30px; line-height: 1; margin-top: 8px; color: #2b2a26;">48.7<span style="font-size: 16px;">%</span></span>
+          <span class="mono" style="font-size: 12px; color: #2b7686;">+0.4 pts</span>
+          <span class="ui" style="display: inline-block; margin-top: 10px; padding: 3px 8px; border: 1.5px solid #2b7686; color: #2b7686; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; font-weight: 600; width: fit-content;">KEEP · FROZEN</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <h2 style="margin: 0; font-size: 26px; font-weight: 500; line-height: 1.2;">max_depth 4 → 3 <span style="font-style: italic; color: #6b675e; font-weight: 400;">on the full-input XGBoost</span></h2>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Observed</span>Exp-002 improved validation AUPRC from 0.3972 to 0.4830 and cut false negatives from 262 to 235, but train AUPRC 0.7269 versus validation 0.4830 leaves a 0.2439 gap. The model stopped at iteration 459 of 1000, so estimator capacity is not the limiting factor; the remaining gap motivates lower tree complexity.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Hypothesis</span>Keeping the full feature protocol, five-day weather window and all other XGBoost settings fixed while reducing max_depth from 4 to 3 will reduce overfitting and raise validation AUPRC above 0.4830.</p>
+          <p class="mono" style="font-size: 12.5px; line-height: 1.7; color: #6b675e; padding: 10px 14px; background: #ece7db; border-radius: 2px;">xgboost · all · weather_days 5 · max_depth 3 · learning_rate 0.03 · n_estimators 1000 · subsample 0.8 · colsample_bytree 0.8 · scale_pos_weight auto · seed 553371 · 105 s</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Measured</span>Validation AUPRC 0.4867, up 0.0037 on the best. AUROC 0.8869. False negatives fell from 235 to 208 of 428 escapes; false positives rose from 211 to 299. Train–validation gap narrowed from 0.244 to 0.173.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Decided</span>KEEP as the final frozen configuration: the numeric validation winner. The gain is smaller than the aspirational 0.490 target but positive under the official selection metric, and no budget remains. The precision and calibration trade-off is threshold-dependent and does not overturn the AUPRC criterion.</p>
+          <p style="font-size: 16px; line-height: 1.6; font-style: italic; color: #6b675e;"><span class="runin" style="font-style: normal;">Next</span>After freezing exp-003 without further tuning, what AUPRC does it achieve on the sealed 2020 test year, and how does that one-time result compare with the published 0.533?</p>
+          <div class="ui" style="display: flex; gap: 18px; font-size: 12px; margin-top: 4px;"><a href="#">W&amp;B run</a><a href="#">Weave trace</a><a href="#">Proposal artifact r3</a><a href="#">Error breakdown</a></div>
+        </div>
+      </div>
+
+      <!-- Entry 2 -->
+      <div style="display: grid; grid-template-columns: 128px 1fr; gap: 28px; padding: 28px 0 32px 0; border-bottom: 1px solid #d9d3c5;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span class="cap" style="color: #2b2a26;">Entry 2</span>
+          <span class="mono" style="font-size: 12px; color: #6b675e;">10:21:06</span>
+          <span class="mono" style="font-size: 30px; line-height: 1; margin-top: 8px; color: #2b2a26;">48.3<span style="font-size: 16px;">%</span></span>
+          <span class="mono" style="font-size: 12px; color: #2b7686;">+8.6 pts</span>
+          <span class="ui" style="display: inline-block; margin-top: 10px; padding: 3px 8px; border: 1.5px solid #2b7686; color: #2b7686; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; font-weight: 600; width: fit-content;">KEEP</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <h2 style="margin: 0; font-size: 26px; font-weight: 500; line-height: 1.2;">Logistic regression → XGBoost <span style="font-style: italic; color: #6b675e; font-weight: 400;">same inputs, official bounded config</span></h2>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Observed</span>Full-feature logistic regression reached 0.3972 but still misses 262 of 428 validation positives, with a train–validation gap of 0.7213 versus 0.3972. The linear form, not the inputs, looks like the limit.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Hypothesis</span>Keeping the full feature protocol and five weather days fixed while replacing logistic regression with the official bounded XGBoost configuration will capture nonlinear interactions among weather, VIIRS, fuel, vegetation and location and raise validation AUPRC to at least 0.430.</p>
+          <p class="mono" style="font-size: 12.5px; line-height: 1.7; color: #6b675e; padding: 10px 14px; background: #ece7db; border-radius: 2px;">xgboost · all · weather_days 5 · max_depth 4 · learning_rate 0.03 · n_estimators 1000 · early stopping 50 · seed 553371 · 84 s</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Measured</span>Validation AUPRC 0.4830, up 0.0858. AUROC 0.8384 → 0.8864. False negatives 262 → 235, false positives 240 → 211. VIIRS-match recall 0.80 → 0.91.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Decided</span>KEEP. The nonlinear model extracts materially more ranking signal from the same discovery-time inputs. Train AUPRC 0.7269 against validation 0.4830 leaves a 0.2439 gap, so tree complexity is the highest-value single variable next.</p>
+          <div class="ui" style="display: flex; gap: 18px; font-size: 12px; margin-top: 4px;"><a href="#">W&amp;B run</a><a href="#">Weave trace</a><a href="#">Proposal artifact r2</a><a href="#">Error breakdown</a></div>
+        </div>
+      </div>
+
+      <!-- Entry 1 -->
+      <div style="display: grid; grid-template-columns: 128px 1fr; gap: 28px; padding: 28px 0 32px 0; border-bottom: 1px solid #d9d3c5;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span class="cap" style="color: #2b2a26;">Entry 1</span>
+          <span class="mono" style="font-size: 12px; color: #6b675e;">10:18:17</span>
+          <span class="mono" style="font-size: 30px; line-height: 1; margin-top: 8px; color: #2b2a26;">39.7<span style="font-size: 16px;">%</span></span>
+          <span class="mono" style="font-size: 12px; color: #2b7686;">+21.3 pts</span>
+          <span class="ui" style="display: inline-block; margin-top: 10px; padding: 3px 8px; border: 1.5px solid #2b7686; color: #2b7686; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; font-weight: 600; width: fit-content;">KEEP</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <h2 style="margin: 0; font-size: 26px; font-weight: 500; line-height: 1.2;">Features metadata → all <span style="font-style: italic; color: #6b675e; font-weight: 400;">every discovery-time source, model unchanged</span></h2>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Observed</span>The metadata-only baseline misses 269 of 428 escapes, with errors concentrated in high-fire-danger and VIIRS-matched positives. Its strongest coefficients are county indicators, which suggests it is leaning on location rather than conditions.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Hypothesis</span>Changing only the feature protocol from metadata to all will raise validation AUPRC above 0.220 by adding weather and fire danger, VIIRS, fuel, vegetation, topography, access and population signals available at discovery.</p>
+          <p class="mono" style="font-size: 12.5px; line-height: 1.7; color: #6b675e; padding: 10px 14px; background: #ece7db; border-radius: 2px;">logistic_regression · all · weather_days 5 · C 1.0 · class_weight balanced · 6,029 features · seed 553371 · 17 s</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Measured</span>Validation AUPRC 0.3972, up 0.2130 and past the 0.220 target. Q4-high ERC false negatives 119 → 99; VIIRS-match false negatives 68 → 19; false positives 638 → 240.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Decided</span>KEEP. The official full input adds strong ranking signal beyond metadata, especially for VIIRS-matched fires, but the linear model still leaves a large gap and 262 misses, so model form is the next question.</p>
+          <div class="ui" style="display: flex; gap: 18px; font-size: 12px; margin-top: 4px;"><a href="#">W&amp;B run</a><a href="#">Weave trace</a><a href="#">Proposal artifact r1</a><a href="#">Error breakdown</a></div>
+        </div>
+      </div>
+
+      <!-- Entry 0 -->
+      <div style="display: grid; grid-template-columns: 128px 1fr; gap: 28px; padding: 28px 0 32px 0;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span class="cap" style="color: #2b2a26;">Entry 0</span>
+          <span class="mono" style="font-size: 12px; color: #6b675e;">10:16:52</span>
+          <span class="mono" style="font-size: 30px; line-height: 1; margin-top: 8px; color: #2b2a26;">18.4<span style="font-size: 16px;">%</span></span>
+          <span class="mono" style="font-size: 12px; color: #6b675e;">baseline</span>
+          <span class="ui" style="display: inline-block; margin-top: 10px; padding: 3px 8px; border: 1.5px solid #6b675e; color: #6b675e; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; font-weight: 600; width: fit-content;">REFERENCE</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <h2 style="margin: 0; font-size: 26px; font-weight: 500; line-height: 1.2;">Metadata-only logistic regression <span style="font-style: italic; color: #6b675e; font-weight: 400;">fixed starting point, not chosen by ARIA</span></h2>
+          <p class="mono" style="font-size: 12.5px; line-height: 1.7; color: #6b675e; padding: 10px 14px; background: #ece7db; border-radius: 2px;">logistic_regression · metadata · C 1.0 · class_weight balanced · 1,386 features · seed 553371 · 2 s</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Measured</span>Validation AUPRC 0.1842 on the official 2019 year. 269 of 428 escapes missed at the best-F1 threshold, 638 false alarms.</p>
+          <p style="font-size: 16px; line-height: 1.6;"><span class="runin">Decided</span>KEEP as the reference. It provides the baseline error profile needed to measure later gains; it is not a competitive candidate.</p>
+          <div class="ui" style="display: flex; gap: 18px; font-size: 12px; margin-top: 4px;"><a href="#">W&amp;B run</a><a href="#">Weave trace</a><a href="#">Error breakdown</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Margin column -->
+    <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px;">
+
+      <span class="cap">Margin numbers</span>
+      <div style="display: flex; flex-direction: column; gap: 0; margin-top: 12px; border-top: 1px solid #2b2a26;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #d9d3c5;">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span class="mono" style="font-size: 40px; line-height: 1; color: #2b2a26;">54.13<span style="font-size: 18px;">%</span></span>
+            <span class="cap" style="margin-top: 6px;">Ours · official test 2020</span>
+          </div>
+          <span class="ui" style="font-size: 12px; color: #6b675e; text-align: right; max-width: 150px; line-height: 1.4;">frozen exp-003<br>5 seeds · ±0.24 pts</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #d9d3c5;">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span class="mono" style="font-size: 28px; line-height: 1; color: #a2552b;">53.3<span style="font-size: 14px;">%</span></span>
+            <span class="cap" style="margin-top: 6px;">Published · test 2020</span>
+          </div>
+          <span class="ui" style="font-size: 12px; color: #6b675e; text-align: right; max-width: 150px; line-height: 1.4;">LabRAI/WildfireIA<br>XGBoost full input · 5 seeds</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #d9d3c5;">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span class="mono" style="font-size: 28px; line-height: 1; color: #2b7686;">+0.83<span style="font-size: 14px;"> pts</span></span>
+            <span class="cap" style="margin-top: 6px;">Recorded above reference</span>
+          </div>
+          <span class="ui" style="font-size: 12px; color: #6b675e; text-align: right; max-width: 150px; line-height: 1.4;">not a certified claim<br>see footnotes 1–3</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #d9d3c5;">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span class="mono" style="font-size: 22px; line-height: 1; color: #2b2a26;">18.4 → 48.7<span style="font-size: 12px;">%</span></span>
+            <span class="cap" style="margin-top: 6px;">Validation 2019 · baseline → best</span>
+          </div>
+          <span class="ui" style="font-size: 12px; color: #6b675e; text-align: right; max-width: 150px; line-height: 1.4;">selection metric<br>never compared with 53.3</span>
+        </div>
+      </div>
+
+      <!-- Inline chart -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 28px;">
+        <span class="cap">Trajectory · validation AUPRC per entry</span>
+        <svg width="100%" viewBox="0 0 380 170" style="display: block;" role="img" aria-label="Validation AUPRC per experiment with published and official test references">
+          <line x1="8" x2="372" y1="150" y2="150" stroke="#d9d3c5"></line>
+          <line x1="8" x2="372" y1="29" y2="29" stroke="#a2552b" stroke-width="1.25" stroke-dasharray="4 4"></line>
+          <text x="372" y="24" text-anchor="end" font-size="10" fill="#a2552b" font-family="IBM Plex Sans, system-ui, sans-serif">53.3 published · test</text>
+          <line x1="8" x2="372" y1="26.5" y2="26.5" stroke="#2b7686" stroke-width="1.25"></line>
+          <text x="8" y="20" text-anchor="start" font-size="10" fill="#2b7686" font-family="IBM Plex Sans, system-ui, sans-serif">54.1 ours · test</text>
+          <path d="M40,116.5 L140,77.5 L240,62 L340,61.5" fill="none" stroke="#2b2a26" stroke-width="1.75"></path>
+          <circle cx="40" cy="116.5" r="4" fill="#f4f1ea" stroke="#2b2a26" stroke-width="1.75"></circle>
+          <circle cx="140" cy="77.5" r="4" fill="#f4f1ea" stroke="#2b2a26" stroke-width="1.75"></circle>
+          <circle cx="240" cy="62" r="4" fill="#f4f1ea" stroke="#2b2a26" stroke-width="1.75"></circle>
+          <circle cx="340" cy="61.5" r="4.5" fill="#2b7686" stroke="#2b7686" stroke-width="1.75"></circle>
+          <text x="40" y="134" text-anchor="middle" font-size="10.5" fill="#2b2a26" font-family="IBM Plex Mono, ui-monospace, monospace">18.4</text>
+          <text x="140" y="95" text-anchor="middle" font-size="10.5" fill="#2b2a26" font-family="IBM Plex Mono, ui-monospace, monospace">39.7</text>
+          <text x="240" y="80" text-anchor="middle" font-size="10.5" fill="#2b2a26" font-family="IBM Plex Mono, ui-monospace, monospace">48.3</text>
+          <text x="340" y="80" text-anchor="middle" font-size="10.5" fill="#2b2a26" font-family="IBM Plex Mono, ui-monospace, monospace">48.7</text>
+          <text x="40" y="165" text-anchor="middle" font-size="10" fill="#6b675e" font-family="IBM Plex Sans, system-ui, sans-serif">0 · baseline</text>
+          <text x="140" y="165" text-anchor="middle" font-size="10" fill="#6b675e" font-family="IBM Plex Sans, system-ui, sans-serif">1 · all features</text>
+          <text x="240" y="165" text-anchor="middle" font-size="10" fill="#6b675e" font-family="IBM Plex Sans, system-ui, sans-serif">2 · xgboost</text>
+          <text x="340" y="165" text-anchor="middle" font-size="10" fill="#6b675e" font-family="IBM Plex Sans, system-ui, sans-serif">3 · depth 3</text>
+        </svg>
+      </div>
+
+      <!-- Final evaluation seeds -->
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 28px; padding-top: 16px; border-top: 1px solid #2b2a26;">
+        <span class="cap">Official final evaluation · sealed 2020 · run once</span>
+        <div class="mono" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; font-size: 12px;">
+          <div style="display: flex; flex-direction: column; gap: 3px;"><span style="color: #2b2a26;">54.52</span><span style="font-size: 10px; color: #6b675e;">553371</span></div>
+          <div style="display: flex; flex-direction: column; gap: 3px;"><span style="color: #2b2a26;">54.21</span><span style="font-size: 10px; color: #6b675e;">553372</span></div>
+          <div style="display: flex; flex-direction: column; gap: 3px;"><span style="color: #2b2a26;">53.98</span><span style="font-size: 10px; color: #6b675e;">553373</span></div>
+          <div style="display: flex; flex-direction: column; gap: 3px;"><span style="color: #2b2a26;">54.04</span><span style="font-size: 10px; color: #6b675e;">553374</span></div>
+          <div style="display: flex; flex-direction: column; gap: 3px;"><span style="color: #2b2a26;">53.92</span><span style="font-size: 10px; color: #6b675e;">553375</span></div>
+        </div>
+        <p class="ui" style="font-size: 12px; line-height: 1.5; color: #6b675e;">Mean 54.13, sample std 0.24 pts. Trained on 2016–18, early stopping on 2019, scored on 2020 with the official metric code. <a href="#">Final-evaluation run</a></p>
+      </div>
+
+      <!-- Footnotes -->
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 28px; padding-top: 16px; border-top: 1px solid #2b2a26;">
+        <span class="cap">Footnotes</span>
+        <p class="ui" style="font-size: 12px; line-height: 1.55; color: #2b2a26;"><span class="mono" style="color: #6b675e;">1</span>&nbsp; The paper's five seeds are unpublished. These five are ours; seed-to-seed spread is ±0.24 pts against a 0.83 pt margin.</p>
+        <p class="ui" style="font-size: 12px; line-height: 1.55; color: #2b2a26;"><span class="mono" style="color: #6b675e;">2</span>&nbsp; The official script silently drops early stopping on xgboost 3.x. Our runner keeps the intended 50-round stop.</p>
+        <p class="ui" style="font-size: 12px; line-height: 1.55; color: #2b2a26;"><span class="mono" style="color: #6b675e;">3</span>&nbsp; This test result was disclosed before session 2 began. Neither session is a fully untouched confirmatory evaluation.</p>
+        <p class="ui" style="font-size: 12px; line-height: 1.55; color: #2b2a26;"><span class="mono" style="color: #6b675e;">4</span>&nbsp; ARIA's reasoning runs in W&amp;B's environment and is not traced. Observations, hypotheses and decisions above are its received outputs, verbatim.</p>
+      </div>
+
+      <!-- Dataset -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 28px; padding-top: 16px; border-top: 1px solid #2b2a26;">
+        <span class="cap">Dataset · WildfireIA</span>
+        <p class="ui" style="font-size: 12px; line-height: 1.55; color: #2b2a26;">38,128 natural-cause events, 2016–2020; 35,791 labelled (10–50 ha excluded). Train 22,576 · validation 7,047 · test 6,168. Escapes 7.5% · 6.1% · 8.3%.</p>
+        <p class="ui" style="font-size: 12px; line-height: 1.55; color: #6b675e;">Inputs available on discovery day only: FPA-FOD metadata, VIIRS detections, gridMET weather and fire danger, LANDFIRE fuel and vegetation, topography, OSM access, WorldPop population. Final size, containment time and MTBS ids are removed by the official loader.</p>
+        <p class="mono" style="font-size: 11px; color: #6b675e;">repo aba9be9e · dataset cd1fcad8</p>
+      </div>
+
+      <div class="ui" style="display: flex; gap: 16px; font-size: 12px; margin-top: 24px;"><a href="#">W&amp;B project</a><a href="#">Weave traces</a><a href="#">Automation history</a></div>
+    </div>
+  </div>
+
+  <div style="margin: 40px 64px 0 64px; padding-top: 14px; border-top: 1px solid #2b2a26; display: flex; justify-content: space-between;">
+    <span class="ui" style="font-size: 12px; color: #6b675e;">Research prototype using historical public data. Not for operational wildfire response.</span>
+    <span class="cap">CoreWeave × Weights &amp; Biases · Agent Loops</span>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

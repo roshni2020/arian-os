@@ -1,0 +1,150 @@
+{
+  "score_kind": "OFFICIAL_TEST_AUPRC",
+  "experiment_id": "exp-011",
+  "experiment": {
+    "model": "xgboost",
+    "feature_protocol": "all",
+    "weather_days": 5,
+    "hyperparameters": {
+      "colsample_bytree": 0.8,
+      "gamma": 0.0,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_child_weight": 1.0,
+      "n_estimators": 1000,
+      "reg_alpha": 0.0,
+      "reg_lambda": 1.0,
+      "scale_pos_weight": 1.5,
+      "subsample": 0.8
+    }
+  },
+  "seeds": [
+    553371,
+    553372,
+    553373,
+    553374,
+    553375
+  ],
+  "per_seed": [
+    {
+      "seed": 553371,
+      "val_auprc": 0.49937024991292484,
+      "test_auprc": 0.5445824086514173,
+      "test_auroc": 0.8800223370096327,
+      "test_f1": 0.48665955176093917,
+      "test_precision": 0.5377358490566038,
+      "test_recall": 0.4444444444444444,
+      "test_recall_at_5": 0.3840155945419103,
+      "threshold_from_val": 0.34,
+      "fit_notes": {
+        "scale_pos_weight_effective": 1.5,
+        "best_iteration": 862,
+        "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+      }
+    },
+    {
+      "seed": 553372,
+      "val_auprc": 0.4953738408379257,
+      "test_auprc": 0.5433908431607719,
+      "test_auroc": 0.8793225819239129,
+      "test_f1": 0.49195837275307475,
+      "test_precision": 0.47794117647058826,
+      "test_recall": 0.50682261208577,
+      "test_recall_at_5": 0.3820662768031189,
+      "threshold_from_val": 0.28,
+      "fit_notes": {
+        "scale_pos_weight_effective": 1.5,
+        "best_iteration": 581,
+        "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+      }
+    },
+    {
+      "seed": 553373,
+      "val_auprc": 0.4984000813231223,
+      "test_auprc": 0.5448948933194228,
+      "test_auroc": 0.87845150748962,
+      "test_f1": 0.49162011173184356,
+      "test_precision": 0.47058823529411764,
+      "test_recall": 0.5146198830409356,
+      "test_recall_at_5": 0.38791423001949316,
+      "threshold_from_val": 0.27,
+      "fit_notes": {
+        "scale_pos_weight_effective": 1.5,
+        "best_iteration": 646,
+        "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+      }
+    },
+    {
+      "seed": 553374,
+      "val_auprc": 0.49330515201598774,
+      "test_auprc": 0.5446950648115907,
+      "test_auroc": 0.8784480604202323,
+      "test_f1": 0.48523206751054854,
+      "test_precision": 0.5287356321839081,
+      "test_recall": 0.44834307992202727,
+      "test_recall_at_5": 0.38596491228070173,
+      "threshold_from_val": 0.33,
+      "fit_notes": {
+        "scale_pos_weight_effective": 1.5,
+        "best_iteration": 694,
+        "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+      }
+    },
+    {
+      "seed": 553375,
+      "val_auprc": 0.4963617048380393,
+      "test_auprc": 0.5407392589865482,
+      "test_auroc": 0.8765359710308288,
+      "test_f1": 0.48795811518324606,
+      "test_precision": 0.5271493212669683,
+      "test_recall": 0.45419103313840153,
+      "test_recall_at_5": 0.3840155945419103,
+      "threshold_from_val": 0.33,
+      "fit_notes": {
+        "scale_pos_weight_effective": 1.5,
+        "best_iteration": 856,
+        "early_stopping": "early_stopping_rounds=50 on validation aucpr (official script behaviour)"
+      }
+    }
+  ],
+  "mean_test_auprc": 0.5436604937859502,
+  "std_test_auprc": 0.001735679308469574,
+  "mean_val_auprc": 0.49656220578559995,
+  "published_test_auprc": 0.533,
+  "delta_vs_published": 0.010660493785950131,
+  "protocol_matched": true,
+  "not_comparable_reasons": [],
+  "benchmark_beaten": true,
+  "seed_note": "The official repository names seed 553371 only; the published 0.533 is a five-seed mean whose seed list is not public. These five seeds are ours.",
+  "test_size": 6168,
+  "test_positives": 513,
+  "runtime_seconds": 617.0930000000008,
+  "provenance": {
+    "repo": "https://github.com/LabRAI/WildfireIA",
+    "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+    "local_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+    "dataset": "WildfireIA/Anonymous-WildfireIA",
+    "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+    "task": "ia_failure",
+    "representation": "tabular",
+    "split_years": {
+      "train": [
+        2016,
+        2017,
+        2018
+      ],
+      "val": [
+        2019
+      ],
+      "test": [
+        2020
+      ]
+    },
+    "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+    "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+    "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+    "published_test_auprc": 0.533,
+    "published_model": "xgboost, full input protocol, 5 weather days, mean over five seeds"
+  },
+  "wandb_run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/uqf6weq6"
+}

@@ -1,0 +1,17 @@
+{
+  "source_session": "wf-20260913-104003-2c71",
+  "source_experiment": "exp-011",
+  "source_run": "6f10ttcl",
+  "reconstructed": true,
+  "validation_predictions_match": true,
+  "validation_auprc": 0.49937024991292484,
+  "test_evaluated": false,
+  "dataset_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfireia-pinned-dataset:v0",
+  "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+  "model_artifact": "ali-amjad52114-r42/wildfire-autonomous-researcher/wildfireia-validation-winner:v0",
+  "model_digest": "7b78ab7220ee0412777559275b22f1c5",
+  "run_url": "https://wandb.ai/ali-amjad52114-r42/wildfire-autonomous-researcher/runs/swi7lt88",
+  "registry_status": "linked",
+  "registry_artifact": "ali-amjad52114-r42-org/wandb-registry-Wildfire Research Models/WildfireIA validation winner:validation-winner",
+  "registry_target": "ali-amjad52114-r42-org/wandb-registry-Wildfire Research Models/WildfireIA validation winner"
+}

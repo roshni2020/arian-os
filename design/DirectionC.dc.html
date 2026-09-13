@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap">
+  <style>
+    body { margin: 0; background: #f4f1ea; color: #2b2a26; font-family: "Patrick Hand", "Segoe Print", "Comic Sans MS", cursive; }
+    a { color: #2b2a26; } a:hover { color: #000; }
+    .box { border: 2px solid #2b2a26; border-radius: 3px; }
+    .grey { background: repeating-linear-gradient(135deg, #e6e1d6 0 4px, #f4f1ea 4px 8px); }
+    .ln { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: #2b2a26; }
+  </style>
+</helmet>
+<div style="width: 720px; height: 640px; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 14px; background: #f4f1ea;">
+  <div style="display: flex; align-items: baseline; justify-content: space-between;">
+    <span style="font-size: 22px;">Direction C · Mission control</span>
+    <span style="font-size: 14px; color: #6b675e;">all monospace · dense · stream on the left, state on the right</span>
+  </div>
+  <div class="box" style="display: flex; justify-content: space-between; padding: 6px 10px; font-size: 14px;">
+    <span>[LIVE] wf-20260913-live1 · r4 · budget 0/3 left</span>
+    <span>val 48.7 · test 54.1 · pub 53.3</span>
+  </div>
+  <div style="display: flex; gap: 14px; flex-grow: 1;">
+    <div class="box" style="width: 300px; padding: 8px; display: flex; flex-direction: column; gap: 4px;">
+      <span style="font-size: 14px;">event stream</span>
+      <span class="ln">10:16:52 baseline done 0.1842</span>
+      <span class="ln">10:17:59 proposal r1 valid</span>
+      <span class="ln">10:18:17 exp-001 0.3972 +.2130</span>
+      <span class="ln">10:19:40 proposal r2 valid</span>
+      <span class="ln">10:21:06 exp-002 0.4830 +.0858</span>
+      <span class="ln">10:22:27 proposal r3 valid</span>
+      <span class="ln">10:24:13 exp-003 0.4867 +.0037</span>
+      <span class="ln">10:25:20 final: freeze exp-003</span>
+      <div class="grey" style="height: 10px; width: 90%; margin-top: 4px;"></div>
+      <div class="grey" style="height: 10px; width: 70%;"></div>
+      <div class="grey" style="height: 10px; width: 80%;"></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+      <div class="box" style="padding: 8px; height: 120px; display: flex; flex-direction: column; gap: 4px;">
+        <span style="font-size: 14px;">strip chart · full width · val + test lines</span>
+        <svg width="100%" height="80" viewBox="0 0 340 80"><path d="M10,70 L110,38 L210,20 L310,18" fill="none" stroke="#2b2a26" stroke-width="2"></path><line x1="10" x2="330" y1="10" y2="10" stroke="#2b2a26" stroke-dasharray="4 4"></line></svg>
+      </div>
+      <div class="box" style="padding: 8px; flex-grow: 1; display: flex; flex-direction: column; gap: 5px; font-size: 14px;">
+        <span>ARIA state · key: value grid</span>
+        <span class="ln">observe    train/val gap .2439, stop@459</span>
+        <span class="ln">hypothesis depth 4→3 reduces overfit</span>
+        <span class="ln">experiment xgboost all w5 depth3</span>
+        <span class="ln">result     0.4867 (+0.0037) FN 208</span>
+        <span class="ln">decision   KEEP · freeze</span>
+        <span class="ln">next       one-time test on 2020</span>
+        <div class="grey" style="height: 10px; width: 85%; margin-top: 4px;"></div>
+        <div class="grey" style="height: 10px; width: 60%;"></div>
+      </div>
+      <div class="box" style="padding: 8px; font-size: 14px; display: flex; gap: 12px;">
+        <span>ledger ▸</span><span>4 rows</span><span>W&amp;B</span><span>Weave</span>
+      </div>
+    </div>
+  </div>
+  <div style="font-size: 14px; color: #6b675e; line-height: 1.35;">Why: strongest for watching a live run; every number visible at once. Trade-off: harder for a judge to grasp in 10 seconds, less room for ARIA's prose.</div>
+</div>
+</x-dc>
+</body>
+</html>

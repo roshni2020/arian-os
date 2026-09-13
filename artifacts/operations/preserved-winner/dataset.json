@@ -1,0 +1,23 @@
+{
+  "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+  "files": {
+    "fire_events_natural_2016_2020.parquet": "869527f9f04c6bb665023e7aca2afe31c485d6e8ee189f60b71b4be10f12e2b8",
+    "master_features_natural_2016_2020.parquet": "6bb504898590a0f4c1f5b87ddb73e9200466507ff7e96a2df9be050dff1e12a8",
+    "gridmet_daily_event_features_natural_2016_2020.parquet": "717f1861c53fa0e0687d1c4c90738bf28c0151e58e9861fdda368a4697934e5b",
+    "gridmet_features_natural_2016_2020.parquet": "ab2bff9a9b9fe477630d5cce4e22c6262169554ca849433069efc9babc2271eb",
+    "viirs_features_natural_2016_2020.parquet": "d8baaaa749399fa00857b62e321b61003a00f100c2d6b572c31a220dcca56e72",
+    "landfire_fuel_veg_features_natural_2016_2020.parquet": "e21b78ea29a7bb3e235aa96f47897a998dd283e8c7acb4655f11f92dadcff2e0",
+    "topography_features_natural_2016_2020.parquet": "b036b3dae6f80e667a70422c75fbe3170435ac0116520d4a5a2e27508f9f7309",
+    "osm_access_features_natural_2016_2020.parquet": "b87cd320983a70f8754175187fa53b7e092661bfcb6b668507ee87ab47b849e8",
+    "population_features_natural_2016_2020.parquet": "437c04cbc2471a538ad2597b894092d171f1a3b1edd52ce3512b56e8f472e5b2",
+    "feature_manifest_natural.json": "ce0a278d40e019db1e5fa341c3928207ff4f1b3c60365553186b23515e7799d8",
+    "label_manifest_natural.json": "6a3affdab540ed857328292c8fc4502e4088c1fe841483f2a2faf8eff16ff195",
+    "temporal_protocol_manifest_natural.json": "2ab302a2a131ff9d5928c71111c71d588ee97e4787efa924475739d2a9f207e1",
+    "event_patch_manifest_375m_natural.json": "77f4d3d737fd8bab21b5a9e7f2a1d5a92a17307e99522a21017ffbc321f871dc"
+  },
+  "repository": "WildfireIA/Anonymous-WildfireIA",
+  "source_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+  "kind": "reference-manifest",
+  "contains_raw_data": false,
+  "source_url": "https://huggingface.co/datasets/WildfireIA/Anonymous-WildfireIA/tree/cd1fcad871c4293ec7bf066229d8714f059d42de"
+}

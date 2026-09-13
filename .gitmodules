@@ -1,0 +1,3 @@
+[submodule "WildfireIA"]
+	path = WildfireIA
+	url = https://github.com/LabRAI/WildfireIA.git
