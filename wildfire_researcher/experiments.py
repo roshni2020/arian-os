@@ -252,6 +252,11 @@ def validate_proposal(proposal: Any, state: dict[str, Any]) -> dict[str, Any]:
         raise ProposalError("duplicate_proposal_id", f"proposal_id {proposal_id!r} was already processed", "proposal_id")
     text = {k: _text(proposal, k) for k in ("observation", "hypothesis", "expected_result", "reason")}
     experiment = canonical_experiment(proposal["experiment"])
+    approved = state.get("approved_study_plan")
+    if approved and approved.get("kind") == "error_proposal" and len(state.get("history", [])) == 1:
+        expected = canonical_experiment(approved["plan"]["experiment"])
+        if experiment != expected:
+            raise ProposalError("reviewed_configuration_required", "The first experiment must match the user's reviewed ARIA draft configuration", "experiment")
     seed = state.get("research_seed", protocol.RESEARCH_SEED)
     key = config_key(experiment, seed)
     for row in state.get("history", []):

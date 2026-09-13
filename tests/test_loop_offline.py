@@ -87,7 +87,7 @@ def test_cancel_stops_at_safe_point(tmp_path, monkeypatch):
     # resume after cancel continues the same session instead of treating it as finished
     store.update_session(session["id"], cancel_requested=False)
     resumed = ResearchLoop(store, session["id"], aria, tracking_enabled=False, wait_seconds=1, poll_seconds=1, log=lambda m: None).run()
-    assert resumed["status"] == "complete"
+    assert resumed["status"] == "complete", resumed.get("error")
     assert len(store.completed_experiments(session["id"])) == 4
 
 

@@ -6,6 +6,7 @@ import { acceptAnalysisRecord, analysisCacheKey, analysisRecordForView, cachedAn
 import { Notice } from "../benchmarks/BenchmarkShell";
 import ExperimentComparison from "./ExperimentComparison";
 import ErrorAnalysis from "./ErrorAnalysis";
+import AssistantWorkspace from "./AssistantWorkspace";
 
 export default function ResearchAnalysis({ sessionId, experiments, kind, enabled, replay = false, onInspect }: { sessionId: string; experiments: Experiment[]; kind: "compare" | "errors"; enabled: boolean; replay?: boolean; onInspect: (id: string) => void }) {
   const scope = `${sessionId}:${replay ? "replay" : "live"}`;
@@ -16,6 +17,7 @@ export default function ResearchAnalysis({ sessionId, experiments, kind, enabled
   const cache = useRef<Record<string, Experiment>>({});
   const [failure, setFailure] = useState<{ key: string; message: string } | null>(null);
   const [retry, setRetry] = useState(0);
+  const [assistantFocus, setAssistantFocus] = useState<{kind: "ask" | "error_proposal"; group?: {dimension: string; group: string}} | null>(null);
   const { available, baseline: baselineInput, candidate: candidateInput } = resolveAnalysisSelection(experiments, sessionId, pinnedId, candidateId);
   const requests = JSON.stringify([baselineInput, candidateInput].filter((exp): exp is Experiment => !!exp).map(exp => ({ id: exp.id, updated_at: exp.updated_at })));
   const fetchKey = `${scope}:${requests}:${retry}`;
@@ -63,8 +65,10 @@ export default function ResearchAnalysis({ sessionId, experiments, kind, enabled
       </div> : <p className="mt-5 text-sm text-ink-2">No recorded results yet. Completed experiments will appear here.</p>}
       {((pinnedId && !baselineInput) || (candidateId && !candidateInput)) && <p role="status" className="mt-3 text-xs leading-5 text-ink-2">Your selected {pinnedId && !baselineInput ? "baseline" : "candidate"} is not available in this view. {replay ? "Advance the replay or choose another recorded experiment." : "Choose another recorded experiment or wait for the session to update."}</p>}
       {loading && <p role="status" className="mt-3 text-xs text-ink-2">Loading full experiment records…</p>}
+      <div className="mt-4 flex flex-wrap gap-2"><button className="btn btn-primary" onClick={() => setAssistantFocus({kind:"ask"})}>Ask ARIA about these runs</button><button className="btn" onClick={() => setAssistantFocus({kind:"error_proposal"})}>Propose an experiment</button>{assistantFocus && <button className="btn" onClick={() => setAssistantFocus(null)}>Close ARIA tools</button>}</div>
     </section>
+    {enabled && assistantFocus && <div id="aria-analysis"><AssistantWorkspace key={JSON.stringify([scope,assistantFocus])} sessionId={sessionId} experimentIds={[baselineInput?.id,candidateInput?.id].filter((id):id is string=>!!id)} initialKind={assistantFocus.kind} group={assistantFocus.group} replay={replay} /></div>}
     {failure?.key === fetchKey && <Notice error>{failure.message} <button className="underline" onClick={() => setRetry(n => n + 1)}>Retry</button></Notice>}
-    {kind === "compare" ? <ExperimentComparison baseline={baseline} candidate={candidate} onInspect={onInspect} /> : <ErrorAnalysis baseline={baseline} candidate={candidate} onInspect={onInspect} />}
+    {kind === "compare" ? <ExperimentComparison baseline={baseline} candidate={candidate} onInspect={onInspect} /> : <ErrorAnalysis baseline={baseline} candidate={candidate} onInspect={onInspect} onPropose={(dimension,group) => { setAssistantFocus({kind:"error_proposal",group:{dimension,group}}); setTimeout(()=>document.getElementById("aria-analysis")?.scrollIntoView({block:"start"}),0); }} />}
   </div>;
 }

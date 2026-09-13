@@ -53,15 +53,17 @@ test('saved project rendering preserves corrections and provenance and links an 
   const exports = {}; let stateIndex = 0;
   const js = ts.transpileModule(fs.readFileSync('src/components/benchmarks/ProjectOverview.tsx', 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText;
   vm.runInNewContext(js, { exports, require: name => {
-    if (name === 'react') return { ...React, useState: initial => [stateIndex++ === 0 ? project : initial, () => {}], useEffect: () => {} };
+    if (name === 'react') return { ...React, useState: initial => [stateIndex++ === 1 ? project : initial, () => {}], useEffect: () => {} };
     if (name === 'next/link') return { __esModule: true, default: ({ children, ...props }) => React.createElement('a', props, children) };
     if (name === '@/lib/benchmarks') return client(() => { throw new Error('Rendering must not start research'); });
+    if (name === '../research/AssistantWorkspace') return { __esModule: true, default: () => React.createElement('section', null, 'Assistant workspace') };
     if (name === './BenchmarkShell') return { __esModule: true, default: ({ children }) => React.createElement('main', null, children), ExternalLink: ({ url, children }) => React.createElement('a', { href: url }, children) };
     return require(name);
   } });
   const html = renderToStaticMarkup(React.createElement(exports.default, { id: 'p' }));
   assert.match(html, /href="\/\?session=session%261"/);
-  assert.doesNotMatch(html, /<button/);
+  assert.doesNotMatch(html, /<button[^>]*>Start Research/);
+  assert.match(html, /Plan with ARIA/);
   assert.match(html, /Reviewed metric/); assert.match(html, /Reviewed model/); assert.doesNotMatch(html, /Original metric|Original model|0\.533/);
   assert.match(html, /Saved field provenance/); assert.match(html, /Status: user edited/); assert.match(html, /https:\/\/huggingface.co\/datasets\/saved\/dataset/);
 });

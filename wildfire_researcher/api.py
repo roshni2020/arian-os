@@ -273,3 +273,6 @@ def automation_prompt(session_id: str, generic: bool = True) -> dict[str, Any]:
 # Discovery/import is additive and delegates supported execution to the existing worker.
 from .benchmarks.routes import router as benchmark_router
 app.include_router(benchmark_router)
+
+from .assistant.routes import router as assistant_router
+app.include_router(assistant_router)

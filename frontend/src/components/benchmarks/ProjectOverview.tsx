@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { benchmarkApi, displayAccess, displayValue, Project, safeJournalUrl } from "@/lib/benchmarks";
 import Shell, { ExternalLink } from "./BenchmarkShell";
+import AssistantWorkspace from "../research/AssistantWorkspace";
 
 export function ProjectList() {
   const [projects, setProjects] = useState<Project[] | null>(null);
@@ -43,6 +44,7 @@ export function ProjectList() {
 }
 
 export default function ProjectOverview({ id }: { id: string }) {
+  const [planning, setPlanning] = useState(false);
   const [project, setProject] = useState<Project | null>(null);
   const [error, setError] = useState("");
   const [starting, setStarting] = useState(false);
@@ -91,6 +93,8 @@ export default function ProjectOverview({ id }: { id: string }) {
 
     <div className="mt-8 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
       <div className="min-w-0 space-y-6">
+        <section className="surface p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="section-title">Plan your research</h2><p className="mt-1 text-xs text-ink-2">Review ARIA’s proposed study, criteria and budget before starting.</p></div><button className="btn" onClick={() => setPlanning(value=>!value)}>{planning ? "Close planning" : "Plan with ARIA"}</button></div></section>
+        {planning && <AssistantWorkspace projectId={project.id} sessionId={project.session_id ?? undefined} initialKind="study_plan" />}
         <section aria-labelledby="snapshot-heading" className="surface overflow-hidden">
           <div className="border-b border-rule px-5 py-5 sm:px-6"><h2 id="snapshot-heading" className="section-title">Saved benchmark specification</h2><p className="mt-2 text-xs leading-5 text-ink-2">This snapshot stays unchanged when benchmark sources are refreshed.</p></div>
           <dl className="grid gap-x-8 gap-y-5 p-5 sm:grid-cols-2 sm:p-6">{fields.map(([label, value]) => <div key={label} className="min-w-0"><dt className="text-xs text-ink-2">{label}</dt><dd className="mt-1.5 break-words text-sm leading-6">{displayValue(value)}</dd></div>)}</dl>

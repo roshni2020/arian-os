@@ -1,0 +1,186 @@
+{
+  "id": "verify-47500795743a45b9ad1ecf2b16bfdea6",
+  "session_id": "wf-20260913-190606-4a5b",
+  "status": "complete",
+  "plan": {
+    "baseline_id": "exp-000",
+    "candidate_id": "exp-001",
+    "seeds": [
+      17,
+      42
+    ],
+    "configs": {
+      "baseline": {
+        "model": "logistic_regression",
+        "feature_protocol": "metadata",
+        "weather_days": 5,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": "balanced"
+        }
+      },
+      "candidate": {
+        "model": "xgboost",
+        "feature_protocol": "all",
+        "weather_days": 5,
+        "hyperparameters": {
+          "colsample_bytree": 0.8,
+          "gamma": 0.0,
+          "learning_rate": 0.03,
+          "max_depth": 3,
+          "min_child_weight": 1.0,
+          "n_estimators": 1000,
+          "reg_alpha": 0.0,
+          "reg_lambda": 1.0,
+          "scale_pos_weight": 12.0,
+          "subsample": 0.8
+        }
+      }
+    },
+    "protocol": {
+      "repo": "https://github.com/LabRAI/WildfireIA",
+      "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+      "dataset": "WildfireIA/Anonymous-WildfireIA",
+      "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+      "task": "ia_failure",
+      "representation": "tabular",
+      "split_years": {
+        "train": [
+          2016,
+          2017,
+          2018
+        ],
+        "val": [
+          2019
+        ],
+        "test": [
+          2020
+        ]
+      },
+      "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+      "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+      "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+      "limit_train_samples": null
+    },
+    "protocol_fingerprint": "667d8964ba72791d8e0d2dcffce9c252df0dd22f93f53f9539b29955cdf5610b",
+    "max_runs": 4,
+    "split": "val",
+    "score_kind": "VALIDATION_AUPRC",
+    "train_size": 22576,
+    "val_size": 7047,
+    "limit_train_samples": null
+  },
+  "input_hash": "bee0aa38787d38e2315981df372eb2a7fd92d0d84cb0529aae511d1aed513f16",
+  "plan_hash": "bee0aa38787d38e2315981df372eb2a7fd92d0d84cb0529aae511d1aed513f16",
+  "created_at": "2026-09-13T19:14:09+00:00",
+  "updated_at": "2026-09-13T19:22:23+00:00",
+  "cancel_requested": false,
+  "children": [
+    {
+      "id": "verify-47500795743a45b9ad1ecf2b16bfdea6-baseline-17",
+      "arm": "baseline",
+      "seed": 17,
+      "status": "complete",
+      "result": {
+        "validation_auprc": 0.18417067640399878,
+        "validation_auroc": 0.7493607329791184,
+        "seed": 17,
+        "split": "val (2019)",
+        "score_kind": "VALIDATION_AUPRC",
+        "train_size": 22576,
+        "val_size": 7047,
+        "runtime_seconds": 6.952999999997701,
+        "predictions_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-baseline-17\\predictions_val.npz",
+        "model_bundle_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-baseline-17\\model"
+      },
+      "error": null
+    },
+    {
+      "id": "verify-47500795743a45b9ad1ecf2b16bfdea6-candidate-17",
+      "arm": "candidate",
+      "seed": 17,
+      "status": "complete",
+      "result": {
+        "validation_auprc": 0.47816434763949095,
+        "validation_auroc": 0.8843145546733915,
+        "seed": 17,
+        "split": "val (2019)",
+        "score_kind": "VALIDATION_AUPRC",
+        "train_size": 22576,
+        "val_size": 7047,
+        "runtime_seconds": 135.375,
+        "predictions_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-candidate-17\\predictions_val.npz",
+        "model_bundle_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-candidate-17\\model"
+      },
+      "error": null
+    },
+    {
+      "id": "verify-47500795743a45b9ad1ecf2b16bfdea6-baseline-42",
+      "arm": "baseline",
+      "seed": 42,
+      "status": "complete",
+      "result": {
+        "validation_auprc": 0.18417067640399878,
+        "validation_auroc": 0.7493607329791184,
+        "seed": 42,
+        "split": "val (2019)",
+        "score_kind": "VALIDATION_AUPRC",
+        "train_size": 22576,
+        "val_size": 7047,
+        "runtime_seconds": 5.827999999997701,
+        "predictions_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-baseline-42\\predictions_val.npz",
+        "model_bundle_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-baseline-42\\model"
+      },
+      "error": null
+    },
+    {
+      "id": "verify-47500795743a45b9ad1ecf2b16bfdea6-candidate-42",
+      "arm": "candidate",
+      "seed": 42,
+      "status": "complete",
+      "result": {
+        "validation_auprc": 0.4773351761002007,
+        "validation_auroc": 0.8842601940321899,
+        "seed": 42,
+        "split": "val (2019)",
+        "score_kind": "VALIDATION_AUPRC",
+        "train_size": 22576,
+        "val_size": 7047,
+        "runtime_seconds": 205.26600000000326,
+        "predictions_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-candidate-42\\predictions_val.npz",
+        "model_bundle_path": "C:\\AI\\Projects\\focus\\artifacts\\verification\\verify-47500795743a45b9ad1ecf2b16bfdea6-candidate-42\\model"
+      },
+      "error": null
+    }
+  ],
+  "summary": {
+    "paired_deltas": [
+      {
+        "seed": 17,
+        "baseline_auprc": 0.18417067640399878,
+        "candidate_auprc": 0.47816434763949095,
+        "delta": 0.29399367123549214
+      },
+      {
+        "seed": 42,
+        "baseline_auprc": 0.18417067640399878,
+        "candidate_auprc": 0.4773351761002007,
+        "delta": 0.29316449969620195
+      }
+    ],
+    "mean_delta": 0.29357908546584705,
+    "std_delta": 0.000586312818198978,
+    "min_delta": 0.29316449969620195,
+    "max_delta": 0.29399367123549214,
+    "expected_pairs": 2,
+    "incomplete": false,
+    "variability_label": "Sample standard deviation across paired seed deltas; not a confidence interval.",
+    "complete_pairs": 2,
+    "claim_eligible": false,
+    "limitations": [
+      "Validation-only repeated seeds; this is not an official test result.",
+      "Seed variation does not quantify dataset sampling uncertainty or remove adaptive validation bias."
+    ]
+  },
+  "error": null
+}

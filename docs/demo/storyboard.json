@@ -1,0 +1,72 @@
+[
+  {
+    "key": "benchmarks",
+    "label": "THE RESEARCH WORKSPACE",
+    "title": "A question.\nA measurable\nexperiment.",
+    "body": "ARIA Researcher brings wildfire experiments, error analysis, and the next research decision into one workspace.",
+    "note": "A guided tour of the working app"
+  },
+  {
+    "key": "compare",
+    "label": "01 / COMPARE RUNS",
+    "title": "See what\nactually\nchanged.",
+    "body": "In this study, validation average precision rose from 0.1842 to 0.4861. Compare the measured result with the configuration that produced it.",
+    "note": "Recorded results from the newly completed training runs"
+  },
+  {
+    "key": "errors",
+    "label": "02 / INVESTIGATE A WEAK SPOT",
+    "title": "Go beyond\none score.",
+    "body": "California missed fires fell from 18 to 14, while false alarms rose from 10 to 17. The proposed subgroup goal was not met.",
+    "note": "At each run\u2019s own threshold \u00b7 Improvement comes with a tradeoff"
+  },
+  {
+    "key": "assistant",
+    "label": "03 / ASK ARIA",
+    "title": "Ask about\nthese runs.",
+    "body": "ARIA receives the selected experiment evidence. Its answer links the explanation to the recorded runs and cited measurements.",
+    "note": "Saved, verified ARIA answer from an earlier study"
+  },
+  {
+    "key": "proposal",
+    "label": "04 / REVIEW THE NEXT STEP",
+    "title": "Turn an error\ninto a test.",
+    "body": "Review a proposed hypothesis, configuration, expected benefit, and tradeoffs. Then start the bounded study from its reviewed draft.",
+    "note": "A testable proposal, with a budget to review"
+  },
+  {
+    "key": "plan",
+    "label": "05 / PLAN BEFORE RUNNING",
+    "title": "Agree on\nthe study\nbefore it runs.",
+    "body": "Ask ARIA for a baseline, experiment sequence, success criteria, and budget. Review the plan before starting the work.",
+    "note": "Make the research objective and its limits explicit"
+  },
+  {
+    "key": "verification",
+    "label": "06 / CHECK THE IMPROVEMENT",
+    "title": "Test whether\nthe gain\nholds up.",
+    "body": "Both paired seeds improved over baseline. Mean AP gain: 0.2936. Review the spread before deciding what to test next.",
+    "note": "Two paired seeds describe training variation, not a confidence interval."
+  },
+  {
+    "key": "memory",
+    "label": "07 / CARRY FINDINGS FORWARD",
+    "title": "Research\nthat builds\non itself.",
+    "body": "Retrieve earlier findings before asking for another experiment. Choose which findings inform the next ARIA request.",
+    "note": "Keep useful evidence available across sessions"
+  },
+  {
+    "key": "report",
+    "label": "08 / SHARE THE EVIDENCE",
+    "title": "Finish with\na research\nreport.",
+    "body": "Bring configurations, measured results, verification, and limitations into a reviewable report. Export the evidence for a clear handoff.",
+    "note": "Evidence and limitations travel together"
+  },
+  {
+    "key": "closing",
+    "label": "ARIA RESEARCHER",
+    "title": "From an\nobserved error\nto a testable\nnext step.",
+    "body": "Compare. Investigate. Propose. Verify.\n\nKeep the reasoning and the evidence together.",
+    "note": "Validation-only research prototype \u00b7 Not an operational wildfire warning system"
+  }
+]

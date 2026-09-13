@@ -445,8 +445,21 @@ def research_state(store: Store, session_id: str) -> dict[str, Any]:
         "seen_proposal_ids": store.seen_proposal_ids(session_id),
         "rejected_messages_at_this_revision": store.rejection_feedback(session_id, session["state_revision"]),
         "final_decision": session["final_decision"],
-        "instructions": _instructions(session, remaining, awaiting_decision_for),
+        "approved_study_plan": _approved_study_context(store, session_id),
+        "instructions": _instructions(session, remaining, awaiting_decision_for) + _approved_study_instruction(store, session_id),
     }
+
+
+def _approved_study_context(store, session_id):
+    from .assistant.drafts import approved_context
+    return approved_context(store, session_id)
+
+
+def _approved_study_instruction(store, session_id):
+    context = _approved_study_context(store, session_id)
+    if not context:
+        return ""
+    return " Follow approved_study_plan within the capability and budget limits. For an error_proposal plan, the first post-baseline experiment must use its reviewed experiment configuration; independently evaluate the baseline and subsequent results. Do not treat predicted benefits as measurements."
 
 
 def _instructions(session: dict[str, Any], remaining: int, awaiting_decision_for: str | None) -> str:

@@ -1,0 +1,3872 @@
+{
+  "id": "report-d8167840858f4eedbf1e23bce9ee83a5",
+  "session_id": "wf-20260913-150158-81be",
+  "created_at": "2026-09-13T18:57:00+00:00",
+  "input_hash": "e9b423e1fa8d76027ed17db134fcc33ab5452480d21296abe1b9c416c3f127ba",
+  "evidence_hash": "e9b423e1fa8d76027ed17db134fcc33ab5452480d21296abe1b9c416c3f127ba",
+  "template_version": 2,
+  "evidence": {
+    "session_id": "wf-20260913-150158-81be",
+    "protocol": {
+      "repo": "https://github.com/LabRAI/WildfireIA",
+      "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+      "dataset": "WildfireIA/Anonymous-WildfireIA",
+      "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+      "task": "ia_failure",
+      "representation": "tabular",
+      "split_years": {
+        "train": [
+          2016,
+          2017,
+          2018
+        ],
+        "val": [
+          2019
+        ],
+        "test": [
+          2020
+        ]
+      },
+      "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+      "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+      "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+      "limit_train_samples": null
+    },
+    "experiments": [
+      {
+        "id": "exp-000",
+        "revision": "2026-09-13T15:14:40+00:00",
+        "config": {
+          "model": "logistic_regression",
+          "feature_protocol": "metadata",
+          "weather_days": 5,
+          "hyperparameters": {
+            "C": 1.0,
+            "class_weight": "balanced"
+          }
+        },
+        "decision": "KEEP",
+        "controller": "baseline_setup",
+        "recorded_reasoning": {
+          "decision_reason": "It is the only completed valid experiment and therefore remains the current best validation reference at AUPRC 0.1841706764, despite a substantial train-validation gap and weak positive ranking.",
+          "decision_learning": "Metadata-only balanced logistic regression supplies useful signal but generalizes poorly: validation AUPRC is 0.1433826449 below train AUPRC, and thresholded errors are concentrated in high-fire-danger, VIIRS-matched, and specific fuel groups that metadata does not directly encode.",
+          "next_question": "Does adding all permitted discovery-time feature families, without changing the model or regularization, produce a material validation-AUPRC gain and reduce the observed environmental-group misses?"
+        },
+        "metrics": {
+          "validation_auprc": 0.18417067640399878,
+          "validation_auroc": 0.7493607329791184,
+          "seed": 553371,
+          "split": "val (2019)",
+          "score_kind": "VALIDATION_AUPRC",
+          "train_size": 22576,
+          "val_size": 7047,
+          "runtime_seconds": 4.719000000000051
+        },
+        "model_bundle_path": "C:\\AI\\Projects\\focus\\artifacts\\wf-20260913-150158-81be\\exp-000\\model"
+      },
+      {
+        "id": "exp-001",
+        "revision": "2026-09-13T15:16:16+00:00",
+        "config": {
+          "model": "logistic_regression",
+          "feature_protocol": "all",
+          "weather_days": 5,
+          "hyperparameters": {
+            "C": 1.0,
+            "class_weight": "balanced"
+          }
+        },
+        "decision": "KEEP",
+        "controller": "ARIA",
+        "recorded_reasoning": {
+          "decision_reason": "exp-001 is the strongest valid configuration and should be frozen: its 2019 validation AUPRC was 0.3972123087, a +0.2130416323 absolute gain over the 0.1841706764 metadata-only baseline and well above the prespecified 0.2141706764 success threshold. At the selected best-F1 threshold it also reduced false positives from 638 to 240 while slightly reducing false negatives from 269 to 262. The published 0.533 test benchmark is not used in this decision because it is not comparable to validation scores.",
+          "decision_learning": "Adding the full permitted discovery-time feature protocol to the same balanced logistic regression materially improved positive ranking. VIIRS-match recall rose from 0.2989690722 to 0.8041237113, high-ERC-quartile recall rose from 0.3425414365 to 0.4530386740, and fuel-model-188.0 recall rose from 0.0370370370 to 0.2222222222. However, train AUPRC 0.7213156565 versus validation AUPRC 0.3972123087 shows substantial remaining generalization gap, and no-VIIRS-match recall fell from 0.3927492447 to 0.2658610272.",
+          "next_question": "After freezing exp-001 for the single official test evaluation, does its held-out 2020 test AUPRC confirm that the large validation gain generalizes without leakage or selection on test data?",
+          "proposal_observation": "The metadata-only balanced logistic baseline reached validation AUPRC 0.1841706764 versus train AUPRC 0.3275533213. At its best-F1 threshold it missed 269 of 428 validation positives; misses were concentrated in groups whose defining signals are absent from metadata, including 119 of 181 positives in the high-ERC quartile, 68 of 97 VIIRS-matched positives, and 26 of 27 positives for fuel model 188.0. Its largest standardized coefficients are also dominated by county indicators (absolute magnitudes up to 3.599), suggesting that incident metadata alone is leaning heavily on geography rather than direct fire-environment conditions.",
+          "proposal_hypothesis": "Holding the balanced logistic model and its hyperparameters fixed while replacing metadata-only inputs with the official full input protocol will raise 2019 validation AUPRC by at least 0.03, from 0.1841706764 to at least 0.2141706764, because discovery-time weather, VIIRS, fuel, vegetation, terrain, access, and population signals provide direct information for ranking failures that metadata misses.",
+          "proposal_expected_result": "Validation AUPRC of at least 0.2142, with fewer than 269 false negatives at the newly selected best-F1 threshold and improved recall in the high-ERC, VIIRS-match, and fuel-model-188.0 breakdowns. A score below 0.2142 would falsify the claimed material ranking gain from adding the full feature protocol under this fixed linear model.",
+          "proposal_reason": "This changes one meaningful variable only: feature_protocol from metadata to all. The model, C=1.0, balanced class weighting, and weather_days=5 remain fixed, isolating whether the measured error concentrations and county-dominated coefficients reflect missing time-available environmental information. The full protocol is allowed, respects discovery-time prediction constraints, and does not use the sealed 2020 test year."
+        },
+        "metrics": {
+          "validation_auprc": 0.39721230867438967,
+          "validation_auroc": 0.8383812248229044,
+          "seed": 553371,
+          "split": "val (2019)",
+          "score_kind": "VALIDATION_AUPRC",
+          "train_size": 22576,
+          "val_size": 7047,
+          "runtime_seconds": 23.20299999999952
+        },
+        "model_bundle_path": "C:\\AI\\Projects\\focus\\artifacts\\wf-20260913-150158-81be\\exp-001\\model"
+      }
+    ],
+    "research_mode": "connected",
+    "recorded_official_test": null,
+    "purpose": "historical_report_only",
+    "aria_narrative": {
+      "request_id": "aria-assistant-9606ca0331764bf5b20abac1b87e3a89",
+      "snapshot": {
+        "capabilities": {
+          "feature_protocols": {
+            "access": "OpenStreetMap road distance/density and fire station proximity only.",
+            "all": "Official full input: metadata + FIRMS + weather + fuel + vegetation + topography + access + human.",
+            "all_without_access": "Full input minus access.",
+            "all_without_fire": "Full input minus FIRMS/VIIRS.",
+            "all_without_fuel": "Full input minus fuel.",
+            "all_without_human": "Full input minus population.",
+            "all_without_topography": "Full input minus topography.",
+            "all_without_vegetation": "Full input minus vegetation.",
+            "all_without_weather": "Full input minus weather/fire danger.",
+            "firms": "FIRMS/VIIRS discovery-day thermal features only; restricts samples to events with a VIIRS match (not comparable to other protocols).",
+            "fuel": "LANDFIRE fuel (FBFM40, canopy metrics) only.",
+            "human": "WorldPop population density only.",
+            "metadata": "FPA-FOD incident metadata only: location, discovery time, cause (9 raw columns; state/county one-hot).",
+            "metadata_access": "metadata + access.",
+            "metadata_fuel": "metadata + fuel.",
+            "metadata_human": "metadata + human.",
+            "metadata_topography": "metadata + topography.",
+            "metadata_vegetation": "metadata + vegetation.",
+            "topography": "Elevation, slope, aspect only.",
+            "vegetation": "LANDFIRE existing vegetation type/cover/height only.",
+            "weather": "gridMET weather + fire-danger aggregates only (day0, lag1, multi-day means up to weather_days)."
+          },
+          "models": {
+            "logistic_regression": {
+              "description": "sklearn LogisticRegression (lbfgs, max_iter=5000) on standardized official tabular cache. Official baseline uses C=1.0, class_weight=balanced.",
+              "hyperparameters": {
+                "C": {
+                  "default": 1.0,
+                  "max": 10.0,
+                  "min": 0.01,
+                  "type": "float"
+                },
+                "class_weight": {
+                  "default": "balanced",
+                  "type": "enum",
+                  "values": [
+                    "balanced",
+                    null
+                  ]
+                }
+              }
+            },
+            "xgboost": {
+              "description": "XGBClassifier (hist, eval_metric=aucpr, early_stopping_rounds=50 on validation as in the official script). Official config: n_estimators=1000, learning_rate=0.03, max_depth=4, subsample=0.8, colsample_bytree=0.8, scale_pos_weight=neg/pos.",
+              "hyperparameters": {
+                "colsample_bytree": {
+                  "default": 0.8,
+                  "max": 1.0,
+                  "min": 0.2,
+                  "type": "float"
+                },
+                "gamma": {
+                  "default": 0.0,
+                  "max": 10.0,
+                  "min": 0.0,
+                  "type": "float"
+                },
+                "learning_rate": {
+                  "default": 0.03,
+                  "max": 0.3,
+                  "min": 0.005,
+                  "type": "float"
+                },
+                "max_depth": {
+                  "default": 4,
+                  "max": 10,
+                  "min": 2,
+                  "type": "int"
+                },
+                "min_child_weight": {
+                  "default": 1.0,
+                  "max": 50.0,
+                  "min": 1.0,
+                  "type": "float"
+                },
+                "n_estimators": {
+                  "default": 1000,
+                  "max": 2000,
+                  "min": 50,
+                  "type": "int"
+                },
+                "reg_alpha": {
+                  "default": 0.0,
+                  "max": 20.0,
+                  "min": 0.0,
+                  "type": "float"
+                },
+                "reg_lambda": {
+                  "default": 1.0,
+                  "max": 20.0,
+                  "min": 0.0,
+                  "type": "float"
+                },
+                "scale_pos_weight": {
+                  "default": "auto",
+                  "max": 50.0,
+                  "min": 0.5,
+                  "type": "float_or_auto"
+                },
+                "subsample": {
+                  "default": 0.8,
+                  "max": 1.0,
+                  "min": 0.5,
+                  "type": "float"
+                }
+              }
+            }
+          },
+          "representation": "tabular",
+          "response_contract": {
+            "final_decision": {
+              "decision": "KEEP|REJECT",
+              "experiment_id": "<id of the last experiment>",
+              "learning": "text",
+              "next_question": "text",
+              "reason": "text",
+              "recommended_final_experiment_id": "<experiment id to freeze for official test evaluation>",
+              "schema_version": 1,
+              "session_id": "<from state>",
+              "state_revision": "<from state>"
+            },
+            "proposal": {
+              "expected_result": "text",
+              "experiment": {
+                "feature_protocol": "metadata_fuel",
+                "hyperparameters": {},
+                "model": "xgboost",
+                "weather_days": 5
+              },
+              "hypothesis": "one falsifiable expected improvement",
+              "observation": "text grounded in the measured results in the state",
+              "previous_decision": {
+                "decision": "KEEP|REJECT",
+                "experiment_id": "<id of the last experiment>",
+                "learning": "text",
+                "next_question": "text",
+                "reason": "text"
+              },
+              "proposal_id": "<unique string>",
+              "reason": "text",
+              "schema_version": 1,
+              "session_id": "<from state>",
+              "state_revision": "<from state>"
+            }
+          },
+          "rules": [
+            "Exactly one model, one feature_protocol, one weather_days and a hyperparameters object; no other keys.",
+            "Prefer one meaningful change per experiment; explain any multi-variable change in 'reason'.",
+            "Identical canonical configurations are rejected as duplicates.",
+            "The optimization objective is validation AUPRC (official metric on the official 2019 validation year).",
+            "Test-year (2020) results are sealed until a final configuration is frozen; they are never shown to ARIA.",
+            "Forbidden leakage columns (final size, containment time, MTBS ids) are removed by the official dataloader and cannot be requested.",
+            "'firms' restricts the sample to events with VIIRS matches, so its scores are not comparable with other protocols."
+          ],
+          "schema_version": 1,
+          "weather_days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "weather_days_note": "Only affects protocols that include weather; otherwise it is canonicalized to 5."
+        },
+        "created_at": "2026-09-13T18:47:25.746216+00:00",
+        "evidence": [
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-fcda528263de1b9a277c",
+            "path": "updated_at",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "2026-09-13T15:14:40+00:00"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c293e0823c42768c0e60",
+            "path": "experiment.model",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "logistic_regression"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a96ef8503255ae0aecbc",
+            "path": "experiment.feature_protocol",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "metadata"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-87749d4e2beead177272",
+            "path": "experiment.weather_days",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 5
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-15612dcad7380d3ed943",
+            "path": "experiment.hyperparameters",
+            "session_id": "wf-20260913-150158-81be",
+            "value": {
+              "C": 1.0,
+              "class_weight": "balanced"
+            }
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c159a5fe38d80eea9a6d",
+            "path": "result.score_kind",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "VALIDATION_AUPRC"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-922b6273e0f6fe0496ba",
+            "path": "result.split",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "val (2019)"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b352506927fa4f483365",
+            "path": "result.validation_auprc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.18417067640399878
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4ba0f8afdb6477dd581f",
+            "path": "result.validation_auroc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.7493607329791184
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d183b9bb4f3ccd8d4a36",
+            "path": "result.train_auprc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3275533212879827
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ba4b7701d9f6068b2c5f",
+            "path": "result.threshold_best_f1",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.6900000000000001
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b1498ff8a70de9d14bf0",
+            "path": "result.false_negative_count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 269
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-58884ae7580fa8f1be6a",
+            "path": "result.false_positive_count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 638
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-968be46cee8f43fb4cd0",
+            "path": "result.val_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 428
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7a796d2df2448e1fac7e",
+            "path": "result.val_size",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 7047
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-1377c6fdd826a5cc168a",
+            "path": "result.train_size",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22576
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7417ab9983d7b7d18d29",
+            "path": "result.n_features",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1386
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3076bf5588774fbab19d",
+            "path": "result.runtime_seconds",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 4.719000000000051
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2b919a9b8f18b897d88d",
+            "path": "result.seed",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 553371
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-be035b13face5441bbbd",
+            "path": "result.confusion_matrix.tp",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 159
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d7f98eff7b539d38110e",
+            "path": "result.confusion_matrix.fp",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 638
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ba7daccd0cd1f3c2f69d",
+            "path": "result.confusion_matrix.tn",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 5981
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-1d46af635d37f3bd4534",
+            "path": "result.confusion_matrix.fn",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 269
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-55119df62c7b45d04dfe",
+            "path": "result.validation_metrics.precision",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.19949811794228356
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-1499bb61beaac0d98b54",
+            "path": "result.validation_metrics.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.37149532710280375
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f1c5925168e82c62bc33",
+            "path": "result.validation_metrics.f1",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.2595918367346939
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2ad07929cefcca790e2b",
+            "path": "result.validation_metrics.auprc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.18417067640399878
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-5edd9d4cee5649a9e758",
+            "path": "result.validation_metrics.auroc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.7493607329791184
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-616b70b3331f4517a7e0",
+            "path": "result.error_breakdowns.by_viirs_detection.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "no VIIRS match"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9443ef5de36e370c6c76",
+            "path": "result.error_breakdowns.by_viirs_detection.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 6859
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-00e80af4ee2156f745a4",
+            "path": "result.error_breakdowns.by_viirs_detection.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 331
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-1e5f72021d4aab0f367a",
+            "path": "result.error_breakdowns.by_viirs_detection.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 201
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2c5939a346ce91e3a121",
+            "path": "result.error_breakdowns.by_viirs_detection.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 624
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0c8b6ddaf0b6d87d629c",
+            "path": "result.error_breakdowns.by_viirs_detection.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.39274924471299094
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-e71d261ddbb87b136251",
+            "path": "result.error_breakdowns.by_viirs_detection.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-16e1c1ea84bbfb705762",
+            "path": "result.error_breakdowns.by_viirs_detection.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "VIIRS match"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3084d978fe0f205bfe75",
+            "path": "result.error_breakdowns.by_viirs_detection.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 188
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b2f16a593a25bd70fb33",
+            "path": "result.error_breakdowns.by_viirs_detection.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 97
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a0cc0362306de155469c",
+            "path": "result.error_breakdowns.by_viirs_detection.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 68
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ae0de78f41510dedd0bb",
+            "path": "result.error_breakdowns.by_viirs_detection.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f2eeef8e5a800f574672",
+            "path": "result.error_breakdowns.by_viirs_detection.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.29896907216494845
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4d1d9b6be46e181020c2",
+            "path": "result.error_breakdowns.by_viirs_detection.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f9306d990640547ea580",
+            "path": "result.error_breakdowns.by_erc_quartile.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q4 high"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0dd546f5363ce5912333",
+            "path": "result.error_breakdowns.by_erc_quartile.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1721
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-23b1b2fa07c55be47ea4",
+            "path": "result.error_breakdowns.by_erc_quartile.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 181
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-62c82c65df5214eb72d1",
+            "path": "result.error_breakdowns.by_erc_quartile.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 119
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4118e6aba6b8f84b782d",
+            "path": "result.error_breakdowns.by_erc_quartile.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 197
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0e898fd1c7b67cc90f25",
+            "path": "result.error_breakdowns.by_erc_quartile.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3425414364640884
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-84561aa670c96d0ee663",
+            "path": "result.error_breakdowns.by_erc_quartile.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a077aba3491d9d1a5d10",
+            "path": "result.error_breakdowns.by_erc_quartile.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q3"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f4153b3d34496ec983e5",
+            "path": "result.error_breakdowns.by_erc_quartile.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1722
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c6ddcba6609c79ff2b0c",
+            "path": "result.error_breakdowns.by_erc_quartile.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 127
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0e9e462966666ab8fab5",
+            "path": "result.error_breakdowns.by_erc_quartile.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 71
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d646605c580ae9cc82d0",
+            "path": "result.error_breakdowns.by_erc_quartile.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 188
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-e88e915330fb74fc7e52",
+            "path": "result.error_breakdowns.by_erc_quartile.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4409448818897638
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9826ea25e891ee4697c7",
+            "path": "result.error_breakdowns.by_erc_quartile.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f2cd1114dece0f4cc1d6",
+            "path": "result.error_breakdowns.by_erc_quartile.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q2"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c52000ab0c9b55496d9c",
+            "path": "result.error_breakdowns.by_erc_quartile.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1817
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-00aca50d3a77a090c8fb",
+            "path": "result.error_breakdowns.by_erc_quartile.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 72
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b296ae1aacd2c398ebde",
+            "path": "result.error_breakdowns.by_erc_quartile.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 53
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2291cc3d1d22c1f2dc15",
+            "path": "result.error_breakdowns.by_erc_quartile.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 141
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f625d4849c72c3a0da4c",
+            "path": "result.error_breakdowns.by_erc_quartile.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.2638888888888889
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-60fafecf51dddaa8abdb",
+            "path": "result.error_breakdowns.by_erc_quartile.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-05383af77dcb87dde520",
+            "path": "result.error_breakdowns.by_erc_quartile.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q1 low"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a8adcf8cc9d03b1a75d5",
+            "path": "result.error_breakdowns.by_erc_quartile.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1787
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2db7edabbb7344218df4",
+            "path": "result.error_breakdowns.by_erc_quartile.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 48
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-e308b3395e451856ae5d",
+            "path": "result.error_breakdowns.by_erc_quartile.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4d4f6958994ceec93c1e",
+            "path": "result.error_breakdowns.by_erc_quartile.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 112
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ca12921bb43e053c6169",
+            "path": "result.error_breakdowns.by_erc_quartile.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4583333333333333
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9d6ee40e792632c8a438",
+            "path": "result.error_breakdowns.by_erc_quartile.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a7a9258fe92f017c32dd",
+            "path": "result.error_breakdowns.by_discovery_month.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "7"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-da9cf81cbe40eec12c10",
+            "path": "result.error_breakdowns.by_discovery_month.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1871
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a4dc4f6ebfaf6ae2ed0a",
+            "path": "result.error_breakdowns.by_discovery_month.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 144
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-337ebf2bf1ed1de1ecb0",
+            "path": "result.error_breakdowns.by_discovery_month.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 87
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0cdc58146c5779a73414",
+            "path": "result.error_breakdowns.by_discovery_month.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 213
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-5c13d42b01533944464e",
+            "path": "result.error_breakdowns.by_discovery_month.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3958333333333333
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-821be48847807c1c439c",
+            "path": "result.error_breakdowns.by_discovery_month.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-006adc9ba2b1739ec5f1",
+            "path": "result.error_breakdowns.by_discovery_month.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "8"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0ada4f0a49b03e82fff3",
+            "path": "result.error_breakdowns.by_discovery_month.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2042
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-1184f732d67164c54580",
+            "path": "result.error_breakdowns.by_discovery_month.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 140
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c7fb47c1a04b9ba7bbf2",
+            "path": "result.error_breakdowns.by_discovery_month.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 74
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-e7dd92c399e05503445c",
+            "path": "result.error_breakdowns.by_discovery_month.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 252
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-21d178c1e1a7a77789e9",
+            "path": "result.error_breakdowns.by_discovery_month.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4714285714285714
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3c2f474f8152de706276",
+            "path": "result.error_breakdowns.by_discovery_month.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-be24aa1070f3adcea09c",
+            "path": "result.error_breakdowns.by_discovery_month.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "9"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-592ec802d38022b00b28",
+            "path": "result.error_breakdowns.by_discovery_month.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1294
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-21f36d9aaaee0c626a12",
+            "path": "result.error_breakdowns.by_discovery_month.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 55
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3ba177cb6283f83dd031",
+            "path": "result.error_breakdowns.by_discovery_month.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 44
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-64fcef0d0910dfc30906",
+            "path": "result.error_breakdowns.by_discovery_month.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 70
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-47f646efd4fa51291fdf",
+            "path": "result.error_breakdowns.by_discovery_month.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.2
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-cb8f337743db554d358f",
+            "path": "result.error_breakdowns.by_discovery_month.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-34cdbf9d3fa808afb423",
+            "path": "result.error_breakdowns.by_discovery_month.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "6"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-11091ff62049e47e6519",
+            "path": "result.error_breakdowns.by_discovery_month.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 842
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ded8a407caf93fb23752",
+            "path": "result.error_breakdowns.by_discovery_month.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 41
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-139842dba07fd326702e",
+            "path": "result.error_breakdowns.by_discovery_month.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 29
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b6b5241e4760b4396885",
+            "path": "result.error_breakdowns.by_discovery_month.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 71
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-598676152797207727ba",
+            "path": "result.error_breakdowns.by_discovery_month.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.2926829268292683
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ed8c683dbe11a5a9737f",
+            "path": "result.error_breakdowns.by_discovery_month.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-35ccf5c9e295a970fb0e",
+            "path": "result.error_breakdowns.by_discovery_month.4.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "5"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9243ce559dfa562d83b1",
+            "path": "result.error_breakdowns.by_discovery_month.4.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 332
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-dff271f1aca232bcc2e0",
+            "path": "result.error_breakdowns.by_discovery_month.4.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2dc0e092daa992243b02",
+            "path": "result.error_breakdowns.by_discovery_month.4.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f13f0cfe8f63eaafdef5",
+            "path": "result.error_breakdowns.by_discovery_month.4.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 17
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-508d97530e68751ac6c4",
+            "path": "result.error_breakdowns.by_discovery_month.4.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.15384615384615385
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-65ade06f947f39896570",
+            "path": "result.error_breakdowns.by_discovery_month.4.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-61f1cd7de450600691a7",
+            "path": "result.error_breakdowns.by_discovery_month.5.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "10"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f1589bb6c63601a0b07d",
+            "path": "result.error_breakdowns.by_discovery_month.5.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 119
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9205d0290eb9b0fc4b0e",
+            "path": "result.error_breakdowns.by_discovery_month.5.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 11
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-99965157446437534bfe",
+            "path": "result.error_breakdowns.by_discovery_month.5.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 5
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-76b98be16194be64fbe7",
+            "path": "result.error_breakdowns.by_discovery_month.5.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 4
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-36fdba2b1ba0c1847c23",
+            "path": "result.error_breakdowns.by_discovery_month.5.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.5454545454545454
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-6d4e3d925a53cce08099",
+            "path": "result.error_breakdowns.by_discovery_month.5.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2ac0ece5eebccfb40de5",
+            "path": "result.error_breakdowns.by_discovery_month.6.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "4"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8bbe4c7dec4cfea7d3df",
+            "path": "result.error_breakdowns.by_discovery_month.6.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 245
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-6d0fdffffa05a9a561ca",
+            "path": "result.error_breakdowns.by_discovery_month.6.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 4
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9cf61452a77c1e9f68e5",
+            "path": "result.error_breakdowns.by_discovery_month.6.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 3
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3a7a6f688c4260b17a64",
+            "path": "result.error_breakdowns.by_discovery_month.6.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 5
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-e44eacef69358d171e7a",
+            "path": "result.error_breakdowns.by_discovery_month.6.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.25
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-143f36cd0471263d6d66",
+            "path": "result.error_breakdowns.by_discovery_month.6.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d87b567faa3a0afd4e39",
+            "path": "result.error_breakdowns.by_discovery_month.7.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "3"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ce423be726ea4a33bd82",
+            "path": "result.error_breakdowns.by_discovery_month.7.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 111
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b43d1c6e6ecc4bf14db7",
+            "path": "result.error_breakdowns.by_discovery_month.7.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-12611cf3d8c7a6ec42a0",
+            "path": "result.error_breakdowns.by_discovery_month.7.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-06069bed88de8307ef87",
+            "path": "result.error_breakdowns.by_discovery_month.7.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a54ecb2c18878503568c",
+            "path": "result.error_breakdowns.by_discovery_month.7.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.0
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c8945e2bee191ee92614",
+            "path": "result.error_breakdowns.by_discovery_month.7.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-47e940aab8371f64c164",
+            "path": "result.error_breakdowns.by_state.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "AZ"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3fbdb403a87ca3c91128",
+            "path": "result.error_breakdowns.by_state.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 669
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-5de5ae7f5c8b64c93cf1",
+            "path": "result.error_breakdowns.by_state.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 59
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d86e88fe716267f27067",
+            "path": "result.error_breakdowns.by_state.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 56
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-eec1135744f5aeac9219",
+            "path": "result.error_breakdowns.by_state.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-db4863cbdab70b92ac2f",
+            "path": "result.error_breakdowns.by_state.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.05084745762711865
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f034b1f5a856042dc23a",
+            "path": "result.error_breakdowns.by_state.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-57e47be400bf9cb4c779",
+            "path": "result.error_breakdowns.by_state.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "NM"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-1f9c0d04bca9e9a930c7",
+            "path": "result.error_breakdowns.by_state.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 398
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9ef79945fb856d242cae",
+            "path": "result.error_breakdowns.by_state.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 52
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b8b87148f35b8723a9fc",
+            "path": "result.error_breakdowns.by_state.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 45
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4bf7d7a1b797a0584813",
+            "path": "result.error_breakdowns.by_state.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 28
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a2c47cfbb4d4924f9605",
+            "path": "result.error_breakdowns.by_state.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.1346153846153846
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-87d51717222444000c77",
+            "path": "result.error_breakdowns.by_state.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7308e2bdd904ec56d53b",
+            "path": "result.error_breakdowns.by_state.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "FL"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b9bdb67b35230642c41e",
+            "path": "result.error_breakdowns.by_state.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 386
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-70b86f5674f3d0ac505a",
+            "path": "result.error_breakdowns.by_state.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 34
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a8ace786bbbb314854ab",
+            "path": "result.error_breakdowns.by_state.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-98dd39f05abb4e8f6329",
+            "path": "result.error_breakdowns.by_state.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 29
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8e4559e7585fc6e2d011",
+            "path": "result.error_breakdowns.by_state.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.35294117647058826
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8c5fc8439789e2dcaccc",
+            "path": "result.error_breakdowns.by_state.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f78cc2d592409e4ee0b4",
+            "path": "result.error_breakdowns.by_state.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "ID"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ec698d25067b16aac13e",
+            "path": "result.error_breakdowns.by_state.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 471
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-94d51f7fafaf8becbf14",
+            "path": "result.error_breakdowns.by_state.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 38
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-b6de9d650df4478afe64",
+            "path": "result.error_breakdowns.by_state.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 19
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-369721140f85efbf930f",
+            "path": "result.error_breakdowns.by_state.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 126
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ceb848d230981e880f01",
+            "path": "result.error_breakdowns.by_state.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.5
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3b2c56692a3373ab04f4",
+            "path": "result.error_breakdowns.by_state.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-07ed1e0d87af8171e5d4",
+            "path": "result.error_breakdowns.by_state.4.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "CA"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-10013e3fecc31865125c",
+            "path": "result.error_breakdowns.by_state.4.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 440
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-fb7e176fe5b6b5529189",
+            "path": "result.error_breakdowns.by_state.4.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a857bb224f6ed406ec56",
+            "path": "result.error_breakdowns.by_state.4.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 18
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c8903c6547297f0d4403",
+            "path": "result.error_breakdowns.by_state.4.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 10
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-109c7a40024a5bbd5156",
+            "path": "result.error_breakdowns.by_state.4.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.18181818181818182
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a401e9c53bc32928a58b",
+            "path": "result.error_breakdowns.by_state.4.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7d755347b4b8bf61758f",
+            "path": "result.error_breakdowns.by_state.5.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "UT"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8859fd2c001ae25ace4f",
+            "path": "result.error_breakdowns.by_state.5.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 332
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-23e539e62d14b10af235",
+            "path": "result.error_breakdowns.by_state.5.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-719362448e7e84fbf1bb",
+            "path": "result.error_breakdowns.by_state.5.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 16
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-59a27c450532fb5da5fb",
+            "path": "result.error_breakdowns.by_state.5.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 41
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f0b302c74cc752e44b18",
+            "path": "result.error_breakdowns.by_state.5.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.38461538461538464
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7d15d49526477bf37376",
+            "path": "result.error_breakdowns.by_state.5.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-336619792ca5fba5867a",
+            "path": "result.error_breakdowns.by_state.6.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "CO"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-042c3cd8521314ea714d",
+            "path": "result.error_breakdowns.by_state.6.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 521
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-330ed47c97f45cd94b29",
+            "path": "result.error_breakdowns.by_state.6.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 15
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8918c94ad37669494ed3",
+            "path": "result.error_breakdowns.by_state.6.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2e51f778150f3f5a388f",
+            "path": "result.error_breakdowns.by_state.6.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-86c27b84c87e055f7c68",
+            "path": "result.error_breakdowns.by_state.6.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.06666666666666667
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f5e09be7ed3ace1ba427",
+            "path": "result.error_breakdowns.by_state.6.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2b81f32d8bc18d9a25ed",
+            "path": "result.error_breakdowns.by_state.7.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "OR"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8a5694a319ecb5dd732a",
+            "path": "result.error_breakdowns.by_state.7.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1027
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c6c57326cba1f888af59",
+            "path": "result.error_breakdowns.by_state.7.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-75a8f0f8aa2c3abe142e",
+            "path": "result.error_breakdowns.by_state.7.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d151c057928ca6aaf693",
+            "path": "result.error_breakdowns.by_state.7.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 48
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-780a2c1766df9391cbf0",
+            "path": "result.error_breakdowns.by_state.7.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.36363636363636365
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-97eacf64c3071e8e879e",
+            "path": "result.error_breakdowns.by_state.7.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-338ad3ae1ace845b13d4",
+            "path": "result.error_breakdowns.by_fuel_model.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "122.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7eeda9535825cd617256",
+            "path": "result.error_breakdowns.by_fuel_model.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1384
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9b695cc86b3ed22b069f",
+            "path": "result.error_breakdowns.by_fuel_model.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 117
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-77a43ecd9833e31a062d",
+            "path": "result.error_breakdowns.by_fuel_model.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 66
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-6302119d3d606980d3cb",
+            "path": "result.error_breakdowns.by_fuel_model.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 189
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-7b6e858cc5ba934846a3",
+            "path": "result.error_breakdowns.by_fuel_model.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4358974358974359
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-98cf720becdebebd8ee2",
+            "path": "result.error_breakdowns.by_fuel_model.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3b9dfdd3ab10fceb748e",
+            "path": "result.error_breakdowns.by_fuel_model.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "102.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8fddf0f5709ee3d950a8",
+            "path": "result.error_breakdowns.by_fuel_model.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 806
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0a0fedb9f31813135d88",
+            "path": "result.error_breakdowns.by_fuel_model.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 79
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0e25dffb731f4428e0cf",
+            "path": "result.error_breakdowns.by_fuel_model.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 40
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0e99be758adda9e22324",
+            "path": "result.error_breakdowns.by_fuel_model.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 128
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-91c940d8c7b7b4819e5d",
+            "path": "result.error_breakdowns.by_fuel_model.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4936708860759494
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d670616e2969712d283b",
+            "path": "result.error_breakdowns.by_fuel_model.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-95a0ad9553ff322b0282",
+            "path": "result.error_breakdowns.by_fuel_model.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "188.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-6654660146c9e3bb00f3",
+            "path": "result.error_breakdowns.by_fuel_model.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 385
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-fe404bcaacae75ab1e3c",
+            "path": "result.error_breakdowns.by_fuel_model.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 27
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-699d1e2d06418538cd23",
+            "path": "result.error_breakdowns.by_fuel_model.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a163b2d6a54d9f5816ad",
+            "path": "result.error_breakdowns.by_fuel_model.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 12
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0964db5700a0b3a15875",
+            "path": "result.error_breakdowns.by_fuel_model.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.037037037037037035
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4ed6ddc3f5153ea2dc15",
+            "path": "result.error_breakdowns.by_fuel_model.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c0381f8c5a96a67dba8a",
+            "path": "result.error_breakdowns.by_fuel_model.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "165.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-5e73ad62855fceb58a0f",
+            "path": "result.error_breakdowns.by_fuel_model.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 750
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c6fc7b801c0951f180f9",
+            "path": "result.error_breakdowns.by_fuel_model.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-179f512cde6e9d8180c8",
+            "path": "result.error_breakdowns.by_fuel_model.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 23
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3a67d91c292026e513f7",
+            "path": "result.error_breakdowns.by_fuel_model.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 55
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-024799d3aba5df9f61a0",
+            "path": "result.error_breakdowns.by_fuel_model.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.11538461538461539
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-de6919f97fa2e9a65630",
+            "path": "result.error_breakdowns.by_fuel_model.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0af764dce92b2df651b2",
+            "path": "result.error_breakdowns.by_fuel_model.4.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "101.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-389e2914e3430d632c30",
+            "path": "result.error_breakdowns.by_fuel_model.4.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 285
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-9b37b8e8c6b73756bb11",
+            "path": "result.error_breakdowns.by_fuel_model.4.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 25
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c6cd33f5583095b6d5bd",
+            "path": "result.error_breakdowns.by_fuel_model.4.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 18
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-a563ecbd4edfe2581cfe",
+            "path": "result.error_breakdowns.by_fuel_model.4.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 20
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-992765f17791b6ced41f",
+            "path": "result.error_breakdowns.by_fuel_model.4.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.28
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f64e40f2d2f8d30c1855",
+            "path": "result.error_breakdowns.by_fuel_model.4.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f2e7b0d6baa4e402f98b",
+            "path": "result.error_breakdowns.by_fuel_model.5.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "183.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-122dbd26d5630284e719",
+            "path": "result.error_breakdowns.by_fuel_model.5.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 334
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-37a99292a316aa62a690",
+            "path": "result.error_breakdowns.by_fuel_model.5.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 17
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-c3c53f37189aa3263994",
+            "path": "result.error_breakdowns.by_fuel_model.5.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 12
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-34f31d1f1ffd3f2e762d",
+            "path": "result.error_breakdowns.by_fuel_model.5.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8b58ff018925d015d54d",
+            "path": "result.error_breakdowns.by_fuel_model.5.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.29411764705882354
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-2656245e9d33c8d96825",
+            "path": "result.error_breakdowns.by_fuel_model.5.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-158518d38c2db7a65626",
+            "path": "result.error_breakdowns.by_fuel_model.6.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "121.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-90d100886d2120d002ae",
+            "path": "result.error_breakdowns.by_fuel_model.6.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 244
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-4918886ac2c207f2cc0f",
+            "path": "result.error_breakdowns.by_fuel_model.6.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 21
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-85675db446dc74cb3a27",
+            "path": "result.error_breakdowns.by_fuel_model.6.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 10
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f0e178ad436d3f5c7cb7",
+            "path": "result.error_breakdowns.by_fuel_model.6.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-0b2e671ce5e35eaaafc0",
+            "path": "result.error_breakdowns.by_fuel_model.6.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.5238095238095238
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-8ff2d04344ac95126c7f",
+            "path": "result.error_breakdowns.by_fuel_model.6.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-f88a042bd9ff834896cd",
+            "path": "result.error_breakdowns.by_fuel_model.7.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "147.0"
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-ca4fbba31bf4f4544700",
+            "path": "result.error_breakdowns.by_fuel_model.7.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 95
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-5f2e4a2e0c075969ac81",
+            "path": "result.error_breakdowns.by_fuel_model.7.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 11
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-852bb8ff1825a4eff9cb",
+            "path": "result.error_breakdowns.by_fuel_model.7.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 10
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-3ed9a8eba38637d11939",
+            "path": "result.error_breakdowns.by_fuel_model.7.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-d4dc2eb9a3097b2bfc83",
+            "path": "result.error_breakdowns.by_fuel_model.7.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.09090909090909091
+          },
+          {
+            "experiment_id": "exp-000",
+            "id": "ev-17243667a39b93fbd1b3",
+            "path": "result.error_breakdowns.by_fuel_model.7.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-2a71d95283c258ccde84",
+            "path": "updated_at",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "2026-09-13T15:16:16+00:00"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8f86dc8a69f91e279f0d",
+            "path": "experiment.model",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "logistic_regression"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3edc0436454f563f8a47",
+            "path": "experiment.feature_protocol",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "all"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ba3ddf6d15efd6e0551a",
+            "path": "experiment.weather_days",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 5
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-0c2010fad869bc0fd547",
+            "path": "experiment.hyperparameters",
+            "session_id": "wf-20260913-150158-81be",
+            "value": {
+              "C": 1.0,
+              "class_weight": "balanced"
+            }
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-12d7b11432eb570a85f9",
+            "path": "result.score_kind",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "VALIDATION_AUPRC"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-66dc5058af323df4cf63",
+            "path": "result.split",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "val (2019)"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3a3ade7e5a6ecb4bab4e",
+            "path": "result.validation_auprc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.39721230867438967
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-32652b5a4a7d69feff9b",
+            "path": "result.validation_auroc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.8383812248229044
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f8c8bfe3d521d28f19c6",
+            "path": "result.train_auprc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.7213156564817588
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9eb7a3900fc2865abd1f",
+            "path": "result.threshold_best_f1",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.89
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6649cabdda096700f3a3",
+            "path": "result.false_negative_count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 262
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-40d81145e38cdc8a1ff1",
+            "path": "result.false_positive_count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 240
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-d298f377437dd9f603e7",
+            "path": "result.val_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 428
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a31388f0147079c402b5",
+            "path": "result.val_size",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 7047
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9030940888e24c2fc7cc",
+            "path": "result.train_size",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22576
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-93f2ad1f3866a2100477",
+            "path": "result.n_features",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 6029
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c5c9e2c5d3aa2eee4a06",
+            "path": "result.runtime_seconds",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 23.20299999999952
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9a1ab6bc372f8cdecf6d",
+            "path": "result.seed",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 553371
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4fe096d3003d5c0c3e27",
+            "path": "result.confusion_matrix.tp",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 166
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-acc0b9822e8cd49a1c38",
+            "path": "result.confusion_matrix.fp",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 240
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6a5942c228962cb90e36",
+            "path": "result.confusion_matrix.tn",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 6379
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-cc9135a18e2becc73c74",
+            "path": "result.confusion_matrix.fn",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 262
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b0a5a1b535ea33af3977",
+            "path": "result.validation_metrics.precision",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4088669950738916
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c054888b9b76c8972635",
+            "path": "result.validation_metrics.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3878504672897196
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8b7f9dcf891d62fb9f86",
+            "path": "result.validation_metrics.f1",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3980815347721823
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-14d8f4da2ce49d62343f",
+            "path": "result.validation_metrics.auprc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.39721230867438967
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-0d5f15d16779a23b648d",
+            "path": "result.validation_metrics.auroc",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.8383812248229044
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-7c6e9457dd929e8e42af",
+            "path": "result.error_breakdowns.by_viirs_detection.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "no VIIRS match"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f7bab54e9b250f5d8ea9",
+            "path": "result.error_breakdowns.by_viirs_detection.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 6859
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-821d92c03e29ce5e3c70",
+            "path": "result.error_breakdowns.by_viirs_detection.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 331
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-02fa86712b76205c3393",
+            "path": "result.error_breakdowns.by_viirs_detection.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 243
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-704b5d6aa9e12cd1932a",
+            "path": "result.error_breakdowns.by_viirs_detection.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 215
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-1316457813bc93e86403",
+            "path": "result.error_breakdowns.by_viirs_detection.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.26586102719033233
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-98d95d946a6583d1ab4b",
+            "path": "result.error_breakdowns.by_viirs_detection.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-23d0a534747a97d1dd0e",
+            "path": "result.error_breakdowns.by_viirs_detection.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "VIIRS match"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-caa2758c354a8b91a405",
+            "path": "result.error_breakdowns.by_viirs_detection.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 188
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-00005725564c36d3aa12",
+            "path": "result.error_breakdowns.by_viirs_detection.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 97
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-7e6892b3ccdeb90cc6cb",
+            "path": "result.error_breakdowns.by_viirs_detection.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 19
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b8a08d81a6b6d6d5ec61",
+            "path": "result.error_breakdowns.by_viirs_detection.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 25
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9d93522bc2e3113a3b55",
+            "path": "result.error_breakdowns.by_viirs_detection.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.8041237113402062
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a88c06bf0005db45303b",
+            "path": "result.error_breakdowns.by_viirs_detection.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3959f1691be5ed53c985",
+            "path": "result.error_breakdowns.by_erc_quartile.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q4 high"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-94cff3f3f57c27b1d39a",
+            "path": "result.error_breakdowns.by_erc_quartile.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1721
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b794f88d29de5ff18c05",
+            "path": "result.error_breakdowns.by_erc_quartile.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 181
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3ecd02dfae47f8eea50a",
+            "path": "result.error_breakdowns.by_erc_quartile.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 99
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a019537c9d7e3d1a43e7",
+            "path": "result.error_breakdowns.by_erc_quartile.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 114
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-d0276d96371d96375fd1",
+            "path": "result.error_breakdowns.by_erc_quartile.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4530386740331492
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a055e56e7c77e1d26c66",
+            "path": "result.error_breakdowns.by_erc_quartile.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-2ab2fd215cd035d8d62c",
+            "path": "result.error_breakdowns.by_erc_quartile.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q3"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-abf184b41e7bd8ea33ed",
+            "path": "result.error_breakdowns.by_erc_quartile.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1722
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-513d960849e95c83382a",
+            "path": "result.error_breakdowns.by_erc_quartile.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 127
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-29b7d7368089dd5039a6",
+            "path": "result.error_breakdowns.by_erc_quartile.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 83
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-79841df7dcb065b0d906",
+            "path": "result.error_breakdowns.by_erc_quartile.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 65
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5bbbf660dc75523bb32d",
+            "path": "result.error_breakdowns.by_erc_quartile.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3464566929133858
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-d39c33afaf32fb53666e",
+            "path": "result.error_breakdowns.by_erc_quartile.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c9e1a466830c01ec6979",
+            "path": "result.error_breakdowns.by_erc_quartile.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q2"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c21e579bf5dc45f04b2e",
+            "path": "result.error_breakdowns.by_erc_quartile.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1817
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-7ddd933721be2fb848e2",
+            "path": "result.error_breakdowns.by_erc_quartile.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 72
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-bb2d4a0b0324826e4a02",
+            "path": "result.error_breakdowns.by_erc_quartile.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 46
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-095dea384accb1ae7dee",
+            "path": "result.error_breakdowns.by_erc_quartile.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 39
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-fcfe3ac03acb8906a5f4",
+            "path": "result.error_breakdowns.by_erc_quartile.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3611111111111111
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5889f19661dddf6b2bc4",
+            "path": "result.error_breakdowns.by_erc_quartile.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-119a012214d6024a18ec",
+            "path": "result.error_breakdowns.by_erc_quartile.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "Q1 low"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-56cb2ff4274ee32e93dd",
+            "path": "result.error_breakdowns.by_erc_quartile.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1787
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-e93dd6c8a894926221ce",
+            "path": "result.error_breakdowns.by_erc_quartile.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 48
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-e477629c14c23f8aa3db",
+            "path": "result.error_breakdowns.by_erc_quartile.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 34
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b06d44e2b00d97ff169f",
+            "path": "result.error_breakdowns.by_erc_quartile.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-1980153fe6219e459a04",
+            "path": "result.error_breakdowns.by_erc_quartile.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.2916666666666667
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-54495f1eb72eac016b1a",
+            "path": "result.error_breakdowns.by_erc_quartile.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-97e2988eaf4d92c11a55",
+            "path": "result.error_breakdowns.by_discovery_month.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "7"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-dafffa4a6405a0c2a3ba",
+            "path": "result.error_breakdowns.by_discovery_month.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1871
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-91fdf1233d5a39af7b3a",
+            "path": "result.error_breakdowns.by_discovery_month.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 144
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-d338c489391d1716422f",
+            "path": "result.error_breakdowns.by_discovery_month.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 87
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-fd7f1a1d01e9035e0e1c",
+            "path": "result.error_breakdowns.by_discovery_month.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 76
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5ea436f6871d70e6bc61",
+            "path": "result.error_breakdowns.by_discovery_month.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3958333333333333
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-593871a022f711c4b3f0",
+            "path": "result.error_breakdowns.by_discovery_month.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b04651f4fed44d9c1152",
+            "path": "result.error_breakdowns.by_discovery_month.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "8"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5661daa77635e943fcc0",
+            "path": "result.error_breakdowns.by_discovery_month.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2042
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-68dd8cc77529b724e396",
+            "path": "result.error_breakdowns.by_discovery_month.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 140
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-d51728367c19f4a73198",
+            "path": "result.error_breakdowns.by_discovery_month.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 81
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b01c5a8e718d42b086ef",
+            "path": "result.error_breakdowns.by_discovery_month.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 90
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-95a6710c0b9f3213a4c7",
+            "path": "result.error_breakdowns.by_discovery_month.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.42142857142857143
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c834c8540c4e52e4d80c",
+            "path": "result.error_breakdowns.by_discovery_month.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4ef87f9311cac4ed1f2d",
+            "path": "result.error_breakdowns.by_discovery_month.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "9"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a17ae6bcf1ca0638a4c6",
+            "path": "result.error_breakdowns.by_discovery_month.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1294
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b64eccfcb8e1944529dc",
+            "path": "result.error_breakdowns.by_discovery_month.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 55
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-251f13d7dd722a4d214a",
+            "path": "result.error_breakdowns.by_discovery_month.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 36
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6fd89a49f1a49ebd876e",
+            "path": "result.error_breakdowns.by_discovery_month.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 34
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-e3372ce697abe78e2788",
+            "path": "result.error_breakdowns.by_discovery_month.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.34545454545454546
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3e2f8dd4c0e9e8ef42e7",
+            "path": "result.error_breakdowns.by_discovery_month.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6ba97325651c7ac386d9",
+            "path": "result.error_breakdowns.by_discovery_month.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "6"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-239eaedec0aeb03a6d74",
+            "path": "result.error_breakdowns.by_discovery_month.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 842
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4b1d72e0521937e587cb",
+            "path": "result.error_breakdowns.by_discovery_month.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 41
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a5f19ed24258f4c94995",
+            "path": "result.error_breakdowns.by_discovery_month.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 32
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ea618e8e3483d5d428c9",
+            "path": "result.error_breakdowns.by_discovery_month.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 24
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8c0fc7bbf384dcfa76a3",
+            "path": "result.error_breakdowns.by_discovery_month.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.21951219512195122
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-e4271d6c526825a30d2b",
+            "path": "result.error_breakdowns.by_discovery_month.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-852190826a4ec5571c0b",
+            "path": "result.error_breakdowns.by_discovery_month.4.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "5"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ef05e7dadfd4a83ba7b9",
+            "path": "result.error_breakdowns.by_discovery_month.4.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 332
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-0f89db8dd77d500c6007",
+            "path": "result.error_breakdowns.by_discovery_month.4.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-bf51d4a3791a17437cd4",
+            "path": "result.error_breakdowns.by_discovery_month.4.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 16
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-fcb517dbd3487a88e5de",
+            "path": "result.error_breakdowns.by_discovery_month.4.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 9
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b66438a0a02722e6e98d",
+            "path": "result.error_breakdowns.by_discovery_month.4.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.38461538461538464
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-11154a3cf264bd69ac23",
+            "path": "result.error_breakdowns.by_discovery_month.4.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6e3468ac002953c97099",
+            "path": "result.error_breakdowns.by_discovery_month.5.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "10"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3343185799060ed221f8",
+            "path": "result.error_breakdowns.by_discovery_month.5.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 119
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-75a8182c9a68ac6d9353",
+            "path": "result.error_breakdowns.by_discovery_month.5.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 11
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-161277c4a54f91f4212e",
+            "path": "result.error_breakdowns.by_discovery_month.5.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 6
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-072953850ac6922e7313",
+            "path": "result.error_breakdowns.by_discovery_month.5.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9e33452d16ed18e622fd",
+            "path": "result.error_breakdowns.by_discovery_month.5.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.45454545454545453
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-fb0dda382dcdf87fc69c",
+            "path": "result.error_breakdowns.by_discovery_month.5.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-687963a67165bcb28bb4",
+            "path": "result.error_breakdowns.by_discovery_month.6.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "4"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a50d85980fc4092b90e6",
+            "path": "result.error_breakdowns.by_discovery_month.6.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 245
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c878aaaa99645ae49ccb",
+            "path": "result.error_breakdowns.by_discovery_month.6.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 4
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-673e31b39e385d8f261e",
+            "path": "result.error_breakdowns.by_discovery_month.6.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 3
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-51e0b3171263dc8e7867",
+            "path": "result.error_breakdowns.by_discovery_month.6.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 3
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-0191481c04265eb6a524",
+            "path": "result.error_breakdowns.by_discovery_month.6.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.25
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4f7c3818dbebe1da99e8",
+            "path": "result.error_breakdowns.by_discovery_month.6.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3152320386c83c6bfe2d",
+            "path": "result.error_breakdowns.by_discovery_month.7.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "2"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6aaaf23a300034768735",
+            "path": "result.error_breakdowns.by_discovery_month.7.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 33
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c7114a1ab1dc8fa909d2",
+            "path": "result.error_breakdowns.by_discovery_month.7.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 2
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-652fe981ec436a6ab50b",
+            "path": "result.error_breakdowns.by_discovery_month.7.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-bd8dfeeadc4964ab6269",
+            "path": "result.error_breakdowns.by_discovery_month.7.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b81fa92d93b13c2f67d1",
+            "path": "result.error_breakdowns.by_discovery_month.7.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.5
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-74b1418c083023aa4cb7",
+            "path": "result.error_breakdowns.by_discovery_month.7.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-629115ea842f8b4fd5c5",
+            "path": "result.error_breakdowns.by_state.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "AZ"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4dd5af7d1e8cd4fa1c10",
+            "path": "result.error_breakdowns.by_state.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 669
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-96c5746f2292c354fb5a",
+            "path": "result.error_breakdowns.by_state.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 59
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-031cd7fe08f32a84f79d",
+            "path": "result.error_breakdowns.by_state.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 46
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-bd87d6bca98930b9ed17",
+            "path": "result.error_breakdowns.by_state.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 19
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-029e1b9b3392a2ecbbb3",
+            "path": "result.error_breakdowns.by_state.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.22033898305084745
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-120cb4862c545e0b804f",
+            "path": "result.error_breakdowns.by_state.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c682c43916f027f8b31f",
+            "path": "result.error_breakdowns.by_state.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "NM"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-7e69fd57741447accf6c",
+            "path": "result.error_breakdowns.by_state.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 398
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-db98081584564d477c09",
+            "path": "result.error_breakdowns.by_state.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 52
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c619acd329a9e39af10e",
+            "path": "result.error_breakdowns.by_state.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 36
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-fb8d6e6e7ad9c1a6a56a",
+            "path": "result.error_breakdowns.by_state.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 27
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9c656bcd6736f5895e6f",
+            "path": "result.error_breakdowns.by_state.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3076923076923077
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8e91fe114305bc56c91a",
+            "path": "result.error_breakdowns.by_state.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6e78284739e67ba58e09",
+            "path": "result.error_breakdowns.by_state.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "TX"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4a7b8a1fc50dccbaf0cd",
+            "path": "result.error_breakdowns.by_state.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 249
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c904cd163b005a3103d3",
+            "path": "result.error_breakdowns.by_state.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 65
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8578f8ba4fc3e84baa55",
+            "path": "result.error_breakdowns.by_state.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 27
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3c1094dc949d9ce67316",
+            "path": "result.error_breakdowns.by_state.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 23
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b3f8935afc033caeb905",
+            "path": "result.error_breakdowns.by_state.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.5846153846153846
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-bbd40477629891675624",
+            "path": "result.error_breakdowns.by_state.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-16287cd9e48355f596bd",
+            "path": "result.error_breakdowns.by_state.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "FL"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9488dbfeaa11a5bf5b59",
+            "path": "result.error_breakdowns.by_state.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 386
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-0805dec1510134b46581",
+            "path": "result.error_breakdowns.by_state.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 34
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6c74aaf915f41ce3948e",
+            "path": "result.error_breakdowns.by_state.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 20
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5fce1b8948d5ef5ead85",
+            "path": "result.error_breakdowns.by_state.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 13
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-576f99789916f2e3d8b8",
+            "path": "result.error_breakdowns.by_state.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4117647058823529
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8a2e02bc9915474c1d0c",
+            "path": "result.error_breakdowns.by_state.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-953dd509b12da7d19fae",
+            "path": "result.error_breakdowns.by_state.4.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "UT"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6ec93db0054734b79551",
+            "path": "result.error_breakdowns.by_state.4.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 332
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5bee60e6a7755d589f38",
+            "path": "result.error_breakdowns.by_state.4.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-15357528591e28b9ccbc",
+            "path": "result.error_breakdowns.by_state.4.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 17
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-39db6d957030e7ade9b2",
+            "path": "result.error_breakdowns.by_state.4.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 24
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-e3ba086607d2e9dd5a28",
+            "path": "result.error_breakdowns.by_state.4.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.34615384615384615
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3f383c9228ed5bfc069e",
+            "path": "result.error_breakdowns.by_state.4.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-d4a1d9f4e42c7ec2ff34",
+            "path": "result.error_breakdowns.by_state.5.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "ID"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a6529e745e13961a6e1d",
+            "path": "result.error_breakdowns.by_state.5.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 471
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c607759f1e069d90c155",
+            "path": "result.error_breakdowns.by_state.5.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 38
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ff5ab4d4f60f9fc25219",
+            "path": "result.error_breakdowns.by_state.5.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 16
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ec23f54de92300dfabc4",
+            "path": "result.error_breakdowns.by_state.5.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 21
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3833c2d25a6a924b3acf",
+            "path": "result.error_breakdowns.by_state.5.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.5789473684210527
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b2056b6cb8d0c0fd50d5",
+            "path": "result.error_breakdowns.by_state.5.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f56f9b6a448d66d444f3",
+            "path": "result.error_breakdowns.by_state.6.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "NV"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-060ac971514d832bd64f",
+            "path": "result.error_breakdowns.by_state.6.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 212
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a7dbb44107d0fcc04bbf",
+            "path": "result.error_breakdowns.by_state.6.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 30
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-cb55697982bdc07f5447",
+            "path": "result.error_breakdowns.by_state.6.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 16
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-33253e87dbc4b255fb86",
+            "path": "result.error_breakdowns.by_state.6.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-aa86d6a403d6cd82f4f5",
+            "path": "result.error_breakdowns.by_state.6.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.4666666666666667
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-832ba430316b3badaeca",
+            "path": "result.error_breakdowns.by_state.6.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ece8c95ae6e849fc1a5e",
+            "path": "result.error_breakdowns.by_state.7.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "CA"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b76724936d324f228f0d",
+            "path": "result.error_breakdowns.by_state.7.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 440
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f71d6cd879b81537c890",
+            "path": "result.error_breakdowns.by_state.7.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 22
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ae85a554e91e001c7cc8",
+            "path": "result.error_breakdowns.by_state.7.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-bb33aae607c8d5a0b114",
+            "path": "result.error_breakdowns.by_state.7.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 17
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-202b6b7a2333ebb014ee",
+            "path": "result.error_breakdowns.by_state.7.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.36363636363636365
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-52e7c40eeb696f46e16f",
+            "path": "result.error_breakdowns.by_state.7.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-2b7231b9eb463f023b5d",
+            "path": "result.error_breakdowns.by_fuel_model.0.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "122.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-dd90d38a25801a1275c9",
+            "path": "result.error_breakdowns.by_fuel_model.0.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 1384
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-efa50cdfedbf1bfbca16",
+            "path": "result.error_breakdowns.by_fuel_model.0.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 117
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-323f3cc7ca024a558315",
+            "path": "result.error_breakdowns.by_fuel_model.0.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 63
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-68db4b07859b1dd864b6",
+            "path": "result.error_breakdowns.by_fuel_model.0.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 62
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-97c29814024c2613c01b",
+            "path": "result.error_breakdowns.by_fuel_model.0.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.46153846153846156
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8ed4dffd5b5533148577",
+            "path": "result.error_breakdowns.by_fuel_model.0.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-20c4ac2f6d2db8bc7b0b",
+            "path": "result.error_breakdowns.by_fuel_model.1.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "102.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-20ae8527f923901f5e11",
+            "path": "result.error_breakdowns.by_fuel_model.1.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 806
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-aa954bce95401b198e2c",
+            "path": "result.error_breakdowns.by_fuel_model.1.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 79
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-62fa7a55a80fce0fd160",
+            "path": "result.error_breakdowns.by_fuel_model.1.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 42
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c001594522e42ff50138",
+            "path": "result.error_breakdowns.by_fuel_model.1.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 65
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-37ee0aa1b4470bb028c4",
+            "path": "result.error_breakdowns.by_fuel_model.1.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.46835443037974683
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-627fbb35f4913cce5218",
+            "path": "result.error_breakdowns.by_fuel_model.1.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f13e9a5b3d84dba37976",
+            "path": "result.error_breakdowns.by_fuel_model.2.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "165.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5ba8abdd833b0b2c93e5",
+            "path": "result.error_breakdowns.by_fuel_model.2.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 750
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-8a2abe2db24585941d06",
+            "path": "result.error_breakdowns.by_fuel_model.2.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 26
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f33b6c26891747fc0488",
+            "path": "result.error_breakdowns.by_fuel_model.2.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 21
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-7e08185a20e0ffa12926",
+            "path": "result.error_breakdowns.by_fuel_model.2.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 14
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-98b2a098a56ffbe413c5",
+            "path": "result.error_breakdowns.by_fuel_model.2.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.19230769230769232
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a7a143c9c51222826816",
+            "path": "result.error_breakdowns.by_fuel_model.2.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-4d275ed4928ec34a3be0",
+            "path": "result.error_breakdowns.by_fuel_model.3.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "188.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-6b803856492e880c913e",
+            "path": "result.error_breakdowns.by_fuel_model.3.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 385
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ca339295decb194a75db",
+            "path": "result.error_breakdowns.by_fuel_model.3.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 27
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-1dc5e4bb5031f1b62916",
+            "path": "result.error_breakdowns.by_fuel_model.3.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 21
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-57d8f2d3b81a642dc52c",
+            "path": "result.error_breakdowns.by_fuel_model.3.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 4
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-758e964d525973b96bc2",
+            "path": "result.error_breakdowns.by_fuel_model.3.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.2222222222222222
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-98e3a7027fc62fb45cc6",
+            "path": "result.error_breakdowns.by_fuel_model.3.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ab1845b86de92a0d88cf",
+            "path": "result.error_breakdowns.by_fuel_model.4.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "101.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-910cd8dc54e4bf579d7a",
+            "path": "result.error_breakdowns.by_fuel_model.4.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 285
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5b921a23cd54f0fead47",
+            "path": "result.error_breakdowns.by_fuel_model.4.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 25
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-ab8da1700a1c013e78c7",
+            "path": "result.error_breakdowns.by_fuel_model.4.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 13
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-39da9e94758fa462a017",
+            "path": "result.error_breakdowns.by_fuel_model.4.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 18
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-700a472159c4a507b260",
+            "path": "result.error_breakdowns.by_fuel_model.4.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.48
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f2442dab53fc7d050bf3",
+            "path": "result.error_breakdowns.by_fuel_model.4.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-01c59d13ad406b13a608",
+            "path": "result.error_breakdowns.by_fuel_model.5.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "183.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5da6725a1c814342c6c5",
+            "path": "result.error_breakdowns.by_fuel_model.5.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 334
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-877b10a72aef1a86a0e1",
+            "path": "result.error_breakdowns.by_fuel_model.5.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 17
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-2e2b5de4105bfa83bbbd",
+            "path": "result.error_breakdowns.by_fuel_model.5.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 13
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-0ff22578641b4a19720f",
+            "path": "result.error_breakdowns.by_fuel_model.5.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 6
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-b9fcf4f250be0a162e28",
+            "path": "result.error_breakdowns.by_fuel_model.5.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.23529411764705882
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-f9fbb0697e7413b6c2b5",
+            "path": "result.error_breakdowns.by_fuel_model.5.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-c218e4dae0380820cf4c",
+            "path": "result.error_breakdowns.by_fuel_model.6.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "121.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-79e397c8215045eb655f",
+            "path": "result.error_breakdowns.by_fuel_model.6.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 244
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-9077646672f71ec5ccb6",
+            "path": "result.error_breakdowns.by_fuel_model.6.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 21
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-735ca71310aae39c5395",
+            "path": "result.error_breakdowns.by_fuel_model.6.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 12
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-3cb4ec1273ebf85fa39c",
+            "path": "result.error_breakdowns.by_fuel_model.6.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 12
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-aeb0c620cc1225433e60",
+            "path": "result.error_breakdowns.by_fuel_model.6.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.42857142857142855
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-789b082ccdeaece8d3ee",
+            "path": "result.error_breakdowns.by_fuel_model.6.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-e0ed89d5172c28dc4863",
+            "path": "result.error_breakdowns.by_fuel_model.7.group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": "145.0"
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-48f1c726e9be7f36a0bf",
+            "path": "result.error_breakdowns.by_fuel_model.7.count",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 219
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-2902e90afce0a134daaa",
+            "path": "result.error_breakdowns.by_fuel_model.7.positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 19
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-aa978fa7bfcedbe9f7b0",
+            "path": "result.error_breakdowns.by_fuel_model.7.false_negatives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 12
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-a9e3d1d9d78417060bf3",
+            "path": "result.error_breakdowns.by_fuel_model.7.false_positives",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 12
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-897b0ae22036752e0b3c",
+            "path": "result.error_breakdowns.by_fuel_model.7.recall",
+            "session_id": "wf-20260913-150158-81be",
+            "value": 0.3684210526315789
+          },
+          {
+            "experiment_id": "exp-001",
+            "id": "ev-5feeec2238d4bc84b21f",
+            "path": "result.error_breakdowns.by_fuel_model.7.small_group",
+            "session_id": "wf-20260913-150158-81be",
+            "value": false
+          }
+        ],
+        "experiment_ids": [
+          "exp-000",
+          "exp-001"
+        ],
+        "hash": "c1f13372a3da50f26ea47250fc3b7e17bccba8e47f85c1996f74d33699d8cec4",
+        "id": "snapshot-c1f13372a3da50f26ea47250",
+        "project_id": null,
+        "project_snapshot_hash": null,
+        "protocol": {
+          "dataset": "WildfireIA/Anonymous-WildfireIA",
+          "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+          "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+          "limit_train_samples": null,
+          "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+          "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+          "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+          "repo": "https://github.com/LabRAI/WildfireIA",
+          "representation": "tabular",
+          "split_years": {
+            "test": [
+              2020
+            ],
+            "train": [
+              2016,
+              2017,
+              2018
+            ],
+            "val": [
+              2019
+            ]
+          },
+          "task": "ia_failure"
+        },
+        "protocol_fingerprint": "667d8964ba72791d8e0d2dcffce9c252df0dd22f93f53f9539b29955cdf5610b",
+        "schema_version": 1,
+        "session_id": "wf-20260913-150158-81be",
+        "session_revision": 3,
+        "subgroup": null,
+        "test_exposed": false
+      },
+      "response": {
+        "assumptions": [
+          "The interpretation treats the supplied evidence as an accurate snapshot of the selected runs.",
+          "The comparison is restricted to the supplied 2019 validation evidence and does not establish that the feature protocol caused the score difference.",
+          "The recommendation prioritizes the stated optimization objective, validation AUPRC, over runtime, feature count, threshold-specific performance, or deployment constraints."
+        ],
+        "claims": [
+          {
+            "citations": [
+              "ev-c293e0823c42768c0e60",
+              "ev-a96ef8503255ae0aecbc",
+              "ev-87749d4e2beead177272",
+              "ev-15612dcad7380d3ed943"
+            ],
+            "text": "exp-000 used logistic_regression with feature_protocol metadata, weather_days 5, and hyperparameters {C: 1.0, class_weight: balanced}."
+          },
+          {
+            "citations": [
+              "ev-b352506927fa4f483365",
+              "ev-922b6273e0f6fe0496ba",
+              "ev-c159a5fe38d80eea9a6d"
+            ],
+            "text": "On exp-000 result.validation_auprc for result.split val (2019), the supplied value is exactly 0.18417067640399878."
+          },
+          {
+            "citations": [
+              "ev-8f86dc8a69f91e279f0d",
+              "ev-3edc0436454f563f8a47",
+              "ev-ba3ddf6d15efd6e0551a",
+              "ev-0c2010fad869bc0fd547"
+            ],
+            "text": "exp-001 used logistic_regression with feature_protocol all, weather_days 5, and hyperparameters {C: 1.0, class_weight: balanced}."
+          },
+          {
+            "citations": [
+              "ev-3a3ade7e5a6ecb4bab4e",
+              "ev-66dc5058af323df4cf63",
+              "ev-12d7b11432eb570a85f9"
+            ],
+            "text": "On exp-001 result.validation_auprc for result.split val (2019), the supplied value is exactly 0.39721230867438967."
+          },
+          {
+            "citations": [
+              "ev-7a796d2df2448e1fac7e",
+              "ev-a31388f0147079c402b5",
+              "ev-968be46cee8f43fb4cd0",
+              "ev-d298f377437dd9f603e7",
+              "ev-1377c6fdd826a5cc168a",
+              "ev-9030940888e24c2fc7cc",
+              "ev-2b919a9b8f18b897d88d",
+              "ev-9a1ab6bc372f8cdecf6d"
+            ],
+            "text": "The selected runs report the same result.val_size value of 7047, result.val_positives value of 428, result.train_size value of 22576, and result.seed value of 553371."
+          },
+          {
+            "citations": [
+              "ev-f8c8bfe3d521d28f19c6",
+              "ev-3a3ade7e5a6ecb4bab4e"
+            ],
+            "text": "For exp-001, result.train_auprc is exactly 0.7213156564817588 while result.validation_auprc is exactly 0.39721230867438967; this is a descriptive train-validation gap, not evidence of a causal mechanism."
+          }
+        ],
+        "draft": {
+          "limitations": [
+            "This conclusion ranks only the two selected runs on the supplied 2019 validation objective.",
+            "The runs differ in feature protocol, so the observed association must not be interpreted as a causal effect of any individual feature family.",
+            "The exp-001 train-validation gap warrants caution, and uncertainty across repeated seeds is unknown.",
+            "The sealed official test set remains unexamined; no claim of official test superiority is supported."
+          ],
+          "recommendation": "Freeze exp-001 as the recommended configuration among these selected validation runs: model logistic_regression, feature_protocol all, weather_days 5, hyperparameters {C: 1.0, class_weight: balanced}. Advance it to the separately governed official test evaluation without claiming expected test superiority.",
+          "title": "Selected-run validation interpretation and recommended configuration"
+        },
+        "kind": "report",
+        "missing_evidence": [
+          "No sealed 2020 official test result is exposed, so official test superiority cannot be claimed.",
+          "No repeated-seed distribution, confidence interval, or statistical significance analysis is supplied.",
+          "Only two selected configurations are supplied; controlled ablations are missing, so the contribution of individual feature families cannot be isolated.",
+          "No evidence is supplied about calibration, threshold stability on independent data, operational costs, or prospective deployment performance."
+        ],
+        "request_id": "aria-assistant-9606ca0331764bf5b20abac1b87e3a89",
+        "schema_version": 1,
+        "snapshot_hash": "c1f13372a3da50f26ea47250fc3b7e17bccba8e47f85c1996f74d33699d8cec4"
+      },
+      "provenance": {
+        "aria_verified": true,
+        "artifact_digest": "1738d76ff6c42f0a6fa28c6493c6630c",
+        "artifact_ref": "ali-amjad52114-r42/wildfire-autonomous-researcher/aria-assistant-9606ca0331764bf5b20abac1b87e3a89-output:v0",
+        "response_hash": "6065e168f837605bd87cd89d1b39173419768e267e9743a92cb0bae4e9c9b5d3",
+        "transport": "wandb-aria"
+      }
+    },
+    "discovery_budget": 1,
+    "best_validation_experiment_id": "exp-001",
+    "verification": [
+      {
+        "id": "verify-51207f7013e045bd85ca60968f3cbd5a",
+        "status": "draft",
+        "plan_hash": "17d4e0fbc9073d6ee4cc0847574f4f3fa1c111a2773619873157c4cfeb578dd9",
+        "plan": {
+          "baseline_id": "exp-000",
+          "candidate_id": "exp-001",
+          "seeds": [
+            17,
+            42
+          ],
+          "configs": {
+            "baseline": {
+              "model": "logistic_regression",
+              "feature_protocol": "metadata",
+              "weather_days": 5,
+              "hyperparameters": {
+                "C": 1.0,
+                "class_weight": "balanced"
+              }
+            },
+            "candidate": {
+              "model": "logistic_regression",
+              "feature_protocol": "all",
+              "weather_days": 5,
+              "hyperparameters": {
+                "C": 1.0,
+                "class_weight": "balanced"
+              }
+            }
+          },
+          "protocol": {
+            "repo": "https://github.com/LabRAI/WildfireIA",
+            "pinned_commit": "aba9be9ef046a03e868a61c4139aa5bfcd7b5b56",
+            "dataset": "WildfireIA/Anonymous-WildfireIA",
+            "dataset_revision": "cd1fcad871c4293ec7bf066229d8714f059d42de",
+            "task": "ia_failure",
+            "representation": "tabular",
+            "split_years": {
+              "train": [
+                2016,
+                2017,
+                2018
+              ],
+              "val": [
+                2019
+              ],
+              "test": [
+                2020
+              ]
+            },
+            "label_rule": "ia_failure_label: 0 if final fire size <= 10 ha, 1 if >= 50 ha, events between 10 and 50 ha excluded",
+            "prediction_time": "discovery day D; weather from D-4..D, VIIRS thermal detections from day D only",
+            "metric": "sklearn.metrics.average_precision_score on raw scores (official classification_metrics)",
+            "limit_train_samples": null
+          },
+          "protocol_fingerprint": "667d8964ba72791d8e0d2dcffce9c252df0dd22f93f53f9539b29955cdf5610b",
+          "max_runs": 4,
+          "split": "val",
+          "score_kind": "VALIDATION_AUPRC",
+          "train_size": 22576,
+          "val_size": 7047,
+          "limit_train_samples": null
+        },
+        "summary": {
+          "paired_deltas": [],
+          "mean_delta": null,
+          "std_delta": null,
+          "min_delta": null,
+          "max_delta": null,
+          "expected_pairs": 2,
+          "incomplete": true,
+          "variability_label": "Sample standard deviation across paired seed deltas; not a confidence interval.",
+          "complete_pairs": 0,
+          "claim_eligible": false,
+          "limitations": [
+            "Validation-only repeated seeds; this is not an official test result.",
+            "Seed variation does not quantify dataset sampling uncertainty or remove adaptive validation bias."
+          ]
+        },
+        "children": [
+          {
+            "id": "verify-51207f7013e045bd85ca60968f3cbd5a-baseline-17",
+            "arm": "baseline",
+            "seed": 17,
+            "status": "pending",
+            "result": null,
+            "error": null
+          },
+          {
+            "id": "verify-51207f7013e045bd85ca60968f3cbd5a-candidate-17",
+            "arm": "candidate",
+            "seed": 17,
+            "status": "pending",
+            "result": null,
+            "error": null
+          },
+          {
+            "id": "verify-51207f7013e045bd85ca60968f3cbd5a-baseline-42",
+            "arm": "baseline",
+            "seed": 42,
+            "status": "pending",
+            "result": null,
+            "error": null
+          },
+          {
+            "id": "verify-51207f7013e045bd85ca60968f3cbd5a-candidate-42",
+            "arm": "candidate",
+            "seed": 42,
+            "status": "pending",
+            "result": null,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "test_exposed": false,
+    "claim_eligible": false
+  },
+  "markdown": "# Research report\n\nSession: `wf-20260913-150158-81be`\n\nRecorded research mode: `connected`. Fallback runs are development-only.\n\nValidation research and any previously recorded official-test results are separated below. Benchmark superiority is not certified.\n\n| Experiment | Model | Features | Validation AP | Decision |\n| --- | --- | --- | ---: | --- |\n| exp-000 | logistic_regression | metadata | 0.18417067640399878 | KEEP |\n| exp-001 | logistic_regression | all | 0.39721230867438967 | KEEP |\n\n## Recorded configurations\n\n| Experiment | Model | Features | Weather days | Hyperparameters |\n| --- | --- | --- | ---: | --- |\n| exp-000 | logistic_regression | metadata | 5 | {\"C\": 1.0, \"class_weight\": \"balanced\"} |\n| exp-001 | logistic_regression | all | 5 | {\"C\": 1.0, \"class_weight\": \"balanced\"} |\n\n## Verification\n\n- `verify-51207f7013e045bd85ca60968f3cbd5a`: draft; complete seed pairs: 0; mean validation AP change: None.\n  Sample standard deviation of paired deltas: None; range: None to None; incomplete: True. These describe seed variation, not a generalization confidence interval.\n\n## Recorded selection\n\nHighest recorded validation AP: `exp-001`. This ranking is not a verified deployment recommendation.\n\nDiscovery experiment budget: 1. Verification has a separate budget.\n\n## Recorded experiment reasoning\n\nHistorical controller statements are reproduced as recorded, not independently established explanations. They are report-only and are excluded from research memory and future discovery evidence.\n\nExperiment `exp-000` \u2014 recorded controller `baseline_setup`:\n- decision_reason: It is the only completed valid experiment and therefore remains the current best validation reference at AUPRC 0.1841706764, despite a substantial train-validation gap and weak positive ranking.\n- decision_learning: Metadata-only balanced logistic regression supplies useful signal but generalizes poorly: validation AUPRC is 0.1433826449 below train AUPRC, and thresholded errors are concentrated in high-fire-danger, VIIRS-matched, and specific fuel groups that metadata does not directly encode.\n- next_question: Does adding all permitted discovery-time feature families, without changing the model or regularization, produce a material validation-AUPRC gain and reduce the observed environmental-group misses?\nExperiment `exp-001` \u2014 recorded controller `ARIA`:\n- decision_reason: exp-001 is the strongest valid configuration and should be frozen: its 2019 validation AUPRC was 0.3972123087, a +0.2130416323 absolute gain over the 0.1841706764 metadata-only baseline and well above the prespecified 0.2141706764 success threshold. At the selected best-F1 threshold it also reduced false positives from 638 to 240 while slightly reducing false negatives from 269 to 262. The published 0.533 test benchmark is not used in this decision because it is not comparable to validation scores.\n- decision_learning: Adding the full permitted discovery-time feature protocol to the same balanced logistic regression materially improved positive ranking. VIIRS-match recall rose from 0.2989690722 to 0.8041237113, high-ERC-quartile recall rose from 0.3425414365 to 0.4530386740, and fuel-model-188.0 recall rose from 0.0370370370 to 0.2222222222. However, train AUPRC 0.7213156565 versus validation AUPRC 0.3972123087 shows substantial remaining generalization gap, and no-VIIRS-match recall fell from 0.3927492447 to 0.2658610272.\n- next_question: After freezing exp-001 for the single official test evaluation, does its held-out 2020 test AUPRC confirm that the large validation gain generalizes without leakage or selection on test data?\n- proposal_observation: The metadata-only balanced logistic baseline reached validation AUPRC 0.1841706764 versus train AUPRC 0.3275533213. At its best-F1 threshold it missed 269 of 428 validation positives; misses were concentrated in groups whose defining signals are absent from metadata, including 119 of 181 positives in the high-ERC quartile, 68 of 97 VIIRS-matched positives, and 26 of 27 positives for fuel model 188.0. Its largest standardized coefficients are also dominated by county indicators (absolute magnitudes up to 3.599), suggesting that incident metadata alone is leaning heavily on geography rather than direct fire-environment conditions.\n- proposal_hypothesis: Holding the balanced logistic model and its hyperparameters fixed while replacing metadata-only inputs with the official full input protocol will raise 2019 validation AUPRC by at least 0.03, from 0.1841706764 to at least 0.2141706764, because discovery-time weather, VIIRS, fuel, vegetation, terrain, access, and population signals provide direct information for ranking failures that metadata misses.\n- proposal_expected_result: Validation AUPRC of at least 0.2142, with fewer than 269 false negatives at the newly selected best-F1 threshold and improved recall in the high-ERC, VIIRS-match, and fuel-model-188.0 breakdowns. A score below 0.2142 would falsify the claimed material ranking gain from adding the full feature protocol under this fixed linear model.\n- proposal_reason: This changes one meaningful variable only: feature_protocol from metadata to all. The model, C=1.0, balanced class weighting, and weather_days=5 remain fixed, isolating whether the measured error concentrations and county-dominated coefficients reflect missing time-available environmental information. The full protocol is allowed, respects discovery-time prediction constraints, and does not use the sealed 2020 test year.\n\n## Limitations\n\n- Validation selection can overfit the validation data.\n- Repeated seeds measure seed variation, not generalization to new datasets.\n- Recorded controller reasoning and test results are report-only historical evidence, never future discovery context.\n- Model paths are recorded references; availability and deployability are not attested.\n- Prior test exposure recorded for this session: False.\n\n## Evidence references\n\n- `wf-20260913-150158-81be/exp-000` revision `2026-09-13T15:14:40+00:00`\n- `wf-20260913-150158-81be/exp-001` revision `2026-09-13T15:16:16+00:00`\n\n## Recorded model references\n\n- `exp-000`: `C:\\AI\\Projects\\focus\\artifacts\\wf-20260913-150158-81be\\exp-000\\model`\n- `exp-001`: `C:\\AI\\Projects\\focus\\artifacts\\wf-20260913-150158-81be\\exp-001\\model`\n\n## Previously recorded official-test evaluation\n\nNo recognized official-test result is recorded in this session. No evaluation was requested.\n\n## ARIA interpretation\n\nRequest `aria-assistant-9606ca0331764bf5b20abac1b87e3a89`, evidence snapshot `snapshot-c1f13372a3da50f26ea47250`.\nThe interpretation below refers to its frozen request snapshot, which may predate the tables above.\n\nexp-000 used logistic_regression with feature_protocol metadata, weather_days 5, and hyperparameters {C: 1.0, class_weight: balanced}. [ev-c293e0823c42768c0e60, ev-a96ef8503255ae0aecbc, ev-87749d4e2beead177272, ev-15612dcad7380d3ed943]\nOn exp-000 result.validation_auprc for result.split val (2019), the supplied value is exactly 0.18417067640399878. [ev-b352506927fa4f483365, ev-922b6273e0f6fe0496ba, ev-c159a5fe38d80eea9a6d]\nexp-001 used logistic_regression with feature_protocol all, weather_days 5, and hyperparameters {C: 1.0, class_weight: balanced}. [ev-8f86dc8a69f91e279f0d, ev-3edc0436454f563f8a47, ev-ba3ddf6d15efd6e0551a, ev-0c2010fad869bc0fd547]\nOn exp-001 result.validation_auprc for result.split val (2019), the supplied value is exactly 0.39721230867438967. [ev-3a3ade7e5a6ecb4bab4e, ev-66dc5058af323df4cf63, ev-12d7b11432eb570a85f9]\nThe selected runs report the same result.val_size value of 7047, result.val_positives value of 428, result.train_size value of 22576, and result.seed value of 553371. [ev-7a796d2df2448e1fac7e, ev-a31388f0147079c402b5, ev-968be46cee8f43fb4cd0, ev-d298f377437dd9f603e7, ev-1377c6fdd826a5cc168a, ev-9030940888e24c2fc7cc, ev-2b919a9b8f18b897d88d, ev-9a1ab6bc372f8cdecf6d]\nFor exp-001, result.train_auprc is exactly 0.7213156564817588 while result.validation_auprc is exactly 0.39721230867438967; this is a descriptive train-validation gap, not evidence of a causal mechanism. [ev-f8c8bfe3d521d28f19c6, ev-3a3ade7e5a6ecb4bab4e]\n\nProposed recommendation: Freeze exp-001 as the recommended configuration among these selected validation runs: model logistic_regression, feature_protocol all, weather_days 5, hyperparameters {C: 1.0, class_weight: balanced}. Advance it to the separately governed official test evaluation without claiming expected test superiority.\n\nAssumptions: The interpretation treats the supplied evidence as an accurate snapshot of the selected runs.; The comparison is restricted to the supplied 2019 validation evidence and does not establish that the feature protocol caused the score difference.; The recommendation prioritizes the stated optimization objective, validation AUPRC, over runtime, feature count, threshold-specific performance, or deployment constraints.\nMissing evidence: No sealed 2020 official test result is exposed, so official test superiority cannot be claimed.; No repeated-seed distribution, confidence interval, or statistical significance analysis is supplied.; Only two selected configurations are supplied; controlled ablations are missing, so the contribution of individual feature families cannot be isolated.; No evidence is supplied about calibration, threshold stability on independent data, operational costs, or prospective deployment performance.\nARIA draft limitations: This conclusion ranks only the two selected runs on the supplied 2019 validation objective.; The runs differ in feature protocol, so the observed association must not be interpreted as a causal effect of any individual feature family.; The exp-001 train-validation gap warrants caution, and uncertainty across repeated seeds is unknown.; The sealed official test set remains unexamined; no claim of official test superiority is supported.\n\n### Cited evidence appendix\n\nValues below come from the interpretation\u2019s frozen snapshot, not a newly fetched experiment.\n\n| Evidence ID | Session | Experiment | Field path | Recorded value |\n| --- | --- | --- | --- | --- |\n| ev-c293e0823c42768c0e60 | wf-20260913-150158-81be | exp-000 | experiment.model | \"logistic_regression\" |\n| ev-a96ef8503255ae0aecbc | wf-20260913-150158-81be | exp-000 | experiment.feature_protocol | \"metadata\" |\n| ev-87749d4e2beead177272 | wf-20260913-150158-81be | exp-000 | experiment.weather_days | 5 |\n| ev-15612dcad7380d3ed943 | wf-20260913-150158-81be | exp-000 | experiment.hyperparameters | {\"C\": 1.0, \"class_weight\": \"balanced\"} |\n| ev-c159a5fe38d80eea9a6d | wf-20260913-150158-81be | exp-000 | result.score_kind | \"VALIDATION_AUPRC\" |\n| ev-922b6273e0f6fe0496ba | wf-20260913-150158-81be | exp-000 | result.split | \"val (2019)\" |\n| ev-b352506927fa4f483365 | wf-20260913-150158-81be | exp-000 | result.validation_auprc | 0.18417067640399878 |\n| ev-968be46cee8f43fb4cd0 | wf-20260913-150158-81be | exp-000 | result.val_positives | 428 |\n| ev-7a796d2df2448e1fac7e | wf-20260913-150158-81be | exp-000 | result.val_size | 7047 |\n| ev-1377c6fdd826a5cc168a | wf-20260913-150158-81be | exp-000 | result.train_size | 22576 |\n| ev-2b919a9b8f18b897d88d | wf-20260913-150158-81be | exp-000 | result.seed | 553371 |\n| ev-8f86dc8a69f91e279f0d | wf-20260913-150158-81be | exp-001 | experiment.model | \"logistic_regression\" |\n| ev-3edc0436454f563f8a47 | wf-20260913-150158-81be | exp-001 | experiment.feature_protocol | \"all\" |\n| ev-ba3ddf6d15efd6e0551a | wf-20260913-150158-81be | exp-001 | experiment.weather_days | 5 |\n| ev-0c2010fad869bc0fd547 | wf-20260913-150158-81be | exp-001 | experiment.hyperparameters | {\"C\": 1.0, \"class_weight\": \"balanced\"} |\n| ev-12d7b11432eb570a85f9 | wf-20260913-150158-81be | exp-001 | result.score_kind | \"VALIDATION_AUPRC\" |\n| ev-66dc5058af323df4cf63 | wf-20260913-150158-81be | exp-001 | result.split | \"val (2019)\" |\n| ev-3a3ade7e5a6ecb4bab4e | wf-20260913-150158-81be | exp-001 | result.validation_auprc | 0.39721230867438967 |\n| ev-f8c8bfe3d521d28f19c6 | wf-20260913-150158-81be | exp-001 | result.train_auprc | 0.7213156564817588 |\n| ev-d298f377437dd9f603e7 | wf-20260913-150158-81be | exp-001 | result.val_positives | 428 |\n| ev-a31388f0147079c402b5 | wf-20260913-150158-81be | exp-001 | result.val_size | 7047 |\n| ev-9030940888e24c2fc7cc | wf-20260913-150158-81be | exp-001 | result.train_size | 22576 |\n| ev-9a1ab6bc372f8cdecf6d | wf-20260913-150158-81be | exp-001 | result.seed | 553371 |\n",
+  "claim_eligible": false,
+  "publication": null
+}

@@ -9,6 +9,7 @@ export type ErrorAnalysisProps = {
   baseline: Experiment | null;
   candidate: Experiment | null;
   onInspect?: (id: string) => void;
+  onPropose?: (dimension: string, group: string) => void;
 };
 
 function number(value: number | null) { return value === null ? "—" : value.toLocaleString("en-US"); }
@@ -48,9 +49,10 @@ function ConfusionSummary({ experiment, label, onInspect }: { experiment: Experi
   </section>;
 }
 
-function GroupLabel({ row, paired }: { row: ErrorGroupRow; paired: boolean }) {
+function GroupLabel({ row, paired, onPropose }: { row: ErrorGroupRow; paired: boolean; onPropose?: () => void }) {
   return <th scope="row" className="max-w-[220px] min-w-[160px] px-4 py-3 text-left font-normal">
     <span className="break-words font-medium">{row.group || "(empty label)"}</span>
+    {onPropose && <button className="mt-2 block text-xs text-teal hover:underline" onClick={onPropose}>Investigate with ARIA</button>}
     {(row.baseline?.smallGroup || row.candidate?.smallGroup) && <span className="mt-1 block text-[11px] text-rust">Small group</span>}
     {paired && !row.comparable && <span className="mt-1 block text-[11px] leading-4 text-ink-2" title={row.reasons.join(" ")}>{!row.baseline ? "Not recorded in baseline" : !row.candidate ? "Not recorded in candidate" : "Not comparable"}</span>}
   </th>;
@@ -77,7 +79,7 @@ const sorts: { value: ErrorSort; label: string; pairOnly?: boolean }[] = [
   { value: "group", label: "Group name" },
 ];
 
-export default function ErrorAnalysis({ baseline, candidate, onInspect }: ErrorAnalysisProps) {
+export default function ErrorAnalysis({ baseline, candidate, onInspect, onPropose }: ErrorAnalysisProps) {
   const [dimension, setDimension] = useState("");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<ErrorSort>("falseNegatives");
@@ -130,7 +132,7 @@ export default function ErrorAnalysis({ baseline, candidate, onInspect }: ErrorA
                 <tr>{["baseline", "candidate"].map(run => ["Samples / positive", "FN", "FP", "Recall"].map(label => <th key={`${run}-${label}`} scope="col" className="px-3 py-3 text-right font-normal">{label}</th>))}<th scope="col" className="px-3 py-3 text-right font-normal">Δ FN</th><th scope="col" className="px-3 py-3 text-right font-normal">Δ FP</th><th scope="col" className="px-3 py-3 text-right font-normal">Δ Recall</th></tr>
               </> : <tr>{["Group", "Samples", "Positive", "FN", "FP", "Recall"].map((label, index) => <th key={label} scope="col" className={`px-4 py-3 font-normal ${index === 0 ? "text-left" : "text-right"}`}>{label}</th>)}</tr>}
             </thead>
-            <tbody className="divide-y divide-rule">{rows.map(row => <tr key={row.group} className="hover:bg-paper-2/60"><GroupLabel row={row} paired={paired} />{paired ? <><GroupCells group={row.baseline} paired /><GroupCells group={row.candidate} paired /><td className="px-3 py-3 text-right tabular-nums"><Change value={row.changes.falseNegatives} /></td><td className="px-3 py-3 text-right tabular-nums"><Change value={row.changes.falsePositives} /></td><td className="px-3 py-3 text-right tabular-nums"><Change value={row.changes.recall} recall /></td></> : <GroupCells group={candidate ? row.candidate : row.baseline} />}</tr>)}</tbody>
+            <tbody className="divide-y divide-rule">{rows.map(row => <tr key={row.group} className="hover:bg-paper-2/60"><GroupLabel row={row} paired={paired} onPropose={onPropose ? () => onPropose(selectedDimension, row.group) : undefined} />{paired ? <><GroupCells group={row.baseline} paired /><GroupCells group={row.candidate} paired /><td className="px-3 py-3 text-right tabular-nums"><Change value={row.changes.falseNegatives} /></td><td className="px-3 py-3 text-right tabular-nums"><Change value={row.changes.falsePositives} /></td><td className="px-3 py-3 text-right tabular-nums"><Change value={row.changes.recall} recall /></td></> : <GroupCells group={candidate ? row.candidate : row.baseline} />}</tr>)}</tbody>
           </table>
         </div>}
 
