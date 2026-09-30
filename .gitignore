@@ -11,7 +11,7 @@ tmp/
 
 # W&B / local state (evidence lives in W&B; small verified records are allow-listed below)
 wandb/
-data/
+/data/
 *.sqlite
 *.sqlite.bak-*
 WildfireIA/data/
