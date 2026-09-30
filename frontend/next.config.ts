@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
 
-// Unset BACKEND_URL (e.g. a plain Vercel deploy) serves recorded sessions from src/app/api/[...path].
+// Benchmarks, projects and the assistant go to the Python backend at BACKEND_URL.
+// Sessions are served from the recorded replays in src/app/api/[...path] unless LIVE_SESSIONS=1
+// (a fresh hosted backend has an empty database and no training data).
 const backend = process.env.BACKEND_URL;
+const proxied = process.env.LIVE_SESSIONS === "1" ? [":path*"] : ["benchmarks/:path*", "projects/:path*", "assistant/:path*", "benchmarks", "projects"];
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR || ".next",
   async rewrites() {
-    return backend ? [{ source: "/api/:path*", destination: `${backend}/api/:path*` }] : [];
+    return backend ? proxied.map((p) => ({ source: `/api/${p}`, destination: `${backend}/api/${p}` })) : [];
   },
 };
 
