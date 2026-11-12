@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 
 try:  # optional .env support for local development
@@ -10,6 +11,12 @@ try:  # optional .env support for local development
     load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
 except Exception:  # pragma: no cover - dotenv is optional
     pass
+
+# Weave prints non-ASCII status lines; on a redirected Windows console (cp1252) that raises
+# UnicodeEncodeError inside the worker. Replace unencodable characters instead of crashing.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(errors="replace")
 
 ROOT = Path(os.environ.get("WILDFIRE_RESEARCHER_ROOT", Path(__file__).resolve().parents[1]))
 WILDFIREIA_DIR = Path(os.environ.get("WILDFIREIA_DIR", ROOT / "WildfireIA"))

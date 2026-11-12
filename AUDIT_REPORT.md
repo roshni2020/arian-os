@@ -182,4 +182,4 @@ contract; reuse of its code is useful evidence but does not replace runtime
 provenance checks or test-access controls.
 
 Machine-readable checks: `artifacts/audit/handoff_audit.json`.
-Re-run the additive audit with `.\.venv\Scripts\python.exe scripts/audit_handoff.py`.
+The audit script `scripts/audit_handoff.py` has since been removed; it is in git history.

@@ -74,4 +74,4 @@ The existing 15-experiment study `wf-20260913-174109-6335` completed before the 
 
 Before any later restart, inspect current worker state; saved PIDs are not durable identities. To roll back this feature, stop only an idle API, revert assistant route/UI integration, and preserve both databases and W&B artifacts. Do not delete research history. Existing immutable Launch source captures must be recaptured through the normal workflow before dispatching changed code.
 
-The original README edits and slide deck present before implementation were left intact. See session-1 through session-8 handoffs for ownership and milestone boundaries.
+The original README edits and slide deck present before implementation were left intact. The session-1 through session-8 handoffs are in git history; see them for ownership and milestone boundaries.

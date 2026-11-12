@@ -1,6 +1,5 @@
 # environments and caches
 .venv/
-.launch-venv/
 __pycache__/
 .pytest_cache/
 *.pyc
@@ -39,6 +38,4 @@ artifacts/launch-*/*
 !artifacts/launch-*/replay.json
 !artifacts/launch-*/final_evaluation.json
 
-# Launch job source snapshots duplicate the application code (the immutable job artifacts live in W&B)
-artifacts/operations/launch/job-source*/
 *.whl

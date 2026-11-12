@@ -21,7 +21,7 @@ OBSERVE → HYPOTHESIZE → DESIGN ONE EXPERIMENT → VALIDATE → TRAIN → EVA
 | Read next | For |
 |---|---|
 | [AUTOMATION.md](AUTOMATION.md) | How ARIA is invoked through W&B Automations and artifacts, and how to reproduce it |
-| [OPERATIONS.md](OPERATIONS.md) | The second execution path (W&B Launch), ARIA's retrospective report, model Registry, alerts |
+| [OPERATIONS.md](OPERATIONS.md) | The recorded W&B Launch session, ARIA's retrospective report, model Registry |
 | [BENCHMARK_PROTOCOL.md](BENCHMARK_PROTOCOL.md) | The official WildfireIA protocol as verified against the pinned code |
 | [AUDIT_FIXES.md](AUDIT_FIXES.md) | Evaluation safeguards and the exact limits on any benchmark claim |
 | [BENCHMARK_CONTRACT.md](BENCHMARK_CONTRACT.md) | The benchmark library: discovery, import, provenance, executability |
@@ -197,9 +197,9 @@ picks an experiment.
 proposals stop the session. This research-loop validation path is separate from the
 assistant response validator; rejected assistant exchanges are documented in §17.
 
-A second invocation path exists: ARIA submits each step to a **W&B Launch** queue
-itself, monitors the job, reads the new state, and submits the next. Same validator,
-same trainer. It ran one complete session end to end. Details in
+A second invocation path was tried once: ARIA submitted each step to a **W&B Launch**
+queue itself. It ran one complete session end to end, which is kept as a recorded
+replay; the Launch bridge code has since been removed. Details in
 [OPERATIONS.md](OPERATIONS.md).
 
 ---
@@ -331,7 +331,7 @@ impossible; those limitations remain explicit in the result and report.
 
 ```bash
 python -m venv .venv && .venv\Scripts\activate           # Windows
-pip install -r requirements.txt
+pip install -r requirements-dev.txt                       # requirements.txt alone is the runtime set
 git submodule update --init WildfireIA                    # pinned LabRAI/WildfireIA @ aba9be9e
 python -m wildfire_researcher.cli setup-data              # ~40 MB canonical tables + official caches
 python -m wildfire_researcher.cli verify-data             # hash check against the pinned revision
@@ -378,7 +378,6 @@ cd frontend && npm test && npx tsc --noEmit && npm run lint
 | `wildfire_researcher/final_eval.py` | The one-time frozen test evaluation and claim gate |
 | `wildfire_researcher/protocol.py`, `integrity.py` | Pinned official code, hashes, provenance |
 | `wildfire_researcher/tracking.py` | W&B runs, artifacts, Weave ops |
-| `wildfire_researcher/launch_step.py` | The W&B Launch execution path |
 | `wildfire_researcher/benchmarks/` | Benchmark library: providers, storage, compatibility, routes |
 | `wildfire_researcher/assistant/` | Separate ARIA analysis transport, contracts, reviewed drafts, verification, memory, reports, and routes |
 | `scripts/assistant_worker.py` | Assistant Automation setup, transport proof, request recovery, and reconciliation |
@@ -626,7 +625,7 @@ Sources: [transport.py](wildfire_researcher/assistant/transport.py),
 | W&B Automations | Run-finished events start ARIA conversations for research and assistant requests | Separate filters and artifact types keep the channels isolated |
 | W&B Experiments | Configurations, measured scores, curves, errors, research context | Recorded metrics are evidence; a run existing does not certify a benchmark claim |
 | W&B Artifacts | Versioned research state, proposals, decisions, assistant input/output, reproducible provenance | Local acceptance stores immutable identity and digest |
-| W&B Launch | Alternate job queue execution path documented in OPERATIONS.md | A recorded path, not proof of CoreWeave cloud training |
+| W&B Launch | One recorded session through a job queue, documented in OPERATIONS.md; the bridge code is removed | A recorded path, not proof of CoreWeave cloud training |
 | W&B Weave | Application-operation traces and evaluations of recorded ARIA exchanges | No fabricated visibility into ARIA's private internal execution or token spend |
 | W&B Reports | Retrospective evidence and optional programmatic publication of a reviewed assistant report | New publisher is adapter-tested; interactive panels are not implemented here |
 | Registry and alerts | Operational work documented separately in OPERATIONS.md | The six assistant workflows do not automatically promote or deploy a model |
@@ -635,8 +634,8 @@ There are three distinct meanings of “agent” in this project. ARIA is the ru
 research agent hosted by W&B. The local controller is deterministic Python execution
 and validation infrastructure. Multiple coding agents were used to implement the
 feature set, but that development process is not a claim that the product runs a
-multi-agent scientific debate. The [multi-session implementation plan](ARIA_MULTI_SESSION_PLAN.md)
-and [handoffs](docs/aria-expansion/IMPLEMENTATION.md) document that distinction.
+multi-agent scientific debate. The [implementation record](docs/aria-expansion/IMPLEMENTATION.md)
+documents that distinction.
 
 ## 16. Assistant setup, API, and reproducibility
 

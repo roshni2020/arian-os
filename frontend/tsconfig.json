@@ -36,7 +36,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     ".next-benchmarks/types/**/*.ts",
-    ".next-benchmarks/dev/types/**/*.ts"
+    ".next-benchmarks/dev/types/**/*.ts",
+    ".next-smoke/types/**/*.ts",
+    ".next-smoke/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

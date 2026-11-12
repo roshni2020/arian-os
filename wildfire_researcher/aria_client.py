@@ -1,6 +1,6 @@
 """ARIAClient: asynchronous research exchange with W&B's ARIA through W&B Artifacts.
 
-Proven path (see aria_probe/RESULTS.md): the worker publishes `<session>-state` (type
+Proven path: the worker publishes `<session>-state` (type
 research-state); a W&B Automation configured in the UI invokes ARIA when an experiment run
 finishes; ARIA reads the state in its own environment and publishes
 `<session>-proposal-r<revision>` (type research-proposal) or `<session>-decision-final`
